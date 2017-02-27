@@ -3,7 +3,7 @@ title: Test Markdown
 subtitle: Each post also has a subtitle
 date: 2017-02-22 10:20:26
 tags:
-    - markdown
+    - Markdown
 ---
 
 列举一些常用的 `markdown` 语法, 作为测试以及备忘。

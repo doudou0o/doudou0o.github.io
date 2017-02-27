@@ -3,7 +3,7 @@ title: python logging日志模块以及多进程日志
 subtitle: logging模块介绍以及多进程时遇到的问题和解决方案
 date: 2017-02-26 16:01:36
 tags:
-    - python
+    - Python
 ---
 
 本篇文章主要对 python logging 的介绍加深理解。更主要是 讨论在多进程环境下如何使用logging 来输出日志， 如何安全地切分日志文件。

@@ -2,8 +2,8 @@ layout: leetcode_10_regular
 title: leetcode#10 Regular Expression Matching
 date: 2017-02-27 15:30:10
 tags:
-	- leetcode
-	- algorithm
+	- LeetCode
+	- Algorithm
 ---
 
 leetcode \#10 Regular Expression Matching 题目详解, 看网上帖子说的不清楚都是直接给代码也没个例子，所以起个帖子记录下自己的思路。

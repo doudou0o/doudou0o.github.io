@@ -2,7 +2,7 @@
 title: Hello World
 date: 2016-12-22 10:20:26
 tags:
-    - markdown
+    - Markdown
 ---
 
 Welcome to [Hexo](https://hexo.io/)! This is your very first post.
