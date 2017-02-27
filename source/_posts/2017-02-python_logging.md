@@ -1,7 +1,7 @@
 ---
 title: python logging日志模块以及多进程日志
 subtitle: logging模块介绍以及多进程时遇到的问题和解决方案
-date: 2017-02-26 10:01:36
+date: 2017-02-26 16:01:36
 tags:
     - python
 ---

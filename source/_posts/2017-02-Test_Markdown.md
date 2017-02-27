@@ -1,7 +1,7 @@
 ---
 title: Test Markdown
 subtitle: Each post also has a subtitle
-date: 2017-02-26 10:20:26
+date: 2017-02-22 10:20:26
 tags:
     - markdown
 ---
@@ -19,8 +19,8 @@ Markdown 语法手册
 ### 1. 分级标题  
 使用 === 表示一级标题，使用 --- 表示二级标题
 你也可以选择在行首加井号表示不同级别的标题 (H1-H6)，例如：# H1, ## H2, ### H3
-一般来说都是使用 #号 来使用, 注意 #号 需要顶格写    
-<a id="jump" name="jump">示例</a>：
+一般来说都是使用 #号 来使用, 注意 #号 需要顶格写
+示例：
 
 ```
 这是一个一级标题
@@ -68,7 +68,13 @@ Markdown 语法手册
 \!\[本地图片](./start.jpg)
 ![本地图片](./start.jpg)
 
-{% img full-image /2017/02/26/Test_Markdown/start.jpg 200 200 title %}
+大小控制图片
+```
+{% img full-image /2017/02/22/Test_Markdown/start.jpg 200 200 %}
+```
+
+
+{% img full-image /2017/02/22/2017-02-Test_Markdown/start.jpg 200 200 %}
 
 -----
 
