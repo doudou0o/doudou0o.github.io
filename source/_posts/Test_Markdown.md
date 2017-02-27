@@ -6,7 +6,9 @@ tags:
     - markdown
 ---
 
+列举一些常用的 `markdown` 语法, 作为测试以及备忘。
 
+<!-- more -->
 
 You can write regular [markdown](http://markdowntutorial.com/) here and Jekyll will automatically convert it to a nice webpage.  I strongly encourage you to [take 5 minutes to learn how to write in markdown](http://markdowntutorial.com/) - it'll teach you how to transform regular text into bold/italics/headings/tables/etc.
 
@@ -63,8 +65,10 @@ Markdown 语法手册
 ![图片](https://assets-cdn.github.com/images/modules/logos_page/Octocat.png)
 
 本地图片
-\!\[本地图片](/yourtitle/start.jpg)
-![本地图片](Test_Markdown/start.jpg)
+\!\[本地图片](./start.jpg)
+![本地图片](./start.jpg)
+
+{% img full-image /2017/02/26/Test_Markdown/start.jpg 200 200 title %}
 
 -----
 

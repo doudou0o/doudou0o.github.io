@@ -3,12 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: OnePiece
+title: doudou's blog
 subtitle:
-description:
+description: Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it,and it will never be used to hurt you.
 author: doudou0o
-language:
-timezone:
+language: zh-Hans
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -63,7 +62,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: Yelee
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
