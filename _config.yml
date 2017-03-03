@@ -11,8 +11,8 @@ language: zh-Hans
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://github.com/doudou0o/blog
-root: /blog/
+url: https://github.com/doudou0o/
+root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
@@ -68,5 +68,5 @@ theme: Yelee
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: git@github.com:doudou0o/blog.git
-  branch: gh-pages
+  repository: git@github.com:doudou0o/doudou0o.github.io.git
+  branch: master

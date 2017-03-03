@@ -7,11 +7,11 @@ Yelee: "3.5"
 ## About Page: `hexo new page about`
 ## Tags Cloud Page: `hexo new page tags`
 menu:
-  主页: ../
-  所有文章: ../archives/
+  主页: /
+  所有文章: /archives/
   #随笔: /tags/随笔
-  标签云: ../tags/
-  关于我: ../about/
+  标签云: /tags/
+  关于我: /about/
 
 # Link to your avatar | 填写头像地址
 avatar: /img/avatar.png
@@ -28,7 +28,7 @@ favicon: /favicon.png
 ## If your site' url is 'http://yoursite.com/blog', set root_url as '/blog/'
 ## 网站若存放在子目录，请按上面格式填写
 ## https://hexo.io/docs/configuration.html#URL
-root_url: /blog/
+root_url: 
 
 # Year of Site Creation | 网站成立年份
 since: 2016
@@ -117,14 +117,14 @@ youyan:
 ## "5": show images form bg-1.jpg to bg-5.jpg in `/yelee/source/background/`
 ## "5": 显示`/yelee/source/background/`文件夹中 bg-1.jpg 到 bg-5.jpg 这5张图片
 ## "0": white-gray background | 淳朴灰白背景
-background_image: 6
+background_image: 3
 
 # Base Font Size | 字号调节
 base_font_size: 16  #px, 16 - 24
 
 ## General Color Scheme | 主题配色方案 
 ## 可用值 Value: yilia
-color_scheme: 
+color_scheme: yilia
 
 highlight_style:
   on: true
