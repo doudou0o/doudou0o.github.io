@@ -1,5 +1,5 @@
 layout: leetcode_10_regular
-title: leetcode#10 Regular Expression Matching
+title: leetcode_10： Regular Expression Matching
 date: 2017-02-27 15:30:10
 tags:
 	- LeetCode
