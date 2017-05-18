@@ -91,7 +91,7 @@ show_count: false
 
 disqus: 
   #on: true
-  shortname: 
+  shortname: doudou0o
   # https://help.disqus.com/customer/en/portal/articles/466208-what-s-a-shortname-
   # It is unnecessary to enable disqus here if 
   # you have set "disqus_shortname" in your site's "_config.yml" 
@@ -105,7 +105,7 @@ duoshuo:
 
 youyan:
   #on: true
-  id: 
+  id: 2133894
   # 是否开启友言评论，http://www.uyan.cc/index.php
   # id 中填写你的友言用户数字ID，注册后进入后台管理即可查看
   # 友言服务在 Web 环境下运行，普通本地环境无法查看，请部署后在线上测试。
