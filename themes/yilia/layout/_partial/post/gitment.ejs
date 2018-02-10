@@ -1,0 +1,23 @@
+<div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<style>
+.gitment-comment-header {
+  margin: 12px 15px;
+  color: #666;
+  background: bottom;
+  border-radius: 3px;
+}
+</style>
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "<%= page.title %>",
+  owner: '<%=theme.gitment_owner%>',
+  repo: '<%=theme.gitment_repo%>',
+  oauth: {
+    client_id: '<%=theme.gitment_oauth.client_id%>',
+    client_secret: '<%=theme.gitment_oauth.client_secret%>',
+  },
+})
+gitment.render('gitment-ctn')
+</script> 
