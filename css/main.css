@@ -1984,7 +1984,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #05b118;
+  background: #e8875d;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2133,6 +2133,19 @@ pre .javascript .function {
 }
 .cc-license img {
   display: inline-block;
+}
+#gitment-display-button {
+  display: inline-block;
+  padding: 0 15px;
+  color: #0a9caf;
+  cursor: pointer;
+  font-size: 14px;
+  border: 1px solid #0a9caf;
+  border-radius: 4px;
+}
+#gitment-display-button:hover {
+  color: #fff;
+  background: #0a9caf;
 }
 .post-spread {
   margin-top: 20px;
@@ -2779,6 +2792,17 @@ ul.breadcrumb li+li:last-child {
 }
 .menu .menu-item br {
   display: none;
+}
+.menu-item-active a:after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  margin-top: -3px;
+  right: 15px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #bbb;
 }
 .btn-bar {
   background-color: #fff;
