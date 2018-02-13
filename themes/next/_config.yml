@@ -122,7 +122,7 @@ menu:
 # Enable/Disable menu icons / item badges.
 menu_settings:
   icons: true
-  badges: true
+  badges: false
 
 # ---------------------------------------------------------------
 # Scheme Settings
@@ -464,10 +464,11 @@ changyan:
 # Valine.
 # You can get your appid and appkey from https://leancloud.cn
 # more info please open https://valine.js.org
+# npm install valine --save
 valine:
   enable: false
-  appid:  # your leancloud application appid
-  appkey:  # your leancloud application appkey
+  appid: dA1sbLdvYXxRBcazcbct0JXj-gzGzoHsz # your leancloud application appid
+  appkey: LVJztVzprpmRivJmu0RScKB2 # your leancloud application appkey
   notify: false # mail notifier , https://github.com/xCss/Valine/wiki
   verify: false # Verification code
   placeholder: Just go go # comment box placeholder
@@ -487,16 +488,16 @@ valine:
 # Gitment
 # Introduction: https://imsun.net/posts/gitment-introduction/
 gitment:
-  enable: false
+  enable: true
   mint: true # RECOMMEND, A mint on Gitment, to support count, language and proxy_gateway
   count: true # Show comments count in post meta area
   lazy: false # Comments lazy loading with a button
   cleanly: false # Hide 'Powered by ...' on footer, and more
   language: # Force language, or auto switch by theme
-  github_user: # MUST HAVE, Your Github Username
-  github_repo: # MUST HAVE, The name of the repo you use to store Gitment comments
-  client_id: # MUST HAVE, Github client id for the Gitment
-  client_secret: # EITHER this or proxy_gateway, Github access secret token for the Gitment
+  github_user: doudou0o # MUST HAVE, Your Github Username
+  github_repo: doudou0o.github.io # MUST HAVE, The name of the repo you use to store Gitment comments
+  client_id: 60ed80a6055a3fa91e11 # MUST HAVE, Github client id for the Gitment
+  client_secret: a753cf2091f8025d3dc7e488d6ec868a6d4613f9 # EITHER this or proxy_gateway, Github access secret token for the Gitment
   proxy_gateway: # Address of api proxy, See: https://github.com/aimingoo/intersect
   redirect_protocol: # Protocol of redirect_uri with force_redirect_protocol when mint enabled
 
@@ -607,8 +608,8 @@ rating:
 # You can visit https://leancloud.cn get AppID and AppKey.
 leancloud_visitors:
   enable: false
-  app_id: #<app_id>
-  app_key: #<app_key>
+  app_id: dA1sbLdvYXxRBcazcbct0JXj-gzGzoHsz #<app_id>
+  app_key: LVJztVzprpmRivJmu0RScKB2 #<app_key>
 
 # Another tool to show number of visitors to each article.
 # visit https://console.firebase.google.com/u/0/ to get apiKey and projectId
