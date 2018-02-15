@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Arial:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-64x64.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-64x64.png?v=6.0.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-64x64.png?v=6.0.4">
+
+
+  <link rel="mask-icon" href="/assets/img/favicon-64x64.png?v=6.0.4" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.4',
+    sidebar: {"position":"left","display":"post","offset":22,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  
+  <meta name="keywords" content="Python," />
+
+
+<meta name="description" content="本篇文章主要对 python logging 的介绍加深理解。更主要是 讨论在多进程环境下如何使用logging 来输出日志， 如何安全地切分日志文件。">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python logging日志模块以及多进程日志">
+<meta property="og:url" content="https://github.com/doudou0o/2017/02/26/2017-02-python_logging/index.html">
+<meta property="og:site_name" content="doudou0o blog">
+<meta property="og:description" content="本篇文章主要对 python logging 的介绍加深理解。更主要是 讨论在多进程环境下如何使用logging 来输出日志， 如何安全地切分日志文件。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-15T12:03:31.643Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python logging日志模块以及多进程日志">
+<meta name="twitter:description" content="本篇文章主要对 python logging 的介绍加深理解。更主要是 讨论在多进程环境下如何使用logging 来输出日志， 如何安全地切分日志文件。">
+
+
+
+
+
+
+  <link rel="canonical" href="https://github.com/doudou0o/2017/02/26/2017-02-python_logging/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+  <title>python logging日志模块以及多进程日志 | doudou0o blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">doudou0o blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">沉淀知识 分享知识</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/doudou0o/2017/02/26/2017-02-python_logging/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="doudou0o">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/img/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="doudou0o blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python logging日志模块以及多进程日志</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-26T16:01:36+08:00">2017-02-26</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/02/26/2017-02-python_logging/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/02/26/2017-02-python_logging/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本篇文章主要对 python logging 的介绍加深理解。更主要是 讨论在多进程环境下如何使用logging 来输出日志， 如何安全地切分日志文件。</p>
+<a id="more"></a>
+<p>本篇文章主要对 python logging 的介绍加深理解。更主要是 讨论在多进程环境下如何使用logging 来输出日志， 如何安全地切分日志文件。</p>
+<h2 id="1-logging日志模块介绍"><a href="#1-logging日志模块介绍" class="headerlink" title="1. logging日志模块介绍"></a>1. logging日志模块介绍</h2><p>python的logging模块提供了灵活的标准模块，使得任何Python程序都可以使用这个第三方模块来实现日志记录。<a href="https://docs.python.org/2/library/logging.html" target="_blank" rel="noopener">python logging 官方文档</a> </p>
+<p>logging框架中主要由四个部分组成：</p>
+<ul>
+<li>Loggers: 可供程序直接调用的接口</li>
+<li>Handlers: 决定将日志记录分配至正确的目的地</li>
+<li>Filters: 提供更细粒度的日志是否输出的判断</li>
+<li>Formatters: 制定最终记录打印的格式布局</li>
+</ul>
+<h2 id="2-logging的组成"><a href="#2-logging的组成" class="headerlink" title="2. logging的组成"></a>2. logging的组成</h2><h3 id="loggers"><a href="#loggers" class="headerlink" title="loggers"></a>loggers</h3><p>loggers 就是程序可以直接调用的一个日志接口，可以直接向logger写入日志信息。logger并不是直接实例化使用的，而是通过<code>logging.getLogger(name)</code>来获取对象，事实上logger对象是单例模式，logging是多线程安全的，也就是无论程序中哪里需要打日志获取到的logger对象都是同一个。但是不幸的是logger并不支持多进程，这个在后面的章节再解释，并给出一些解决方案。     </p>
+<p>【注意】loggers对象是有父子关系的，当没有父logger对象时它的父对象是root，当拥有父对象时父子关系会被修正。举个例子<code>logging.getLogger(&quot;abc.xyz&quot;)</code>会创建两个logger对象，一个是abc父对象，一个是xyz子对象，同时abc没有父对象所以它的父对象是root。但是实际上abc是一个占位对象（虚的日志对象），可以没有handler来处理日志。但是root不是占位对象，如果某一个日志对象打日志时，它的父对象会同时收到日志，所以有些使用者发现创建了一个logger对象时会打两遍日志，就是因为他创建的logger打了一遍日志，同时root对象也打了一遍日志。</p>
+<p>每个logger都有一个日志的级别。logging中定义了如下级别</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th style="text-align:center">Numeric value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NOTSET</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td>DEBUG</td>
+<td style="text-align:center">10</td>
+</tr>
+<tr>
+<td>INFO</td>
+<td style="text-align:center">20</td>
+</tr>
+<tr>
+<td>WARNING</td>
+<td style="text-align:center">30</td>
+</tr>
+<tr>
+<td>ERROR</td>
+<td style="text-align:center">40</td>
+</tr>
+<tr>
+<td>CRITICAL</td>
+<td style="text-align:center">50</td>
+</tr>
+</tbody>
+</table>
+<p>当一个logger收到日志信息后先判断是否符合level，如果决定要处理就将信息传递给Handlers进行处理。</p>
+<h3 id="Handlers"><a href="#Handlers" class="headerlink" title="Handlers"></a>Handlers</h3><p>Handlers 将logger发过来的信息进行准确地分配，送往正确的地方。举个栗子，送往控制台或者文件或者both或者其他地方(进程管道之类的)。它决定了每个日志的行为，是之后需要配置的重点区域。</p>
+<p>每个Handler同样有一个日志级别，一个logger可以拥有多个handler也就是说logger可以根据不同的日志级别将日志传递给不同的handler。当然也可以相同的级别传递给多个handlers这就根据需求来灵活的设置了。</p>
+<h3 id="Filters"><a href="#Filters" class="headerlink" title="Filters"></a>Filters</h3><p>Filters 提供了更细粒度的判断，来决定日志是否需要打印。原则上handler获得一个日志就必定会根据级别被统一处理，但是如果handler拥有一个Filter可以对日志进行额外的处理和判断。例如Filter能够对来自特定源的日志进行拦截or修改甚至修改其日志级别（修改后再进行级别判断）。</p>
+<p>logger和handler都可以安装filter甚至可以安装多个filter串联起来。</p>
+<h3 id="Formatters"><a href="#Formatters" class="headerlink" title="Formatters"></a>Formatters</h3><p>Formatters 指定了最终某条记录打印的格式布局。Formatter会将传递来的信息拼接成一条具体的字符串，默认情况下Format只会将信息<code>%(message)s</code>直接打印出来。Format中有一些自带的LogRecord属性可以使用，如下表格:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th style="text-align:left">Format</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>asctime</td>
+<td style="text-align:left">%(asctime)s</td>
+<td style="text-align:left">将日志的时间构造成可读的形式，默认情况下是‘2016-02-08 12:00:00,123’精确到毫秒</td>
+</tr>
+<tr>
+<td>filename</td>
+<td style="text-align:left">%(filename)s</td>
+<td style="text-align:left">包含path的文件名</td>
+</tr>
+<tr>
+<td>funcName</td>
+<td style="text-align:left">%(funcName)s</td>
+<td style="text-align:left">由哪个function发出的log</td>
+</tr>
+<tr>
+<td>levelname</td>
+<td style="text-align:left">%(levelname)s</td>
+<td style="text-align:left">日志的最终等级（被filter修改后的）</td>
+</tr>
+<tr>
+<td>message</td>
+<td style="text-align:left">%(message)s</td>
+<td style="text-align:left">日志信息</td>
+</tr>
+<tr>
+<td>lineno</td>
+<td style="text-align:left">%(lineno)d</td>
+<td style="text-align:left">当前日志的行号</td>
+</tr>
+<tr>
+<td>pathname</td>
+<td style="text-align:left">%(pathname)s</td>
+<td style="text-align:left">完整路径</td>
+</tr>
+<tr>
+<td>process</td>
+<td style="text-align:left">%(process)s</td>
+<td style="text-align:left">当前进程</td>
+</tr>
+<tr>
+<td>thread</td>
+<td style="text-align:left">%(thread)s</td>
+<td style="text-align:left">当前线程</td>
+</tr>
+</tbody>
+</table>
+<p>一个Handler只能拥有一个Formatter 因此如果要实现多种格式的输出只能用多个Handler来实现。</p>
+<h2 id="3-logging-配置"><a href="#3-logging-配置" class="headerlink" title="3. logging 配置"></a>3. logging 配置</h2><h4 id="简易配置"><a href="#简易配置" class="headerlink" title="简易配置"></a>简易配置</h4><p>首先在 loggers 章节里说明了一点，我们拥有一个缺省的日志对象root，这个root日志对象的好处是我们直接可以使用logging来进行配置和打日志。例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">logging.basicConfig(level=logging.INFO,filename=<span class="string">'logger.log'</span>)</span><br><span class="line">logging.info(<span class="string">"info message"</span>)</span><br></pre></td></tr></table></figure>
+<p>所以这里的简易配置所指的就是root日志对象，随拿随用。每个logger都是单例对象所以配置过一遍之后程序内任何地方调用都可以。我们只需要调用basicConfig就可以对root日志对象进行简易的配置，事实上这种方式相当有效易用。它使得调用任何logger时保证至少一定会有一个Handler能够处理日志。<br>简易配置大致可以这么设置：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">logging.basicConfig(level=logging.INFO,</span><br><span class="line">         format=<span class="string">'%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s'</span>,</span><br><span class="line">         datefmt=<span class="string">'[%Y-%m_%d %H:%M:%S]'</span>,</span><br><span class="line">         filename=<span class="string">'../log/my.log'</span>,</span><br><span class="line">         filemode=<span class="string">'a'</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="代码配置"><a href="#代码配置" class="headerlink" title="代码配置"></a>代码配置</h4><p>另一种更加细致地设置方式是在代码中配置，但这种设置方式是使用的最少的方式，毕竟谁也不希望把设置写死到代码里面去。但是这里也稍微介绍一下，虽然用的不多，在必要的时候也可以用一把。(以后补上)</p>
+<h4 id="配置文件配置"><a href="#配置文件配置" class="headerlink" title="配置文件配置"></a>配置文件配置</h4><p>python中logging的配置文件是基于ConfigParser的功能。也就是说配置文件的格式也是按照这种方式来编写。先奉上一个比较一般的配置文件再细说</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">##############################################</span><br><span class="line">[loggers]</span><br><span class="line">keys=root, log02</span><br><span class="line"></span><br><span class="line">[logger_root]</span><br><span class="line">level=INFO</span><br><span class="line">handlers=handler01</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[logger_log02]</span><br><span class="line">level=DEBUG</span><br><span class="line">handler=handler02</span><br><span class="line">qualname=log02</span><br><span class="line">##############################################</span><br><span class="line">[handlers]</span><br><span class="line">keys=handler01,handler02</span><br><span class="line"></span><br><span class="line">[handler_handler01]</span><br><span class="line">class=FileHandler</span><br><span class="line">level=INFO</span><br><span class="line">formatter=form01</span><br><span class="line">args=(&apos;../log/cv_parser_gm_server.log&apos;,&quot;a&quot;)</span><br><span class="line"></span><br><span class="line">[handler_handler02]</span><br><span class="line">class=StreamHandler</span><br><span class="line">level=NOTSET</span><br><span class="line">formatter=form01</span><br><span class="line">args=(sys.stdout,)</span><br><span class="line">##############################################</span><br><span class="line">[formatters]</span><br><span class="line">keys=form01,form02</span><br><span class="line"></span><br><span class="line">[formatter_form01]</span><br><span class="line">format=%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(process)d %(message)s</span><br><span class="line">datefmt=[%Y-%m-%d %H:%M:%S]</span><br><span class="line"></span><br><span class="line">[formatter_form02]</span><br><span class="line">format=(message)s</span><br><span class="line">##############################################</span><br></pre></td></tr></table></figure>
+<p>相信看一遍以后，也找出规律了，我将几个大块用#分了出来。每一个logger或者handler或者formatter都有一个key名字。以logger为例，首先需要在[loggers]配置中加上key名字代表了这个logger。然后用[loggers_xxxx]其中xxxx为key名来具体配置这个logger，在log02中我配置了level和一个handler名，当然你可以配置多个hander。根据这个handler名再去 [handlers]里面去找具体handler的配置，以此类推。<br>然后在代码中，这样加载配置文件即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logging.config.fileConfig(log_conf_file)</span><br></pre></td></tr></table></figure>
+<p>在handler中有一个class配置，可能有些读者并不是很懂。其实这个是logging里面原先就写好的一些handler类，你可以在这里直接调用。class指向的类相当于具体处理的Handler的执行者。在logging的文档中可以知道这里所有的Handler类都是线程安全的，大家可以放心使用。那么问题就来了，如果多进程怎么办呢。在下一章我主要就是重写Handler类，来实现在多进程环境下使用logging。 我们自己重写或者全部新建一个Handler类，然后将class配置指向自己的Handler类就可以加载自己重写的Handler了。</p>
+<h2 id="4-logging遇到多进程（important）"><a href="#4-logging遇到多进程（important）" class="headerlink" title="4. logging遇到多进程（important）"></a>4. logging遇到多进程（important）</h2><p>这部分其实是我写这篇文章的初衷。python中由于某种历史原因，多线程的性能基本可以无视。所以一般情况下python要实现并行操作或者并行计算的时候都是使用多进程。但是 python 中logging 并不支持多进程，所以会遇到不少麻烦。</p>
+<p>本次就以 TimedRotatingFileHandler 这个类的问题作为例子。这个Handler本来的作用是：按天切割日志文件。（当天的文件是xxxx.log 昨天的文件是xxxx.log.2016-06-01）。这样的好处是，一来可以按天来查找日志，二来可以让日志文件不至于非常大, 过期日志也可以按天删除。<br>但是问题来了，如果是用多进程来输出日志，则只有一个进程会切换，其他进程会在原来的文件中继续打，还有可能某些进程切换的时候早就有别的进程在新的日志文件里打入东西了，那么他会无情删掉之，再建立新的日志文件。反正将会很乱很乱，完全没法开心的玩耍。<br>所以这里就想了几个办法来解决多进程logging问题</p>
+<h4 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h4><p>在解决之前，我们先看看为什么会导致这样的原因。<br>先将 TimedRotatingFileHandler 的源代码贴上来，这部分是切换时所作的操作：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">doRollover</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    do a rollover; in this case, a date/time stamp is appended to the filename</span></span><br><span class="line"><span class="string">    when the rollover happens.  However, you want the file to be named for the</span></span><br><span class="line"><span class="string">    start of the interval, not the current time.  If there is a backup count,</span></span><br><span class="line"><span class="string">    then we have to get a list of matching filenames, sort them and remove</span></span><br><span class="line"><span class="string">    the one with the oldest suffix.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> self.stream:</span><br><span class="line">        self.stream.close()</span><br><span class="line">        self.stream = <span class="keyword">None</span></span><br><span class="line">    <span class="comment"># get the time that this sequence started at and make it a TimeTuple</span></span><br><span class="line">    currentTime = int(time.time())</span><br><span class="line">    dstNow = time.localtime(currentTime)[<span class="number">-1</span>]</span><br><span class="line">    t = self.rolloverAt - self.interval</span><br><span class="line">    <span class="keyword">if</span> self.utc:</span><br><span class="line">        timeTuple = time.gmtime(t)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        timeTuple = time.localtime(t)</span><br><span class="line">        dstThen = timeTuple[<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">if</span> dstNow != dstThen:</span><br><span class="line">            <span class="keyword">if</span> dstNow:</span><br><span class="line">                addend = <span class="number">3600</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                addend = <span class="number">-3600</span></span><br><span class="line">            timeTuple = time.localtime(t + addend)</span><br><span class="line">    dfn = self.baseFilename + <span class="string">"."</span> + time.strftime(self.suffix, timeTuple)</span><br><span class="line">    <span class="keyword">if</span> os.path.exists(dfn):</span><br><span class="line">        os.remove(dfn)</span><br><span class="line">    <span class="comment"># Issue 18940: A file may not have been created if delay is True.</span></span><br><span class="line">    <span class="keyword">if</span> os.path.exists(self.baseFilename):</span><br><span class="line">        os.rename(self.baseFilename, dfn)</span><br><span class="line">    <span class="keyword">if</span> self.backupCount &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> self.getFilesToDelete():</span><br><span class="line">            os.remove(s)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> self.delay:</span><br><span class="line">        self.stream = self._open()</span><br><span class="line">    newRolloverAt = self.computeRollover(currentTime)</span><br><span class="line">    <span class="keyword">while</span> newRolloverAt &lt;= currentTime:</span><br><span class="line">        newRolloverAt = newRolloverAt + self.interval</span><br><span class="line">    <span class="comment">#If DST changes and midnight or weekly rollover, adjust for this.</span></span><br><span class="line">    <span class="keyword">if</span> (self.when == <span class="string">'MIDNIGHT'</span> <span class="keyword">or</span> self.when.startswith(<span class="string">'W'</span>)) <span class="keyword">and</span> <span class="keyword">not</span> self.utc:</span><br><span class="line">        dstAtRollover = time.localtime(newRolloverAt)[<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">if</span> dstNow != dstAtRollover:</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> dstNow:  <span class="comment"># DST kicks in before next rollover, so we need to deduct an hour</span></span><br><span class="line">                addend = <span class="number">-3600</span></span><br><span class="line">            <span class="keyword">else</span>:           <span class="comment"># DST bows out before next rollover, so we need to add an hour</span></span><br><span class="line">                addend = <span class="number">3600</span></span><br><span class="line">            newRolloverAt += addend</span><br><span class="line">    self.rolloverAt = newRolloverAt</span><br></pre></td></tr></table></figure></p>
+<p>我们观察 <code>if os.path.exists(dfn)</code> 这一行开始，这里的逻辑是如果 dfn 这个文件存在，则要先删除掉它，然后将 baseFilename 这个文件重命名为 dfn 文件。然后再重新打开 baseFilename这个文件开始写入东西。那么这里的逻辑就很清楚了</p>
+<ol>
+<li>假设当前日志文件名为 current.log 切分后的文件名为 current.log.2016-06-01</li>
+<li>判断 current.log.2016-06-01 是否存在，如果存在就删除</li>
+<li>将当前的日志文件名 改名为current.log.2016-06-01</li>
+<li>重新打开新文件（我观察到源代码中默认是”a” 模式打开，之前据说是”w”）</li>
+</ol>
+<p>于是在多进程的情况下，一个进程切换了，其他进程的句柄还在 current.log.2016-06-01 还会继续往里面写东西。又或者一个进程执行切换了，会把之前别的进程重命名的 current.log.2016-06-01 文件直接删除。又或者还有一个情况，当一个进程在写东西，另一个进程已经在切换了，会造成不可预估的情况发生。还有一种情况两个进程同时在切文件，第一个进程正在执行第3步，第二进程刚执行完第2步，然后第一个进程 完成了重命名但还没有新建一个新的 current.log 第二个进程开始重命名，此时第二个进程将会因为找不到 current 发生错误。如果第一个进程已经成功创建了 current.log 第二个进程会将这个空文件另存为 current.log.2016-06-01。那么不仅删除了日志文件，而且，进程一认为已经完成过切分了不会再切，而事实上他的句柄指向的是current.log.2016-06-01。<br>好了这里看上去很复杂，实际上就是因为对于文件操作时，没有对多进程进行一些约束，而导致的问题。<br>那么如何优雅地解决这个问题呢。我提出了两种方案，当然我会在下面提出更多可行的方案供大家尝试。</p>
+<h4 id="解决方案1"><a href="#解决方案1" class="headerlink" title="解决方案1"></a>解决方案1</h4><p>先前我们发现 TimedRotatingFileHandler 中逻辑的缺陷。我们只需要稍微修改一下逻辑即可：</p>
+<ol>
+<li>判断切分后的文件 current.log.2016-06-01 是否存在，如果不存在则进行重命名。（如果存在说明有其他进程切过了，我不用切了，换一下句柄即可）</li>
+<li>以”a”模式 打开 current.log</li>
+</ol>
+<p>发现修改后就这么简单~<br>talking is cheap show me the code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SafeRotatingFileHandler</span><span class="params">(TimedRotatingFileHandler)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, filename, when=<span class="string">'h'</span>, interval=<span class="number">1</span>, backupCount=<span class="number">0</span>, encoding=None, delay=False, utc=False)</span>:</span></span><br><span class="line">        TimedRotatingFileHandler.__init__(self, filename, when, interval, backupCount, encoding, delay, utc)</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Override doRollover</span></span><br><span class="line"><span class="string">    lines commanded by "##" is changed by cc</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">doRollover</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        do a rollover; in this case, a date/time stamp is appended to the filename</span></span><br><span class="line"><span class="string">        when the rollover happens.  However, you want the file to be named for the</span></span><br><span class="line"><span class="string">        start of the interval, not the current time.  If there is a backup count,</span></span><br><span class="line"><span class="string">        then we have to get a list of matching filenames, sort them and remove</span></span><br><span class="line"><span class="string">        the one with the oldest suffix.</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        Override,   1. if dfn not exist then do rename</span></span><br><span class="line"><span class="string">                    2. _open with "a" model</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> self.stream:</span><br><span class="line">            self.stream.close()</span><br><span class="line">            self.stream = <span class="keyword">None</span></span><br><span class="line">        <span class="comment"># get the time that this sequence started at and make it a TimeTuple</span></span><br><span class="line">        currentTime = int(time.time())</span><br><span class="line">        dstNow = time.localtime(currentTime)[<span class="number">-1</span>]</span><br><span class="line">        t = self.rolloverAt - self.interval</span><br><span class="line">        <span class="keyword">if</span> self.utc:</span><br><span class="line">            timeTuple = time.gmtime(t)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            timeTuple = time.localtime(t)</span><br><span class="line">            dstThen = timeTuple[<span class="number">-1</span>]</span><br><span class="line">            <span class="keyword">if</span> dstNow != dstThen:</span><br><span class="line">                <span class="keyword">if</span> dstNow:</span><br><span class="line">                    addend = <span class="number">3600</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    addend = <span class="number">-3600</span></span><br><span class="line">                timeTuple = time.localtime(t + addend)</span><br><span class="line">        dfn = self.baseFilename + <span class="string">"."</span> + time.strftime(self.suffix, timeTuple)</span><br><span class="line"><span class="comment">##        if os.path.exists(dfn):</span></span><br><span class="line"><span class="comment">##            os.remove(dfn)</span></span><br><span class="line">            </span><br><span class="line">        <span class="comment"># Issue 18940: A file may not have been created if delay is True.</span></span><br><span class="line"><span class="comment">##        if os.path.exists(self.baseFilename):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(dfn) <span class="keyword">and</span> os.path.exists(self.baseFilename):</span><br><span class="line">            os.rename(self.baseFilename, dfn)</span><br><span class="line">        <span class="keyword">if</span> self.backupCount &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">for</span> s <span class="keyword">in</span> self.getFilesToDelete():</span><br><span class="line">                os.remove(s)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.delay:</span><br><span class="line">            self.mode = <span class="string">"a"</span></span><br><span class="line">            self.stream = self._open()</span><br><span class="line">        newRolloverAt = self.computeRollover(currentTime)</span><br><span class="line">        <span class="keyword">while</span> newRolloverAt &lt;= currentTime:</span><br><span class="line">            newRolloverAt = newRolloverAt + self.interval</span><br><span class="line">        <span class="comment">#If DST changes and midnight or weekly rollover, adjust for this.</span></span><br><span class="line">        <span class="keyword">if</span> (self.when == <span class="string">'MIDNIGHT'</span> <span class="keyword">or</span> self.when.startswith(<span class="string">'W'</span>)) <span class="keyword">and</span> <span class="keyword">not</span> self.utc:</span><br><span class="line">            dstAtRollover = time.localtime(newRolloverAt)[<span class="number">-1</span>]</span><br><span class="line">            <span class="keyword">if</span> dstNow != dstAtRollover:</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> dstNow:  <span class="comment"># DST kicks in before next rollover, so we need to deduct an hour</span></span><br><span class="line">                    addend = <span class="number">-3600</span></span><br><span class="line">                <span class="keyword">else</span>:           <span class="comment"># DST bows out before next rollover, so we need to add an hour</span></span><br><span class="line">                    addend = <span class="number">3600</span></span><br><span class="line">                newRolloverAt += addend</span><br><span class="line">        self.rolloverAt = newRolloverAt</span><br></pre></td></tr></table></figure>
+<p>不要以为代码那么长，其实修改部分就是 “##” 注释的地方而已，其他都是照抄源代码。这个类继承了 TimedRotatingFileHandler 重写了这个切分的过程。这个解决方案十分优雅，改换的地方非常少，也十分有效。但有网友提出，这里有一处地方依然不完美，就是rename的那一步，如果就是这么巧，同时两个或者多个进程进入了 if 语句，先后开始 rename 那么依然会发生删除掉日志的情况。确实这种情况确实会发生，由于切分文件一天才一次，正好切分的时候同时有两个Handler在操作，又正好同时走到这里，也是蛮巧的，但是为了完美，可以加上一个文件锁，if 之后加锁，得到锁之后再判断一次，再进行rename这种方式就完美了。代码就不贴了，涉及到锁代码，影响美观。</p>
+<h4 id="解决方案2"><a href="#解决方案2" class="headerlink" title="解决方案2"></a>解决方案2</h4><p>我认为最简单有效的解决方案。重写FileHandler类（这个类是所有写入文件的Handler都需要继承的TimedRotatingFileHandler 就是继承的这个类；我们增加一些简单的判断和操作就可以。</p>
+<p>我们的逻辑是这样的：</p>
+<ol>
+<li>判断当前时间戳是否与指向的文件名是同一个时间</li>
+<li>如果不是，则切换 指向的文件即可</li>
+</ol>
+<p>结束，是不是很简单的逻辑。</p>
+<p>talking is cheap show me the code:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SafeFileHandler</span><span class="params">(FileHandler)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, filename, mode, encoding=None, delay=<span class="number">0</span>)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Use the specified filename for streamed logging</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> codecs <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            encoding = <span class="keyword">None</span></span><br><span class="line">        FileHandler.__init__(self, filename, mode, encoding, delay)</span><br><span class="line">        self.mode = mode</span><br><span class="line">        self.encoding = encoding</span><br><span class="line">        self.suffix = <span class="string">"%Y-%m-%d"</span></span><br><span class="line">        self.suffix_time = <span class="string">""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">emit</span><span class="params">(self, record)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Emit a record.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Always check time </span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">if</span> self.check_baseFilename(record):</span><br><span class="line">                self.build_baseFilename()</span><br><span class="line">            FileHandler.emit(self, record)</span><br><span class="line">        <span class="keyword">except</span> (KeyboardInterrupt, SystemExit):</span><br><span class="line">            <span class="keyword">raise</span></span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            self.handleError(record)</span><br><span class="line">            </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">check_baseFilename</span><span class="params">(self, record)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Determine if builder should occur.</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        record is not used, as we are just comparing times, </span></span><br><span class="line"><span class="string">        but it is needed so the method signatures are the same</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        timeTuple = time.localtime()</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> self.suffix_time != time.strftime(self.suffix, timeTuple) <span class="keyword">or</span> <span class="keyword">not</span> os.path.exists(self.baseFilename+<span class="string">'.'</span>+self.suffix_time):</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">build_baseFilename</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        do builder; in this case, </span></span><br><span class="line"><span class="string">        old time stamp is removed from filename and</span></span><br><span class="line"><span class="string">        a new time stamp is append to the filename</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> self.stream:</span><br><span class="line">            self.stream.close()</span><br><span class="line">            self.stream = <span class="keyword">None</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># remove old suffix</span></span><br><span class="line">        <span class="keyword">if</span> self.suffix_time != <span class="string">""</span>:</span><br><span class="line">            index = self.baseFilename.find(<span class="string">"."</span>+self.suffix_time)</span><br><span class="line">            <span class="keyword">if</span> index == <span class="number">-1</span>:</span><br><span class="line">                index = self.baseFilename.rfind(<span class="string">"."</span>)</span><br><span class="line">            self.baseFilename = self.baseFilename[:index]</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># add new suffix</span></span><br><span class="line">        currentTimeTuple = time.localtime()</span><br><span class="line">        self.suffix_time = time.strftime(self.suffix, currentTimeTuple)</span><br><span class="line">        self.baseFilename  = self.baseFilename + <span class="string">"."</span> + self.suffix_time</span><br><span class="line">        </span><br><span class="line">        self.mode = <span class="string">'a'</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.delay:</span><br><span class="line">            self.stream = self._open()</span><br></pre></td></tr></table></figure></p>
+<p>check_baseFilename 就是执行逻辑1判断；build_baseFilename 就是执行逻辑2换句柄。就这么简单完成了。<br>这种方案与之前不同的是，当前文件就是 current.log.2016-06-01 ，到了明天当前文件就是current.log.2016-06-02 没有重命名的情况，也没有删除的情况。十分简洁优雅。也能解决多进程的logging问题。</p>
+<h4 id="解决方案其他"><a href="#解决方案其他" class="headerlink" title="解决方案其他"></a>解决方案其他</h4><p>当然还有其他的解决方案，例如由一个logging进程统一打日志，其他进程将所有的日志内容打入logging进程管道由它来打理。还有将日志打入网络socket当中也是同样的道理。</p>
+<h2 id="5-参考资料"><a href="#5-参考资料" class="headerlink" title="5. 参考资料"></a>5. 参考资料</h2><p><a href="https://docs.python.org/2/library/logging.html" target="_blank" rel="noopener">python logging 官方文档</a><br><a href="http://lightthewoods.me/2013/11/18/Python%E5%A4%9A%E8%BF%9B%E7%A8%8Blog%E6%97%A5%E5%BF%97%E5%88%87%E5%88%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_blank" rel="noopener">林中小灯的切分方案，方案一就是从这儿来的</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>感谢打赏个鸡腿</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/assets/img/weixinpay.jpg" alt="doudou0o WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/assets/img/alipay.jpg" alt="doudou0o Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author: </strong>doudou0o</li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://github.com/doudou0o/2017/02/26/2017-02-python_logging/" title="python logging日志模块以及多进程日志">https://github.com/doudou0o/2017/02/26/2017-02-python_logging/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/22/2017-02-Test_Markdown/" rel="next" title="Test Markdown">
+                <i class="fa fa-chevron-left"></i> Test Markdown
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/27/2017-02leetcode_10_Regular_Expression_Matching/" rel="prev" title="leetcode_10： Regular Expression Matching">
+                leetcode_10： Regular Expression Matching <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/assets/img/avatar.gif"
+                alt="doudou0o" />
+            
+              <p class="site-author-name" itemprop="name">doudou0o</p>
+              <p class="site-description motion-element" itemprop="description">Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yourname" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i></a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i></a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-logging日志模块介绍"><span class="nav-number">1.</span> <span class="nav-text">1. logging日志模块介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-logging的组成"><span class="nav-number">2.</span> <span class="nav-text">2. logging的组成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#loggers"><span class="nav-number">2.1.</span> <span class="nav-text">loggers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Handlers"><span class="nav-number">2.2.</span> <span class="nav-text">Handlers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Filters"><span class="nav-number">2.3.</span> <span class="nav-text">Filters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Formatters"><span class="nav-number">2.4.</span> <span class="nav-text">Formatters</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-logging-配置"><span class="nav-number">3.</span> <span class="nav-text">3. logging 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简易配置"><span class="nav-number">3.0.1.</span> <span class="nav-text">简易配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码配置"><span class="nav-number">3.0.2.</span> <span class="nav-text">代码配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件配置"><span class="nav-number">3.0.3.</span> <span class="nav-text">配置文件配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-logging遇到多进程（important）"><span class="nav-number">4.</span> <span class="nav-text">4. logging遇到多进程（important）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原因"><span class="nav-number">4.0.1.</span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案1"><span class="nav-number">4.0.2.</span> <span class="nav-text">解决方案1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案2"><span class="nav-number">4.0.3.</span> <span class="nav-text">解决方案2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案其他"><span class="nav-number">4.0.4.</span> <span class="nav-text">解决方案其他</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-参考资料"><span class="nav-number">5.</span> <span class="nav-text">5. 参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">doudou0o</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.0.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.4"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: 'python logging日志模块以及多进程日志',
+            owner: 'doudou0o',
+            repo: 'doudou0o.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'a753cf2091f8025d3dc7e488d6ec868a6d4613f9',
+            
+                client_id: '60ed80a6055a3fa91e11'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomRight";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
