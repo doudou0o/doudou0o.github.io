@@ -109,6 +109,7 @@ index_with_subtitle: false
 # Key is the name of menu item. If translate for this menu will find in languages - this translate will be loaded; if not - Key name will be used. Key is case-senstive.
 # Value before `||` delimeter is the target link.
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, question icon will be loaded.
+# npm install hexo-generator-sitemap --save
 menu:
   home: / || home
   archives: /archives/ || archive
@@ -118,6 +119,8 @@ menu:
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
+  #leetcode: /leetcode/ || coffee
+  #datamining: /datamining/ || umbrella
 
 # Enable/Disable menu icons / item badges.
 menu_settings:
@@ -608,7 +611,7 @@ rating:
 # Show number of visitors to each article.
 # You can visit https://leancloud.cn get AppID and AppKey.
 leancloud_visitors:
-  enable: false
+  enable: true
   app_id: dA1sbLdvYXxRBcazcbct0JXj-gzGzoHsz #<app_id>
   app_key: LVJztVzprpmRivJmu0RScKB2 #<app_key>
 

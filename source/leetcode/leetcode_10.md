@@ -1,14 +1,9 @@
 ---
-title: 10. Regular Expression Matching
-date: 2017-02-27 15:30:10
+title: leetcode_10
+date: 2017-03-22 10:20:26
 mathjax: true
 ---
 
-leetcode \#10 Regular Expression Matching 题目详解, 看网上帖子说的不清楚都是直接给代码也没个例子，所以起个帖子记录下自己的思路。
-
-本文主要讲述递归解法和动态规划解法的思想。
-
-<!-- more -->
 
 # 10. Regular Expression Matching
 
