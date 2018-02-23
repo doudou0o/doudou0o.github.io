@@ -1,9 +1,7 @@
-layout: leetcode_10_regular
-title: leetcode_10： Regular Expression Matching
+---
+title: 10. Regular Expression Matching
 date: 2017-02-27 15:30:10
-tags:
-	- LeetCode
-	- Algorithm
+mathjax: true
 ---
 
 leetcode \#10 Regular Expression Matching 题目详解, 看网上帖子说的不清楚都是直接给代码也没个例子，所以起个帖子记录下自己的思路。
@@ -12,7 +10,7 @@ leetcode \#10 Regular Expression Matching 题目详解, 看网上帖子说的不
 
 <!-- more -->
 
-## LeetCode\_10\_*Regular Expression Matching*
+# 10. Regular Expression Matching*
 
 原文要求如下：
 
