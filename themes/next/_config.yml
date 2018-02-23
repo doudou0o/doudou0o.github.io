@@ -111,10 +111,10 @@ index_with_subtitle: false
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, question icon will be loaded.
 menu:
   home: / || home
-  about: /about/ || user
+  archives: /archives/ || archive
   tags: /tags/ || tags
   #categories: /categories/ || th
-  archives: /archives/ || archive
+  about: /about/ || user
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
@@ -148,8 +148,9 @@ site_state: true
 # Value before `||` delimeter is the target permalink.
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
 social:
-  GitHub: https://github.com/yourname || github
-  E-Mail: mailto:yourname@gmail.com || envelope
+  GitHub: https://github.com/doudou0o || github
+  E-Mail: mailto:bluecc021@gmail.com || envelope
+  简书: https://www.jianshu.com/u/fc401e542314 || book
   #Google: https://plus.google.com/yourname || google
   #Twitter: https://twitter.com/yourname || twitter
   #FB Page: https://www.facebook.com/yourname || facebook
