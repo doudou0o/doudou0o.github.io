@@ -144,7 +144,7 @@
 <meta property="og:image" content="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png">
 <meta property="og:image" content="https://github.com/doudou0o/2017/02/22/2017-02-Test_Markdown/start.jpg">
 <meta property="og:image" content="https://github.com/2017/02/22/2017-02-Test_Markdown/start.jpg">
-<meta property="og:updated_time" content="2018-02-15T12:03:31.641Z">
+<meta property="og:updated_time" content="2018-08-29T15:29:12.899Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Test Markdown">
 <meta name="twitter:description" content="列举一些常用的 markdown 语法, 作为测试以及备忘。">
@@ -253,9 +253,9 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
         </li>
       
         
@@ -265,9 +265,9 @@
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
         </li>
       
 
@@ -398,6 +398,17 @@
 
           
           
+             <span id="/2017/02/22/2017-02-Test_Markdown/" class="leancloud_visitors" data-flag-title="Test Markdown">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
           
 
@@ -423,7 +434,7 @@
 <p>You can write regular <a href="http://markdowntutorial.com/" target="_blank" rel="noopener">markdown</a> here and Jekyll will automatically convert it to a nice webpage.  I strongly encourage you to <a href="http://markdowntutorial.com/" target="_blank" rel="noopener">take 5 minutes to learn how to write in markdown</a> - it’ll teach you how to transform regular text into bold/italics/headings/tables/etc.</p>
 <p>Markdown 语法手册</p>
 <hr>
-<h3 id="1-分级标题"><a href="#1-分级标题" class="headerlink" title="1. 分级标题"></a>1. 分级标题</h3><p>使用 === 表示一级标题，使用 — 表示二级标题<br>你也可以选择在行首加井号表示不同级别的标题 (H1-H6)，例如：# H1, ## H2, ### H3<br>一般来说都是使用 #号 来使用, 注意 #号 需要顶格写<br>示例：</p>
+<h3 id="1-分级标题"><a href="#1-分级标题" class="headerlink" title="1. 分级标题"></a>1. 分级标题</h3><p>使用 === 表示一级标题，使用 —- 表示二级标题<br>你也可以选择在行首加井号表示不同级别的标题 (H1-H6)，例如：# H1, ## H2, ### H3<br>一般来说都是使用 #号 来使用, 注意 #号 需要顶格写<br>示例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">这是一个一级标题</span><br><span class="line">===</span><br><span class="line">这是一个二级标题</span><br><span class="line">----</span><br><span class="line">### 这是一个三级标题</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="2-斜体和粗体"><a href="#2-斜体和粗体" class="headerlink" title="2. 斜体和粗体"></a>2. 斜体和粗体</h3><p>使用 <code>*</code>和 <code>**</code> 表示斜体和粗体</p>
@@ -442,8 +453,8 @@
 <h3 id="4-插入图像"><a href="#4-插入图像" class="headerlink" title="4. 插入图像"></a>4. 插入图像</h3><p>使用 ![描述](图片链接) 插入图像(好像插入时保持原图片大小)<br><em>和链接比较类似,唯一的区别就是前面有一个!</em><br>在Hexo 中本地图片使用 ![本地图片](/img/a.jpg)</p>
 <p>示例：<br>在线图片<br>![图片](<a href="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" target="_blank" rel="noopener">https://assets-cdn.github.com/images/modules/logos_page/Octocat.png</a>)<br><img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" alt="图片"></p>
 <p>本地图片<br>![本地图片](./start.jpg)<br><img src="./start.jpg" alt="本地图片"></p>
-<p>大小控制图片<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% img full-image /2017/02/22/Test_Markdown/start.jpg 200 200 %&#125;</span><br></pre></td></tr></table></figure></p>
-<img src="/2017/02/22/2017-02-Test_Markdown/start.jpg" class="full-image" width="200" height="200">
+<p>大小控制图片<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;/2017/02/22/2017-02-Test_Markdown/start.jpg&quot; alt=&quot;logo&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2017/02/22/2017-02-Test_Markdown/start.jpg" alt="logo" width="50%" height="50%"></p>
 <hr>
 <h3 id="5-文字引用"><a href="#5-文字引用" class="headerlink" title="5. 文字引用"></a>5. 文字引用</h3><p>使用 &gt; 表示文字引用<br>同 #号 一样需要定格写否则没有效果而且上下需要有空格</p>
 <p>示例：</p>
@@ -476,16 +487,17 @@
 </blockquote>
 <p>包裹起来而且可以加上所用的语言,也可以不加<br>另外由于 Pygments 或 Rouge 的使用,可以用    </p>
 <p>包裹更加好看(不要加行号! 不然会超级难看)    </p>
-<pre><code class="ruby"><span class="function"><span class="keyword">def</span> <span class="title">show</span></span>
-  @widget = Widget(params[<span class="symbol">:id</span>])
-  respond_to <span class="keyword">do</span> <span class="params">|format|</span>
-    format.html <span class="comment"># show.html.erb</span>
-    format.json { render <span class="symbol">json:</span> @widget }
-  <span class="keyword">end</span>
-<span class="keyword">end</span>
+<pre><code class="lang-ruby">def show
+  @widget = Widget(params[:id])
+  respond_to do |format|
+    format.html # show.html.erb
+    format.json { render json: @widget }
+  end
+end
 </code></pre>
 <hr>
-<h3 id="10-表格"><a href="#10-表格" class="headerlink" title="10. 表格"></a>10. 表格</h3><table>
+<h3 id="10-表格"><a href="#10-表格" class="headerlink" title="10. 表格"></a>10. 表格</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th style="text-align:left">Number</th>
@@ -516,6 +528,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <hr>
 <h3 id="11-Todo-列表"><a href="#11-Todo-列表" class="headerlink" title="11. Todo 列表"></a>11. Todo 列表</h3><p>使用带有 [ ] 或 [x] （未完成或已完成）项的列表语法撰写一个待办事宜列表<br>并且支持子列表嵌套以及混用Markdown语法，示例：</p>
 <pre><code>- [ ] **买菜**
@@ -541,10 +554,12 @@
 </ul>
 <hr>
 <h3 id="12-注脚"><a href="#12-注脚" class="headerlink" title="12. 注脚"></a>12. 注脚</h3><p>使用 [^keyword] 表示注脚</p>
-<p>这是一个注脚[^footnote]的样例</p>
+<p>这是一个注脚<sup><a href="#fn_footnote" id="reffn_footnote">footnote</a></sup>的样例</p>
 <hr>
 <h3 id="13-页内链接-hexo下暂时无效没找到正确的姿势"><a href="#13-页内链接-hexo下暂时无效没找到正确的姿势" class="headerlink" title="13. 页内链接(hexo下暂时无效没找到正确的姿势)"></a>13. 页内链接(hexo下暂时无效没找到正确的姿势)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">先在某处设定一个锚点`&lt;a id=&quot;jump&quot; name=&quot;jump&quot;&gt;锚点&lt;/a&gt;`类似这样</span><br><span class="line">然后使用 `\[结论\](\#jump) `这样的方法就可以在页内跳转</span><br><span class="line">或者在标题后面跟上ID也可以同样跳转`### 标题 &#123;#ID&#125;`</span><br><span class="line"></span><br><span class="line">示例:    </span><br><span class="line">[示例1](#jump)    </span><br><span class="line">[示例2](#ID2)</span><br></pre></td></tr></table></figure>
-<p>[^footnote]: 这是一个 <em>注脚</em></p>
+<blockquote id="fn_footnote">
+<sup>footnote</sup>. 这是一个 <em>注脚</em><a href="#reffn_footnote" title="Jump back to footnote [footnote] in the text."> &#8617;</a>
+</blockquote>
 
       
     </div>
@@ -560,7 +575,7 @@
     
       <div>
         <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div>感谢打赏个鸡腿</div>
+  <div>写文不易,感谢赏个鸡腿</div>
   <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
     <span>Donate</span>
   </button>
@@ -733,7 +748,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -754,9 +769,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -770,12 +783,17 @@
             <div class="links-of-author motion-element">
               
                 <span class="links-of-author-item">
-                  <a href="https://github.com/yourname" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i></a>
+                  <a href="https://github.com/doudou0o" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i></a>
                   
                 </span>
               
                 <span class="links-of-author-item">
-                  <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i></a>
+                  <a href="mailto:bluecc021@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i></a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.jianshu.com/u/fc401e542314" target="_blank" title="简书"><i class="fa fa-fw fa-book"></i></a>
                   
                 </span>
               
@@ -1351,6 +1369,113 @@
 
 
   
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("dA1sbLdvYXxRBcazcbct0JXj-gzGzoHsz", "LVJztVzprpmRivJmu0RScKB2");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
 
   
 

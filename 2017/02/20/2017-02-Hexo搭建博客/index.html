@@ -141,7 +141,7 @@
 <meta property="og:site_name" content="doudou0o blog">
 <meta property="og:description" content="倒腾了很久 Jekyll 之后，还是决定投入到 Hexo 阵营中来。Hexo的 markdown 编译器以及优秀的各种模板还有一键部署都是相当赞的功能。由于我也是新手白菜，记录本篇搭建日志，以防遗忘和换些功能或模板设置。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-15T12:03:31.641Z">
+<meta property="og:updated_time" content="2018-08-29T15:29:12.898Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo 搭建博客">
 <meta name="twitter:description" content="倒腾了很久 Jekyll 之后，还是决定投入到 Hexo 阵营中来。Hexo的 markdown 编译器以及优秀的各种模板还有一键部署都是相当赞的功能。由于我也是新手白菜，记录本篇搭建日志，以防遗忘和换些功能或模板设置。">
@@ -249,9 +249,9 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
         </li>
       
         
@@ -261,9 +261,9 @@
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
         </li>
       
 
@@ -394,6 +394,17 @@
 
           
           
+             <span id="/2017/02/20/2017-02-Hexo搭建博客/" class="leancloud_visitors" data-flag-title="Hexo 搭建博客">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
           
 
@@ -435,7 +446,16 @@
 <h3 id="博客写作"><a href="#博客写作" class="headerlink" title="博客写作"></a>博客写作</h3><h4 id="本地图片"><a href="#本地图片" class="headerlink" title="本地图片"></a>本地图片</h4><p>首先将 Hexo _config.yml 配置中将这个打开 <code>post_asset_folder:true</code><br>打开后，每次新建一篇文章会同时建立一个同名的文件夹，里面的资源可以直接访问<br>如果没有找到，那么可能是插件未安装，执行以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install https://github.com/CodeFalling/hexo-asset-image --save</span><br></pre></td></tr></table></figure></p>
 <p>于是在markdown中可以直接引用改资源，如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![本地图片](./a.jpg)</span><br></pre></td></tr></table></figure></p>
 <h4 id="本地预览"><a href="#本地预览" class="headerlink" title="本地预览"></a>本地预览</h4><p>一般情况下，直接修改，刷新页面就可以看见修改，不需要重启服务。<br>但是有时候，必须要重启服务，而且先 clean 再 server 才能生效。</p>
-<h4 id="其他遇到问题再写"><a href="#其他遇到问题再写" class="headerlink" title="其他遇到问题再写"></a>其他遇到问题再写</h4><p>其他</p>
+<h4 id="其他遇到问题再写"><a href="#其他遇到问题再写" class="headerlink" title="其他遇到问题再写"></a>其他遇到问题再写</h4><p>其他<br>如果说mathjax遇到渲染问题，先查看是否下划线有问题，原来的解释器会将下划线转义掉。<br>处理办法：</p>
+<blockquote>
+<p>npm uninstall hexo-renderer-marked —saved<br>npm install hexo-renderer-kramed —saved</p>
+</blockquote>
+<p>另外还是mathjax遇到渲染问题，发现不支持大括号<br>处理办法:</p>
+<blockquote>
+<p>找到../node_modules/kramed/lib/rules/inline.js文件</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//escape: /^\\([\\`*&#123;&#125;\[\]()#$+\-.!_&gt;])/,      第11行，将其修改为</span><br><span class="line">escape: /^\\([`*\[\]()#$+\-.!_&gt;])/,</span><br><span class="line">//em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,    第20行，将其修改为</span><br><span class="line">em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br></pre></td></tr></table></figure>
+<p>它取消了该渲染引擎对<code>\,{,}</code>的转义</p>
 
       
     </div>
@@ -451,7 +471,7 @@
     
       <div>
         <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div>感谢打赏个鸡腿</div>
+  <div>写文不易,感谢赏个鸡腿</div>
   <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
     <span>Donate</span>
   </button>
@@ -624,7 +644,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -645,9 +665,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -661,12 +679,17 @@
             <div class="links-of-author motion-element">
               
                 <span class="links-of-author-item">
-                  <a href="https://github.com/yourname" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i></a>
+                  <a href="https://github.com/doudou0o" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i></a>
                   
                 </span>
               
                 <span class="links-of-author-item">
-                  <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i></a>
+                  <a href="mailto:bluecc021@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i></a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.jianshu.com/u/fc401e542314" target="_blank" title="简书"><i class="fa fa-fw fa-book"></i></a>
                   
                 </span>
               
@@ -1242,6 +1265,113 @@
 
 
   
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("dA1sbLdvYXxRBcazcbct0JXj-gzGzoHsz", "LVJztVzprpmRivJmu0RScKB2");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
 
   
 

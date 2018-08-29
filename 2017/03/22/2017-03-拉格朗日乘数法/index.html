@@ -143,7 +143,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/2017/03/22/2017-03-拉格朗日乘数法/hyperbola.png">
 <meta property="og:image" content="https://github.com/doudou0o/2017/03/22/2017-03-拉格朗日乘数法/contour_line.png">
-<meta property="og:updated_time" content="2018-02-15T12:03:31.644Z">
+<meta property="og:updated_time" content="2018-08-29T17:47:57.291Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="拉格朗日乘数法笔记">
 <meta name="twitter:description" content="在求解函数最优化问题中，拉格朗日乘子法（Lagrange Multiplier）和KKT（Karush Kuhn Tucker）条件是两种最常用的方法。函数有等式约束时使用拉格朗日乘子法，函数有不等约束时使用KKT条件。本文简要的复习下拉格朗日乘数法的浅层次问题。">
@@ -252,9 +252,9 @@
         </li>
       
         
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
         </li>
       
         
@@ -264,9 +264,9 @@
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
         </li>
       
 
@@ -397,6 +397,17 @@
 
           
           
+             <span id="/2017/03/22/2017-03-拉格朗日乘数法/" class="leancloud_visitors" data-flag-title="拉格朗日乘数法笔记">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
           
 
@@ -424,11 +435,11 @@
 </blockquote>
 <h3 id="本篇文章主要整理拉格朗日乘子法"><a href="#本篇文章主要整理拉格朗日乘子法" class="headerlink" title="本篇文章主要整理拉格朗日乘子法"></a>本篇文章主要整理<em>拉格朗日乘子法</em></h3><p>这种方法可以将一个有 n 个变量与 k 个约束条件的最优化问题转换为一个解有 n + k 个变量的方程组的解的问题。这种方法中引入了一个或一组新的未知数，即拉格朗日乘数，又称拉格朗日乘子，或拉氏乘子，它们是在转换后的方程，即约束方程中作为梯度（gradient）的线性组合中各个向量的系数。</p>
 <p>总结伸手党，比如两个变量求最优时，求 $f(x, y)$ 在条件 $ g(x,y)=c $ 时的最大值，我们可以引入新变量拉格朗日乘数 $ \lambda $，这时我们只需要下列拉格朗日函数的极值,此时就回归到了无约束时的最值问题：</p>
-<p>$$<br>F(x,y,\lambda) = f(x,y)+\lambda \cdot(g(x,y)-c)<br>$$</p>
-<h3 id="无约束时函数最优问题"><a href="#无约束时函数最优问题" class="headerlink" title="无约束时函数最优问题"></a>无约束时函数最优问题</h3><p>这种问题，通常的解决办法是，对各变量求偏导，使得各偏导同时为零得到驻点。再判断驻点是否为极值点，最后代入原函数验证最优。</p>
+<script type="math/tex; mode=display">
+F(x,y,\lambda) = f(x,y)+\lambda \cdot(g(x,y)-c)</script><h3 id="无约束时函数最优问题"><a href="#无约束时函数最优问题" class="headerlink" title="无约束时函数最优问题"></a>无约束时函数最优问题</h3><p>这种问题，通常的解决办法是，对各变量求偏导，使得各偏导同时为零得到驻点。再判断驻点是否为极值点，最后代入原函数验证最优。</p>
 <h3 id="等式约束时函数最优问题"><a href="#等式约束时函数最优问题" class="headerlink" title="等式约束时函数最优问题"></a>等式约束时函数最优问题</h3><p>设目标函数为 $f(x,y)$， 约束条件为 $g(x,y)=c$。问题是如何在满足约束条件的情况下，使得目标函数最大(最小)。</p>
-<p>使用一个例子来描述这个问题：在双曲线 xy=3 的情况下，哪个点离原点最近。<br>$$ f(x,y)=x^2+y^2 g(x,y)=xy=3 $$</p>
-<p>如图：</p>
+<p>使用一个例子来描述这个问题：在双曲线 xy=3 的情况下，哪个点离原点最近。</p>
+<script type="math/tex; mode=display">f(x,y)=x^2+y^2 g(x,y)=xy=3</script><p>如图：</p>
 <img src="/2017/03/22/2017-03-拉格朗日乘数法/hyperbola.png" class="full-image" width="500" height="500">
 <p>那么f(x,y) 可以被描述为无数个一圈圈的等高线(图中所有颜色的圆圈线)，这些等高线与双曲线相交的点是满足约束条件的点。那么离原点最近的点，就是等高线与双曲线互切处的点，如图中，红色的点。</p>
 <p><img src="./contour_line.png" alt=""></p>
@@ -437,13 +448,21 @@
 <li>蓝色点虽然满足约束条件，但并非最优解</li>
 <li>只有等高线与双曲线相切的红色的点，才是最优解。</li>
 </ol>
-<p>在取最优解时，我们发现只有相切才能取最优解。那么如何判断相切呢？ 那就使用梯度向量（如图中红色蓝色的梯度向量），如果两者梯度向量互相平行时，那么两条曲线相切。于是引入一个参数 $\lambda$ 使得满足如下梯度公式：<br>$$<br>\nabla f(x,y) = \lambda \cdot \nabla g(x, y)<br>$$</p>
-<p>那么原目标函数 f(x,y) 和 约束条件 g(x,y) ，在取最优值时满足上述公式那么：</p>
-<p>$$<br>\left\{<br>\begin{aligned}<br>f’_x = \lambda \cdot g’_x \\<br>f’_y = \lambda \cdot g’_y \\<br>\end{aligned}<br>\right.<br>\\<br>g(x,y)=c<br>$$</p>
-<p>此时我们就拥有了三个公式，三个未知数的多项式。把三个未知数全部解出来。代入原目标函数就是函数最值。</p>
+<p>在取最优解时，我们发现只有相切才能取最优解。那么如何判断相切呢？ 那就使用梯度向量（如图中红色蓝色的梯度向量），如果两者梯度向量互相平行时，那么两条曲线相切。于是引入一个参数 $\lambda$ 使得满足如下梯度公式：</p>
+<script type="math/tex; mode=display">
+\nabla f(x,y) = \lambda \cdot \nabla g(x, y)</script><p>那么原目标函数 f(x,y) 和 约束条件 g(x,y) ，在取最优值时满足上述公式那么：</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+f'_x = \lambda \cdot g'_x\\
+f'_y = \lambda \cdot g'_y
+\end{cases}</script><p>此时我们就拥有了三个公式，三个未知数的多项式。把三个未知数全部解出来。代入原目标函数就是函数最值。</p>
 <p><strong>最后</strong>我们稍微整理下这三条公式:</p>
-<p>$$<br>\left\{<br>\begin{aligned}<br>f’_x - \lambda \cdot g’_x = 0\\<br>f’_y - \lambda \cdot g’_y = 0\\<br>\end{aligned}<br>\right.<br>\\<br>g(x,y)=c<br>$$</p>
-<p><strong>发现</strong>原最优问题可以被替换成求$F(x,y,\lambda) = f(x,y)+\lambda \cdot(g(x,y)-c)$的最优问题。且这个问题不受g(x,y)所约束，因此可以使用无约束时函数最优问题来解决。至此呼应了开头伸手党结论。</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+f'_x - \lambda \cdot g'_x = 0 \\\\
+f'_y - \lambda \cdot g'_y = 0 \\\\
+g(x,y)=c
+\end{cases}</script><p><strong>发现</strong>原最优问题可以被替换成求$F(x,y,\lambda) = f(x,y)+\lambda \cdot(g(x,y)-c)$的最优问题。且这个问题不受g(x,y)所约束，因此可以使用无约束时函数最优问题来解决。至此呼应了开头伸手党结论。</p>
 
       
     </div>
@@ -459,7 +478,7 @@
     
       <div>
         <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div>感谢打赏个鸡腿</div>
+  <div>写文不易,感谢赏个鸡腿</div>
   <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
     <span>Donate</span>
   </button>
@@ -545,6 +564,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/02/08/2018-02-隐马尔科夫模型/" rel="prev" title="隐马尔科夫模型">
+                隐马尔科夫模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -628,7 +651,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -649,9 +672,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -665,12 +686,17 @@
             <div class="links-of-author motion-element">
               
                 <span class="links-of-author-item">
-                  <a href="https://github.com/yourname" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i></a>
+                  <a href="https://github.com/doudou0o" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i></a>
                   
                 </span>
               
                 <span class="links-of-author-item">
-                  <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i></a>
+                  <a href="mailto:bluecc021@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i></a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.jianshu.com/u/fc401e542314" target="_blank" title="简书"><i class="fa fa-fw fa-book"></i></a>
                   
                 </span>
               
@@ -1246,6 +1272,113 @@
 
 
   
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("dA1sbLdvYXxRBcazcbct0JXj-gzGzoHsz", "LVJztVzprpmRivJmu0RScKB2");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
 
   
 

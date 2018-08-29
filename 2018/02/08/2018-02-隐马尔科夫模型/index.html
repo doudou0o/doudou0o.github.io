@@ -130,26 +130,35 @@
 
 
   
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Algorithm," />
 
 
-<meta name="description" content="Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="doudou0o blog">
-<meta property="og:url" content="https://github.com/doudou0o/archives/2016/12/index.html">
+<meta name="description" content="隐马尔科夫模型是一种统计模型，他由马尔科夫随机过程生成无法观察的状态随机序列，每个状态又会生成不同的观测值，从而产生随机观测序列。">
+<meta name="keywords" content="Algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="隐马尔科夫模型">
+<meta property="og:url" content="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/index.html">
 <meta property="og:site_name" content="doudou0o blog">
-<meta property="og:description" content="Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.">
+<meta property="og:description" content="隐马尔科夫模型是一种统计模型，他由马尔科夫随机过程生成无法观察的状态随机序列，每个状态又会生成不同的观测值，从而产生随机观测序列。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/base.jpg">
+<meta property="og:image" content="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/解释.jpg">
+<meta property="og:image" content="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/暴力.jpg">
+<meta property="og:image" content="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/前向.jpg">
+<meta property="og:image" content="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/后向.jpg">
+<meta property="og:image" content="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/Viterbi.jpg">
+<meta property="og:updated_time" content="2018-08-29T17:12:35.796Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="doudou0o blog">
-<meta name="twitter:description" content="Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.">
+<meta name="twitter:title" content="隐马尔科夫模型">
+<meta name="twitter:description" content="隐马尔科夫模型是一种统计模型，他由马尔科夫随机过程生成无法观察的状态随机序列，每个状态又会生成不同的观测值，从而产生随机观测序列。">
+<meta name="twitter:image" content="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/base.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="https://github.com/doudou0o/archives/2016/12/"/>
+  <link rel="canonical" href="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/"/>
 
 
 
@@ -158,7 +167,7 @@
     sidebar: "",
   };
 </script>
-  <title>Archive | doudou0o blog</title>
+  <title>隐马尔科夫模型 | doudou0o blog</title>
   
 
 
@@ -205,7 +214,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -320,80 +329,306 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        Um..! 9 posts in total. Keep on posting.
-      </span>
-      
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2016">2016</h1>
-          </div>
-        
-        
-
-        
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="doudou0o">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/img/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="doudou0o blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2016/12/22/2016-12-hello-world/" itemprop="url">
-              
-                <span itemprop="name">Hello World</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">隐马尔科夫模型</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-12-22T10:20:26+08:00"
-              content="2016-12-22" >
-          12-22
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-08T10:20:26+08:00">2018-02-08</time>
+            
 
-    </header>
-  </article>
+            
+            
 
+            
+          </span>
 
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/08/2018-02-隐马尔科夫模型/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/02/08/2018-02-隐马尔科夫模型/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/02/08/2018-02-隐马尔科夫模型/" class="leancloud_visitors" data-flag-title="隐马尔科夫模型">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Views&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <p>隐马尔科夫模型是一种统计模型，他由马尔科夫随机过程生成<strong>无法观察的状态随机序列</strong>，每个状态又会生成不同的观测值，从而产生<strong>随机观测序列</strong>。</p>
+<a id="more"></a>
+<h2 id="隐马尔可夫模型"><a href="#隐马尔可夫模型" class="headerlink" title="隐马尔可夫模型"></a>隐马尔可夫模型</h2><p>隐马尔科夫模型(HMM)是一种统计模型，他由马尔可夫随机过程生成<strong>无法观察的状态随机序列</strong>，每个状态又会生成不同的观测值，从而产生<strong>随机观测序列</strong>。<br>因为状态序列是隐含的并且符合马尔科夫过程因此称为隐马尔可夫模型。他有三个基本问题，处理好这三个基本问题，基本就能熟练运用隐马尔可夫模型。<br><strong>概率计算问题</strong>: 能够对某个观测序列给出其发生的概率；<br><strong>学习问题</strong>: 通过一个观测序列，调整(学习)参数使得这个观测序列发生概率最大；(最大似然)<br><strong>编码问题</strong>: 通过一个观测序列，给出隐含的概率最大的状态序列</p>
+<h3 id="离散马尔可夫过程"><a href="#离散马尔可夫过程" class="headerlink" title="离散马尔可夫过程"></a>离散马尔可夫过程</h3><p>首先什么是马尔可夫过程。假设有N个不同的状态 $\{S_1,S_2,…S_N\}$ 的随机过程。$a_{ij}$ 代表 $S_i$ 到 $S_j$ 的转移概率。当这个随机过程满足：当前的状态仅与它之前的状态有关时，就是马尔可夫过程。用公式表达即：</p>
+<script type="math/tex; mode=display">
+P[q_t=S_i|q_{t-1}=s_j,q_{t-2}=s_k,...] = P[q_t=s_i|q_{t-1}=s_j]</script><p>于是得到转移概率：</p>
+<script type="math/tex; mode=display">
+a_{ij}=P[q_t=s_i|q_{t-1}=s_j]</script><p>其中转移概率$a{ij}$自然有两个属性：$a_{ij}\geq0$和$\sum_{j=1}^{N}a_{ij}=1$</p>
+<p>以上就是离散马尔科夫随机过程。</p>
+<h3 id="隐马尔科夫要素"><a href="#隐马尔科夫要素" class="headerlink" title="隐马尔科夫要素"></a>隐马尔科夫要素</h3><p>隐马尔可夫有五个要素组成：</p>
+<ol>
+<li>$N$ ，表示模型中的状态数（隐式状态）。模型中的各个状态是相互连结的，任何状态能从其它状态到达。我们用 $S$ 表示各个状态的集合，$S=\{s_1,s_2,…,s_N\}$， $q_t$ 表示 t 时刻的状态。</li>
+<li>$M$ ，表示模型中每个状态不同的观察集合(可见状态)数量。我们用$V$表示各个观察值(可见状态)集合，$V=\{v_1,v_2,…,v_M\}$</li>
+<li>$A$ ，状态转移概率分布</li>
+<li>$B$ ，观察字符在状态j时的概率分布，$B=\{b_j(k)\}$，其中$b_j(k)=P[v_k|q_t=S_j]$</li>
+<li>$\pi$ ，表示状态分布，$\pi=\{\pi_j\}$，其中$\pi_j=P[q_1=S_j]$</li>
+</ol>
+<p>给定$N,M,A,B,\pi$，HMMs能输出一个观察序列$O=O_1O_2…O_T$，其中$O_t\in V$ ，$T$ 是观察序列的数量。</p>
+<p><img src="./base.jpg" alt="基本"></p>
+<p>从以上的讨论可知，一个完整的隐马尔可夫模型要求两个具体的模型参数 $N$ 和 $M$，和三个概率矩阵 $A,B,π$，也即隐马尔可夫模型可形式化定义为一个五元组$(N,M,A,B,π)$。</p>
+<h3 id="隐马尔可夫的三个基本问题"><a href="#隐马尔可夫的三个基本问题" class="headerlink" title="隐马尔可夫的三个基本问题"></a>隐马尔可夫的三个基本问题</h3><ol>
+<li><strong>概率计算问题</strong>：给定一个模型$\lambda=(N,M,A,B,\pi)$，如何高效地计算某一输出观察序列$O=O_1O_2…O_T$的概率$P(O|\lambda)$</li>
+<li><strong>编码问题</strong>：给定一个模型$\lambda=(N,M,A,B,\pi)$，和一个输出观察序列$O=O_1O_2…O_T$，如果找到产生这一序列概率最大的状态序列$Q=s_is_j…s_T$</li>
+<li><strong>学习问题</strong>：给定一个模型$\lambda=(N,M,A,B,\pi)$，和一个输出观察序列$O=O_1O_2…O_T$，如何调整参数使得产生这一序列概率最大。</li>
+</ol>
+<p>为了方便分析问题和给出解决方案，这里先介绍一下隐马尔可夫模型的条件独立性假设。隐马可尔可夫模型是一个生成模型，给定一个观察序列，HMMs 模型隐含一个与观察序列对应的状态序列。隐马可夫模型图示如下，图中清楚的表示出了隐马尔可夫模型内部的条件独立关系，有三个独立性假设：（一）t时刻的状态$q_t=s_i$只依赖于t-1时刻的状态。（二）t时刻所生成的值$b_i(O_t)$只依赖于t时刻的状态。（三）状态与具体时间无关。</p>
+<p><img src="./解释.jpg" alt="基本"></p>
+<blockquote>
+<p>了解这三个问题之后就已经知道HMM能够干什么，能够处理什么问题。这就足够了。<br> 以下是解决三个问题的算法</p>
+</blockquote>
+<h3 id="问题1的暴力解法"><a href="#问题1的暴力解法" class="headerlink" title="问题1的暴力解法"></a>问题1的暴力解法</h3><p>枚举所有的状态序列I（长度为T）<br><img src="./暴力.jpg" alt="暴力算法"></p>
+<script type="math/tex; mode=display">
+P(Q|\lambda)=\pi_{q_1}\cdot a_{q_1q_2}\cdot...a_{q_{T-1}q_{T}}</script><script type="math/tex; mode=display">
+P(O|Q,\lambda)=b_{I_1O_1}\cdot b_{I_2O_2}...b_{I_{T-1}O_T}</script><script type="math/tex; mode=display">
+P(O,Q|\lambda)=P(O|I,\lambda)\cdot P(I|\lambda)</script><script type="math/tex; mode=display">
+P(O|\lambda)=\sum_I P(O,Q|\lambda)</script><p>复杂度为 $O(2T\cdot N^T)$ 基本上无法完成</p>
+<h3 id="forward-backward-算法"><a href="#forward-backward-算法" class="headerlink" title="forward-backward 算法"></a>forward-backward 算法</h3><p>问题1的解法：</p>
+<h4 id="前向算法"><a href="#前向算法" class="headerlink" title="前向算法"></a>前向算法</h4><p>假设：$\alpha_t(i)=P(o_1o_2…o_t,q_t=s_i|\lambda)$</p>
+<p>那么就会有：</p>
+<p>初值：$\alpha_1(i)=\pi_ib_{io_1}$</p>
+<p>递推：对于t=1,2…T-1</p>
+<script type="math/tex; mode=display">
+\alpha_{t+1}(j)=(\sum_{i=1}^N \alpha_t(i)a_{ij})b_{jO_{t+1}}</script><p><img src="./前向.jpg" alt="前向算法"><br>最终：$P(O|\lambda)=\sum_{i=1}^N\alpha_T(i)$</p>
+<h4 id="后向算法"><a href="#后向算法" class="headerlink" title="后向算法"></a>后向算法</h4><p>假设：$\beta_t(i)=P(o_{t+1}o_{t+2}…o_T|q_t=s_i,\lambda)$</p>
+<p>初值：$\beta_T(i)=1$</p>
+<p>那么递推就会有：</p>
+<script type="math/tex; mode=display">
+\beta_{t}(j)=\sum_{i=1}^N a_{ji}b_{iO_{t+1}}\beta_{t+1}(i)</script><p><img src="./后向.jpg" alt="后向算法"></p>
+<p>最终：$P(O|\lambda)=\sum_{i=1}^N\pi_ib_{iO1}\beta_1(i)$</p>
+<p>至此前向后向算法就描述完了，其实我个人比较难理解后向算法。</p>
+<h3 id="Viterbi-算法"><a href="#Viterbi-算法" class="headerlink" title="Viterbi 算法"></a>Viterbi 算法</h3><p>问题2的解法：问题 2 是一个解码问题，即从 $N^T$ 个可能的状态序列中找到一个”最优”的状态序列。</p>
+<p>Viterbi 算法：给定观察序列 $Ο=Ο_1Ο_2..Ο_T$，利用 Viterbi 动态规划算法可以有效率的找到一个最优的状态序列 $Q=q_1q_2…q_T$，计算量为 $NT^2$，如下图大致也能明白利用动态规划来找到一个最优的序列。</p>
+<p><img src="./Viterbi.jpg" alt="Viterbi算法"></p>
+<p>假设：$\delta_t(i)=max(P(o_1o_2…o_t,q_t=s_i|\lambda))$<br>初值 : $\delta_1(i)=\pi_ib_i(o_1)$</p>
+<p>递推：</p>
+<script type="math/tex; mode=display">
+\delta_{t+1}(i) = max[\delta_t(j)a_{ji}]b_i(o_t)</script><h3 id="Baum-welch算法"><a href="#Baum-welch算法" class="headerlink" title="Baum-welch算法"></a>Baum-welch算法</h3><p>问题3的解法：使用Baum-welch算法进行最大似然估计。<br>这部分稍微有点复杂自身还未明白。就不在这里贴了，大家感兴趣可以在下文参考资料里找到想要的。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://www.cnblogs.com/shixiangwan/p/8979106.html" target="_blank" rel="noopener">https://www.cnblogs.com/shixiangwan/p/8979106.html</a><br><a href="https://www.cnblogs.com/skyme/p/4651331.html" target="_blank" rel="noopener">https://www.cnblogs.com/skyme/p/4651331.html</a></p>
+
+      
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>写文不易,感谢赏个鸡腿</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/assets/img/weixinpay.jpg" alt="doudou0o WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/assets/img/alipay.jpg" alt="doudou0o Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author: </strong>doudou0o</li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/" title="隐马尔科夫模型">https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/22/2017-03-拉格朗日乘数法/" rel="next" title="拉格朗日乘数法笔记">
+                <i class="fa fa-chevron-left"></i> 拉格朗日乘数法笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/20/2018-07-特征处理之背景知识/" rel="prev" title="特征处理之背景知识">
+                特征处理之背景知识 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
 
         </div>
         
@@ -414,8 +649,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -500,6 +744,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#隐马尔可夫模型"><span class="nav-number">1.</span> <span class="nav-text">隐马尔可夫模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#离散马尔可夫过程"><span class="nav-number">1.1.</span> <span class="nav-text">离散马尔可夫过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐马尔科夫要素"><span class="nav-number">1.2.</span> <span class="nav-text">隐马尔科夫要素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐马尔可夫的三个基本问题"><span class="nav-number">1.3.</span> <span class="nav-text">隐马尔可夫的三个基本问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题1的暴力解法"><span class="nav-number">1.4.</span> <span class="nav-text">问题1的暴力解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#forward-backward-算法"><span class="nav-number">1.5.</span> <span class="nav-text">forward-backward 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前向算法"><span class="nav-number">1.5.1.</span> <span class="nav-text">前向算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后向算法"><span class="nav-number">1.5.2.</span> <span class="nav-text">后向算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Viterbi-算法"><span class="nav-number">1.6.</span> <span class="nav-text">Viterbi 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Baum-welch算法"><span class="nav-number">1.7.</span> <span class="nav-text">Baum-welch算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">1.8.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -636,6 +896,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.4"></script>
+
+
 
   
 
@@ -677,6 +941,30 @@
 
     
 
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: '隐马尔科夫模型',
+            owner: 'doudou0o',
+            repo: 'doudou0o.github.io',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'a753cf2091f8025d3dc7e488d6ec868a6d4613f9',
+            
+                client_id: '60ed80a6055a3fa91e11'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
     
 
 
@@ -1129,6 +1417,29 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 
