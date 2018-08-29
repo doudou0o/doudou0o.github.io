@@ -279,7 +279,7 @@ symbols_count_time:
   #description: ex. subscribe to my blog by scanning my public wechat account
 
 # Reward
-reward_comment: 感谢打赏个鸡腿
+reward_comment: 写文不易,感谢赏个鸡腿
 wechatpay: assets/img/weixinpay.jpg #/images/wechatpay.jpg
 alipay: assets/img/alipay.jpg #/images/alipay.jpg
 #bitcoin: /images/bitcoin.png
