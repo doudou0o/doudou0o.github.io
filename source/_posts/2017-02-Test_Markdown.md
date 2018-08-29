@@ -70,11 +70,11 @@ Markdown 语法手册
 
 大小控制图片
 ```
-{% img full-image /2017/02/22/Test_Markdown/start.jpg 200 200 %}
+<img src="/2017/02/22/2017-02-Test_Markdown/start.jpg" alt="logo" width="50%" height="50%" />
 ```
 
+<img src="/2017/02/22/2017-02-Test_Markdown/start.jpg" alt="logo" width="50%" height="50%" />
 
-{% img full-image /2017/02/22/2017-02-Test_Markdown/start.jpg 200 200 %}
 
 -----
 
