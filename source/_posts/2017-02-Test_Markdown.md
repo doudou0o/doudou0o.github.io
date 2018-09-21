@@ -1,9 +1,10 @@
 ---
 title: Test Markdown
 subtitle: Each post also has a subtitle
-date: 2017-02-22 10:20:26
 tags:
-    - Markdown
+  - Markdown
+abbrlink: 66cfa612
+date: 2017-02-22 10:20:26
 ---
 
 列举一些常用的 `markdown` 语法, 作为测试以及备忘。
