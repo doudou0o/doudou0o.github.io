@@ -150,13 +150,13 @@
 <meta property="og:site_name" content="doudou0o blog">
 <meta property="og:description" content="在求解函数最优化问题中，拉格朗日乘子法（Lagrange Multiplier）和KKT（Karush Kuhn Tucker）条件是两种最常用的方法。函数有等式约束时使用拉格朗日乘子法，函数有不等约束时使用KKT条件。本文简要的复习下拉格朗日乘数法的浅层次问题。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://doudou0o.com/2017/03/22/2017-03-拉格朗日乘数法/hyperbola.png">
-<meta property="og:image" content="http://doudou0o.com/archives/2456c8ba/contour_line.png">
-<meta property="og:updated_time" content="2018-09-21T16:26:04.535Z">
+<meta property="og:image" content="http://doudou0o.com/archives/2456c8ba/拉格朗日乘数法笔记/hyperbola.png">
+<meta property="og:image" content="http://doudou0o.com/archives/2456c8ba/拉格朗日乘数法笔记/contour_line.png">
+<meta property="og:updated_time" content="2018-09-22T14:01:19.067Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="拉格朗日乘数法笔记">
 <meta name="twitter:description" content="在求解函数最优化问题中，拉格朗日乘子法（Lagrange Multiplier）和KKT（Karush Kuhn Tucker）条件是两种最常用的方法。函数有等式约束时使用拉格朗日乘子法，函数有不等约束时使用KKT条件。本文简要的复习下拉格朗日乘数法的浅层次问题。">
-<meta name="twitter:image" content="http://doudou0o.com/2017/03/22/2017-03-拉格朗日乘数法/hyperbola.png">
+<meta name="twitter:image" content="http://doudou0o.com/archives/2456c8ba/拉格朗日乘数法笔记/hyperbola.png">
 
 
 
@@ -468,9 +468,9 @@ F(x,y,\lambda) = f(x,y)+\lambda \cdot(g(x,y)-c)</script><h3 id="无约束时函�
 <h3 id="等式约束时函数最优问题"><a href="#等式约束时函数最优问题" class="headerlink" title="等式约束时函数最优问题"></a>等式约束时函数最优问题</h3><p>设目标函数为 $f(x,y)$， 约束条件为 $g(x,y)=c$。问题是如何在满足约束条件的情况下，使得目标函数最大(最小)。</p>
 <p>使用一个例子来描述这个问题：在双曲线 xy=3 的情况下，哪个点离原点最近。</p>
 <script type="math/tex; mode=display">f(x,y)=x^2+y^2 g(x,y)=xy=3</script><p>如图：</p>
-<img src="/2017/03/22/2017-03-拉格朗日乘数法/hyperbola.png" class="full-image" width="500" height="500">
+<img src="/archives/2456c8ba/拉格朗日乘数法笔记/hyperbola.png" class="full-image" width="500" height="500">
 <p>那么f(x,y) 可以被描述为无数个一圈圈的等高线(图中所有颜色的圆圈线)，这些等高线与双曲线相交的点是满足约束条件的点。那么离原点最近的点，就是等高线与双曲线互切处的点，如图中，红色的点。</p>
-<p><img src="./contour_line.png" alt=""></p>
+<p><img src="./拉格朗日乘数法笔记/contour_line.png" alt="11"></p>
 <ol>
 <li>绿色的等高线无法与双曲线相交，没有满足约束条件的解</li>
 <li>蓝色点虽然满足约束条件，但并非最优解</li>

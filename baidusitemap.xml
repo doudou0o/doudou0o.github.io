@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://doudou0o.com/archives/66cfa612/test-markdown.html</loc>
+    <lastmod>2018-09-22T14:06:23.239Z</lastmod>
+  </url>  <url>
+    <loc>http://doudou0o.com/archives/2456c8ba/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0%E6%B3%95%E7%AC%94%E8%AE%B0.html</loc>
+    <lastmod>2018-09-22T14:01:19.067Z</lastmod>
+  </url>  <url>
     <loc>http://doudou0o.com/archives/a66e40a/%E9%9A%90%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E6%A8%A1%E5%9E%8B.html</loc>
-    <lastmod>2018-09-21T16:26:04.536Z</lastmod>
+    <lastmod>2018-09-22T13:52:30.078Z</lastmod>
   </url>  <url>
     <loc>http://doudou0o.com/archives/45aaf959/%E7%89%B9%E5%BE%81%E5%A4%84%E7%90%86%E4%B9%8B%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86.html</loc>
     <lastmod>2018-09-21T16:26:04.536Z</lastmod>
@@ -10,14 +16,8 @@
     <loc>http://doudou0o.com/archives/fe118cd8/python-logging%E6%97%A5%E5%BF%97%E6%A8%A1%E5%9D%97%E4%BB%A5%E5%8F%8A%E5%A4%9A%E8%BF%9B%E7%A8%8B%E6%97%A5%E5%BF%97.html</loc>
     <lastmod>2018-09-21T16:26:04.535Z</lastmod>
   </url>  <url>
-    <loc>http://doudou0o.com/archives/2456c8ba/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0%E6%B3%95%E7%AC%94%E8%AE%B0.html</loc>
-    <lastmod>2018-09-21T16:26:04.535Z</lastmod>
-  </url>  <url>
     <loc>http://doudou0o.com/archives/e3ad352f/python%E7%89%88%E6%9C%AC%E5%85%B1%E5%AD%98%E5%92%8C%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83.html</loc>
     <lastmod>2018-09-21T16:26:04.535Z</lastmod>
-  </url>  <url>
-    <loc>http://doudou0o.com/archives/66cfa612/test-markdown.html</loc>
-    <lastmod>2018-09-21T16:26:04.534Z</lastmod>
   </url>  <url>
     <loc>http://doudou0o.com/archives/6358f960/10-regular-expression-matching.html</loc>
     <lastmod>2018-09-21T16:26:04.534Z</lastmod>

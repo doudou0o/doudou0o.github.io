@@ -150,17 +150,17 @@
 <meta property="og:site_name" content="doudou0o blog">
 <meta property="og:description" content="隐马尔科夫模型是一种统计模型，他由马尔科夫随机过程生成无法观察的状态随机序列，每个状态又会生成不同的观测值，从而产生随机观测序列。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://doudou0o.com/archives/a66e40a/base.jpg">
-<meta property="og:image" content="http://doudou0o.com/archives/a66e40a/解释.jpg">
-<meta property="og:image" content="http://doudou0o.com/archives/a66e40a/暴力.jpg">
-<meta property="og:image" content="http://doudou0o.com/archives/a66e40a/前向.jpg">
-<meta property="og:image" content="http://doudou0o.com/archives/a66e40a/后向.jpg">
-<meta property="og:image" content="http://doudou0o.com/archives/a66e40a/Viterbi.jpg">
-<meta property="og:updated_time" content="2018-09-21T16:26:04.536Z">
+<meta property="og:image" content="http://doudou0o.com/archives/a66e40a/隐马尔科夫模型/base.jpg">
+<meta property="og:image" content="http://doudou0o.com/archives/a66e40a/隐马尔科夫模型/解释.jpg">
+<meta property="og:image" content="http://doudou0o.com/archives/a66e40a/隐马尔科夫模型/暴力.jpg">
+<meta property="og:image" content="http://doudou0o.com/archives/a66e40a/隐马尔科夫模型/前向.jpg">
+<meta property="og:image" content="http://doudou0o.com/archives/a66e40a/隐马尔科夫模型/后向.jpg">
+<meta property="og:image" content="http://doudou0o.com/archives/a66e40a/隐马尔科夫模型/Viterbi.jpg">
+<meta property="og:updated_time" content="2018-09-22T13:52:30.078Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="隐马尔科夫模型">
 <meta name="twitter:description" content="隐马尔科夫模型是一种统计模型，他由马尔科夫随机过程生成无法观察的状态随机序列，每个状态又会生成不同的观测值，从而产生随机观测序列。">
-<meta name="twitter:image" content="http://doudou0o.com/archives/a66e40a/base.jpg">
+<meta name="twitter:image" content="http://doudou0o.com/archives/a66e40a/隐马尔科夫模型/base.jpg">
 
 
 
@@ -478,7 +478,7 @@ a_{ij}=P[q_t=s_i|q_{t-1}=s_j]</script><p>其中转移概率$a{ij}$自然有两�
 <li>$\pi$ ，表示状态分布，$\pi=\{\pi_j\}$，其中$\pi_j=P[q_1=S_j]$</li>
 </ol>
 <p>给定$N,M,A,B,\pi$，HMMs能输出一个观察序列$O=O_1O_2…O_T$，其中$O_t\in V$ ，$T$ 是观察序列的数量。</p>
-<p><img src="./base.jpg" alt="基本"></p>
+<p><img src="./隐马尔科夫模型/base.jpg" alt="基本"></p>
 <p>从以上的讨论可知，一个完整的隐马尔可夫模型要求两个具体的模型参数 $N$ 和 $M$，和三个概率矩阵 $A,B,π$，也即隐马尔可夫模型可形式化定义为一个五元组$(N,M,A,B,π)$。</p>
 <h3 id="隐马尔可夫的三个基本问题"><a href="#隐马尔可夫的三个基本问题" class="headerlink" title="隐马尔可夫的三个基本问题"></a>隐马尔可夫的三个基本问题</h3><ol>
 <li><strong>概率计算问题</strong>：给定一个模型$\lambda=(N,M,A,B,\pi)$，如何高效地计算某一输出观察序列$O=O_1O_2…O_T$的概率$P(O|\lambda)$</li>
@@ -486,11 +486,11 @@ a_{ij}=P[q_t=s_i|q_{t-1}=s_j]</script><p>其中转移概率$a{ij}$自然有两�
 <li><strong>学习问题</strong>：给定一个模型$\lambda=(N,M,A,B,\pi)$，和一个输出观察序列$O=O_1O_2…O_T$，如何调整参数使得产生这一序列概率最大。</li>
 </ol>
 <p>为了方便分析问题和给出解决方案，这里先介绍一下隐马尔可夫模型的条件独立性假设。隐马可尔可夫模型是一个生成模型，给定一个观察序列，HMMs 模型隐含一个与观察序列对应的状态序列。隐马可夫模型图示如下，图中清楚的表示出了隐马尔可夫模型内部的条件独立关系，有三个独立性假设：（一）t时刻的状态$q_t=s_i$只依赖于t-1时刻的状态。（二）t时刻所生成的值$b_i(O_t)$只依赖于t时刻的状态。（三）状态与具体时间无关。</p>
-<p><img src="./解释.jpg" alt="基本"></p>
+<p><img src="./隐马尔科夫模型/解释.jpg" alt="基本"></p>
 <blockquote>
 <p>了解这三个问题之后就已经知道HMM能够干什么，能够处理什么问题。这就足够了。<br> 以下是解决三个问题的算法</p>
 </blockquote>
-<h3 id="问题1的暴力解法"><a href="#问题1的暴力解法" class="headerlink" title="问题1的暴力解法"></a>问题1的暴力解法</h3><p>枚举所有的状态序列I（长度为T）<br><img src="./暴力.jpg" alt="暴力算法"></p>
+<h3 id="问题1的暴力解法"><a href="#问题1的暴力解法" class="headerlink" title="问题1的暴力解法"></a>问题1的暴力解法</h3><p>枚举所有的状态序列I（长度为T）<br><img src="./隐马尔科夫模型/暴力.jpg" alt="暴力算法"></p>
 <script type="math/tex; mode=display">
 P(Q|\lambda)=\pi_{q_1}\cdot a_{q_1q_2}\cdot...a_{q_{T-1}q_{T}}</script><script type="math/tex; mode=display">
 P(O|Q,\lambda)=b_{I_1O_1}\cdot b_{I_2O_2}...b_{I_{T-1}O_T}</script><script type="math/tex; mode=display">
@@ -502,17 +502,18 @@ P(O|\lambda)=\sum_I P(O,Q|\lambda)</script><p>复杂度为 $O(2T\cdot N^T)$ 基�
 <p>初值：$\alpha_1(i)=\pi_ib_{io_1}$</p>
 <p>递推：对于t=1,2…T-1</p>
 <script type="math/tex; mode=display">
-\alpha_{t+1}(j)=(\sum_{i=1}^N \alpha_t(i)a_{ij})b_{jO_{t+1}}</script><p><img src="./前向.jpg" alt="前向算法"><br>最终：$P(O|\lambda)=\sum_{i=1}^N\alpha_T(i)$</p>
+\alpha_{t+1}(j)=(\sum_{i=1}^N \alpha_t(i)a_{ij})b_{jO_{t+1}}</script><p><img src="./隐马尔科夫模型/前向.jpg" alt="前向算法"></p>
+<p>最终：$P(O|\lambda)=\sum_{i=1}^N\alpha_T(i)$</p>
 <h4 id="后向算法"><a href="#后向算法" class="headerlink" title="后向算法"></a>后向算法</h4><p>假设：$\beta_t(i)=P(o_{t+1}o_{t+2}…o_T|q_t=s_i,\lambda)$</p>
 <p>初值：$\beta_T(i)=1$</p>
 <p>那么递推就会有：</p>
 <script type="math/tex; mode=display">
-\beta_{t}(j)=\sum_{i=1}^N a_{ji}b_{iO_{t+1}}\beta_{t+1}(i)</script><p><img src="./后向.jpg" alt="后向算法"></p>
+\beta_{t}(j)=\sum_{i=1}^N a_{ji}b_{iO_{t+1}}\beta_{t+1}(i)</script><p><img src="./隐马尔科夫模型/后向.jpg" alt="后向算法"></p>
 <p>最终：$P(O|\lambda)=\sum_{i=1}^N\pi_ib_{iO1}\beta_1(i)$</p>
 <p>至此前向后向算法就描述完了，其实我个人比较难理解后向算法。</p>
 <h3 id="Viterbi-算法"><a href="#Viterbi-算法" class="headerlink" title="Viterbi 算法"></a>Viterbi 算法</h3><p>问题2的解法：问题 2 是一个解码问题，即从 $N^T$ 个可能的状态序列中找到一个”最优”的状态序列。</p>
 <p>Viterbi 算法：给定观察序列 $Ο=Ο_1Ο_2..Ο_T$，利用 Viterbi 动态规划算法可以有效率的找到一个最优的状态序列 $Q=q_1q_2…q_T$，计算量为 $NT^2$，如下图大致也能明白利用动态规划来找到一个最优的序列。</p>
-<p><img src="./Viterbi.jpg" alt="Viterbi算法"></p>
+<p><img src="./隐马尔科夫模型/Viterbi.jpg" alt="Viterbi算法"></p>
 <p>假设：$\delta_t(i)=max(P(o_1o_2…o_t,q_t=s_i|\lambda))$<br>初值 : $\delta_1(i)=\pi_ib_i(o_1)$</p>
 <p>递推：</p>
 <script type="math/tex; mode=display">
