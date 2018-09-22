@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /tags/ 
+Allow: /about/ 
+Disallow: /datamining/
+Disallow: /leetcode/
+Disallow: /vendors/
+Disallow: /js/
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /vendors/
+Disallow: /fancybox/
+
+Sitemap: https://www.doudou0o.com/sitemap.xml
+Sitemap: https://www.doudou0o.com/baidusitemap.xml

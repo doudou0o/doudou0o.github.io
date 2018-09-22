@@ -138,24 +138,32 @@
 
 
 
-  <meta name="description" content="leetcode #10 Regular Expression Matching 题目详解, 看网上帖子说的不清楚都是直接给代码也没个例子，所以起个帖子记录下自己的思路。 本文主要讲述递归解法和动态规划解法的思想。">
+  <meta name="description" content="隐马尔科夫模型是一种统计模型，他由马尔科夫随机过程生成无法观察的状态随机序列，每个状态又会生成不同的观测值，从而产生随机观测序列。">
+<meta name="keywords" content="隐马尔科夫">
 <meta property="og:type" content="article">
-<meta property="og:title" content="10. Regular Expression Matching">
-<meta property="og:url" content="https://github.com/doudou0o/2017/02/27/2017-02-leetcode_10_Regular_Expression_Matching/index.html">
+<meta property="og:title" content="隐马尔科夫模型">
+<meta property="og:url" content="https://github.com/doudou0o/archives/a66e40a/隐马尔科夫模型.html">
 <meta property="og:site_name" content="doudou0o blog">
-<meta property="og:description" content="leetcode #10 Regular Expression Matching 题目详解, 看网上帖子说的不清楚都是直接给代码也没个例子，所以起个帖子记录下自己的思路。 本文主要讲述递归解法和动态规划解法的思想。">
+<meta property="og:description" content="隐马尔科夫模型是一种统计模型，他由马尔科夫随机过程生成无法观察的状态随机序列，每个状态又会生成不同的观测值，从而产生随机观测序列。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-26T15:07:00.024Z">
+<meta property="og:image" content="https://github.com/doudou0o/archives/a66e40a/base.jpg">
+<meta property="og:image" content="https://github.com/doudou0o/archives/a66e40a/解释.jpg">
+<meta property="og:image" content="https://github.com/doudou0o/archives/a66e40a/暴力.jpg">
+<meta property="og:image" content="https://github.com/doudou0o/archives/a66e40a/前向.jpg">
+<meta property="og:image" content="https://github.com/doudou0o/archives/a66e40a/后向.jpg">
+<meta property="og:image" content="https://github.com/doudou0o/archives/a66e40a/Viterbi.jpg">
+<meta property="og:updated_time" content="2018-09-21T16:26:04.536Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="10. Regular Expression Matching">
-<meta name="twitter:description" content="leetcode #10 Regular Expression Matching 题目详解, 看网上帖子说的不清楚都是直接给代码也没个例子，所以起个帖子记录下自己的思路。 本文主要讲述递归解法和动态规划解法的思想。">
+<meta name="twitter:title" content="隐马尔科夫模型">
+<meta name="twitter:description" content="隐马尔科夫模型是一种统计模型，他由马尔科夫随机过程生成无法观察的状态随机序列，每个状态又会生成不同的观测值，从而产生随机观测序列。">
+<meta name="twitter:image" content="https://github.com/doudou0o/archives/a66e40a/base.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="https://github.com/doudou0o/2017/02/27/2017-02-leetcode_10_Regular_Expression_Matching/"/>
+  <link rel="canonical" href="https://github.com/doudou0o/archives/a66e40a/隐马尔科夫模型.html"/>
 
 
 
@@ -165,7 +173,7 @@
   };
 </script>
 
-  <title>10. Regular Expression Matching | doudou0o blog</title>
+  <title>隐马尔科夫模型 | doudou0o blog</title>
   
 
 
@@ -229,7 +237,7 @@
     </div>
     
       
-        <p class="site-subtitle">沉淀知识 分享知识</p>
+        <h1 class="site-subtitle" itemprop="description">沉淀知识 分享知识</h1>
       
     
   </div>
@@ -261,7 +269,7 @@
         
         
           
-          <li class="menu-item menu-item-archives">
+          <li class="menu-item menu-item-archives menu-item-active">
     <a href="/archives/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
   </li>
@@ -361,7 +369,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/doudou0o/2017/02/27/2017-02-leetcode_10_Regular_Expression_Matching/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/doudou0o/archives/a66e40a/隐马尔科夫模型.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="doudou0o">
@@ -378,10 +386,10 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">10. Regular Expression Matching
+          <h2 class="post-title" itemprop="name headline">隐马尔科夫模型
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -403,7 +411,7 @@
                 
               
 
-              <time title="Created: 2017-02-27 15:30:10" itemprop="dateCreated datePublished" datetime="2017-02-27T15:30:10+08:00">2017-02-27</time>
+              <time title="Created: 2018-02-08 10:20:26" itemprop="dateCreated datePublished" datetime="2018-02-08T10:20:26+08:00">2018-02-08</time>
             
 
             
@@ -417,7 +425,7 @@
 
           
           
-             <span id="/2017/02/27/2017-02-leetcode_10_Regular_Expression_Matching/" class="leancloud_visitors" data-flag-title="10. Regular Expression Matching">
+             <span id="/archives/a66e40a/隐马尔科夫模型.html" class="leancloud_visitors" data-flag-title="隐马尔科夫模型">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -448,97 +456,64 @@
       
 
       
-        <p>leetcode #10 Regular Expression Matching 题目详解, 看网上帖子说的不清楚都是直接给代码也没个例子，所以起个帖子记录下自己的思路。</p>
-<p>本文主要讲述递归解法和动态规划解法的思想。</p>
+        <p>隐马尔科夫模型是一种统计模型，他由马尔科夫随机过程生成<strong>无法观察的状态随机序列</strong>，每个状态又会生成不同的观测值，从而产生<strong>随机观测序列</strong>。</p>
 <a id="more"></a>
-<h1 id="10-Regular-Expression-Matching"><a href="#10-Regular-Expression-Matching" class="headerlink" title="10. Regular Expression Matching"></a>10. Regular Expression Matching</h1><p>原文要求如下：</p>
-<p>Implement regular expression matching with support for <code>&#39;.&#39;</code> and <code>&#39;*&#39;</code>.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&apos;.&apos; Matches any single character.</span><br><span class="line">&apos;*&apos; Matches zero or more of the preceding element.</span><br><span class="line"></span><br><span class="line">The matching should cover the **entire** input string (not partial).</span><br><span class="line"></span><br><span class="line">The function prototype should be:</span><br><span class="line">bool isMatch(const char *s, const char *p)</span><br><span class="line"></span><br><span class="line">Some examples:</span><br><span class="line">isMatch(&quot;aa&quot;,&quot;a&quot;) → false</span><br><span class="line">isMatch(&quot;aa&quot;,&quot;aa&quot;) → true</span><br><span class="line">isMatch(&quot;aaa&quot;,&quot;aa&quot;) → false</span><br><span class="line">isMatch(&quot;aa&quot;, &quot;a*&quot;) → true</span><br><span class="line">isMatch(&quot;aa&quot;, &quot;.*&quot;) → true</span><br><span class="line">isMatch(&quot;ab&quot;, &quot;.*&quot;) → true</span><br><span class="line">isMatch(&quot;aab&quot;, &quot;c*a*b&quot;) → true</span><br><span class="line">isMatch(&quot;aaaa&quot;,&quot;ab*a*c*a&quot;) → true #自己加的</span><br></pre></td></tr></table></figure></p>
-<h3 id="解法有两种"><a href="#解法有两种" class="headerlink" title="解法有两种"></a>解法有两种</h3><h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><p>递归想法比较简单代码也比较清楚，但耗时很长复杂度是指数级别<br>考虑递归思想时，只需要考虑终结情况，和当前情况，其他的任由递归完成<br>当前情况的考虑如下：<br>因为<code>*</code>号是最复杂的情况甚至可以发生0次于是分成两种情况分别考虑：p[1] 为 <code>*</code> 和 p[1] 不为 <code>*</code></p>
-<ol>
-<li><code>p[1] != *</code> 时：说明当前p[0]不会发生0-n次的变化直接对比就可以，剩下的交给递归<ol>
-<li><code>s[0] == p[0]</code> 判等（这个相等包含了<code>.</code>的情况，后面相同）</li>
-<li>递归判断 <code>isMatch(s[1:],p[1:])</code> 两个子串</li>
-</ol>
-</li>
-<li><code>p[1] == *</code> 时：说明当前p[0]会发生0-n次的变化，而且都是有效的<ol>
-<li>假设发生 0次 ：那么直接将p[0,1]跳过进行递归 <code>isMatch(s,p[2:])</code></li>
-<li>假设发生 1次以上：那么得先判等，然后s+1进行递归 <code>s[0]==p[0] and isMatch(s[1:],p)</code></li>
-</ol>
-</li>
-</ol>
-<p>好了所有情况都考虑好了，就可以直接上代码了，递归思想还是比较简单，直接看代码可能比看上述文字更加简单直接。</p>
-<blockquote>
-<p>talk is cheep show me code：</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isMatch</span><span class="params">(self, s, p)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :type p: str</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> p==<span class="string">""</span>:</span><br><span class="line">            <span class="keyword">return</span> s==<span class="string">""</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> len(p)&gt;<span class="number">1</span> <span class="keyword">and</span> <span class="string">'*'</span> == p[<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">return</span> self.isMatch(s, p[<span class="number">2</span>:]) <span class="keyword">or</span> ((s!=<span class="string">""</span> <span class="keyword">and</span> (s[<span class="number">0</span>]==p[<span class="number">0</span>] <span class="keyword">or</span> <span class="string">'.'</span>==p[<span class="number">0</span>])) <span class="keyword">and</span> self.isMatch(s[<span class="number">1</span>:], p))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> (s!=<span class="string">""</span> <span class="keyword">and</span> (s[<span class="number">0</span>]==p[<span class="number">0</span>] <span class="keyword">or</span> <span class="string">'.'</span>==p[<span class="number">0</span>])) <span class="keyword">and</span> self.isMatch(s[<span class="number">1</span>:], p[<span class="number">1</span>:])</span><br></pre></td></tr></table></figure>
-<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><p>动态规划处理这个问题，更加有效，复杂度为 <code>O(N*M)</code>.但是不同于递归直接看代码，动态规划我简直还是先看状态公式更加明了。<br>用dp[i][j]来代表 s[0:i] 与 p[0:j] 是否匹配，初始化 dp[0][0]=1(空串匹配空串)</p>
+<h2 id="隐马尔可夫模型"><a href="#隐马尔可夫模型" class="headerlink" title="隐马尔可夫模型"></a>隐马尔可夫模型</h2><p>隐马尔科夫模型(HMM)是一种统计模型，他由马尔可夫随机过程生成<strong>无法观察的状态随机序列</strong>，每个状态又会生成不同的观测值，从而产生<strong>随机观测序列</strong>。<br>因为状态序列是隐含的并且符合马尔科夫过程因此称为隐马尔可夫模型。他有三个基本问题，处理好这三个基本问题，基本就能熟练运用隐马尔可夫模型。<br><strong>概率计算问题</strong>: 能够对某个观测序列给出其发生的概率；<br><strong>学习问题</strong>: 通过一个观测序列，调整(学习)参数使得这个观测序列发生概率最大；(最大似然)<br><strong>编码问题</strong>: 通过一个观测序列，给出隐含的概率最大的状态序列</p>
+<h3 id="离散马尔可夫过程"><a href="#离散马尔可夫过程" class="headerlink" title="离散马尔可夫过程"></a>离散马尔可夫过程</h3><p>首先什么是马尔可夫过程。假设有N个不同的状态 $\{S_1,S_2,…S_N\}$ 的随机过程。$a_{ij}$ 代表 $S_i$ 到 $S_j$ 的转移概率。当这个随机过程满足：当前的状态仅与它之前的状态有关时，就是马尔可夫过程。用公式表达即：</p>
 <script type="math/tex; mode=display">
-dp[i][j]=
-\begin{cases}
-dp[i][j-1],                             &  p[j-1]为\* 考虑到\*只重复1次
-\\\\dp[i][j-2],                         &  p[j-1]为\* 考虑到\*只重复0次
-\\\\dp[i-1][j]\;\&\&\;S[i-1]==P[j-2],   &  p[j-1]为\* 考虑到\*只重复多次
-\\\\dp[i-1][j-1] \;\&\&\; S[i-1]=P[j-1],&  p[j-1]不为\*
-\end{cases}</script><p>从状态公式基本也能看的明白，要计算 dp[i][j] 的值，要分成两个情况，两个情况分别处理后就能将dp填满，则最后的结果就是 dp[len(s)][len(p)]的值</p>
-<p>如果看公式还有点不清楚，来举个栗子：<code>s=&quot;ccd&quot; , p=&quot;a*c*d&quot;</code><br>dp的矩阵情况如下：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>^</th>
-<th>a</th>
-<th>*</th>
-<th>c</th>
-<th>*</th>
-<th>d</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>^</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>c</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td><font color="blue">1</font></td>
-<td>0</td>
-</tr>
-<tr>
-<td>c</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td><font color="red">1</font></td>
-<td>0</td>
-</tr>
-<tr>
-<td>d</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>蓝色那个是因为 dp[i][j-1]=1 所以这个*只重复1的匹配结果，因此可以为 1<br>红色那个是因为 dp[i-1][j]=1 &amp;&amp; s[i-1]==p[j-2] 代表已经被重复过了，不止1次，但依然可以被继续重复下去</p>
+P[q_t=S_i|q_{t-1}=s_j,q_{t-2}=s_k,...] = P[q_t=s_i|q_{t-1}=s_j]</script><p>于是得到转移概率：</p>
+<script type="math/tex; mode=display">
+a_{ij}=P[q_t=s_i|q_{t-1}=s_j]</script><p>其中转移概率$a{ij}$自然有两个属性：$a_{ij}\geq0$和$\sum_{j=1}^{N}a_{ij}=1$</p>
+<p>以上就是离散马尔科夫随机过程。</p>
+<h3 id="隐马尔科夫要素"><a href="#隐马尔科夫要素" class="headerlink" title="隐马尔科夫要素"></a>隐马尔科夫要素</h3><p>隐马尔可夫有五个要素组成：</p>
+<ol>
+<li>$N$ ，表示模型中的状态数（隐式状态）。模型中的各个状态是相互连结的，任何状态能从其它状态到达。我们用 $S$ 表示各个状态的集合，$S=\{s_1,s_2,…,s_N\}$， $q_t$ 表示 t 时刻的状态。</li>
+<li>$M$ ，表示模型中每个状态不同的观察集合(可见状态)数量。我们用$V$表示各个观察值(可见状态)集合，$V=\{v_1,v_2,…,v_M\}$</li>
+<li>$A$ ，状态转移概率分布</li>
+<li>$B$ ，观察字符在状态j时的概率分布，$B=\{b_j(k)\}$，其中$b_j(k)=P[v_k|q_t=S_j]$</li>
+<li>$\pi$ ，表示状态分布，$\pi=\{\pi_j\}$，其中$\pi_j=P[q_1=S_j]$</li>
+</ol>
+<p>给定$N,M,A,B,\pi$，HMMs能输出一个观察序列$O=O_1O_2…O_T$，其中$O_t\in V$ ，$T$ 是观察序列的数量。</p>
+<p><img src="./base.jpg" alt="基本"></p>
+<p>从以上的讨论可知，一个完整的隐马尔可夫模型要求两个具体的模型参数 $N$ 和 $M$，和三个概率矩阵 $A,B,π$，也即隐马尔可夫模型可形式化定义为一个五元组$(N,M,A,B,π)$。</p>
+<h3 id="隐马尔可夫的三个基本问题"><a href="#隐马尔可夫的三个基本问题" class="headerlink" title="隐马尔可夫的三个基本问题"></a>隐马尔可夫的三个基本问题</h3><ol>
+<li><strong>概率计算问题</strong>：给定一个模型$\lambda=(N,M,A,B,\pi)$，如何高效地计算某一输出观察序列$O=O_1O_2…O_T$的概率$P(O|\lambda)$</li>
+<li><strong>编码问题</strong>：给定一个模型$\lambda=(N,M,A,B,\pi)$，和一个输出观察序列$O=O_1O_2…O_T$，如果找到产生这一序列概率最大的状态序列$Q=s_is_j…s_T$</li>
+<li><strong>学习问题</strong>：给定一个模型$\lambda=(N,M,A,B,\pi)$，和一个输出观察序列$O=O_1O_2…O_T$，如何调整参数使得产生这一序列概率最大。</li>
+</ol>
+<p>为了方便分析问题和给出解决方案，这里先介绍一下隐马尔可夫模型的条件独立性假设。隐马可尔可夫模型是一个生成模型，给定一个观察序列，HMMs 模型隐含一个与观察序列对应的状态序列。隐马可夫模型图示如下，图中清楚的表示出了隐马尔可夫模型内部的条件独立关系，有三个独立性假设：（一）t时刻的状态$q_t=s_i$只依赖于t-1时刻的状态。（二）t时刻所生成的值$b_i(O_t)$只依赖于t时刻的状态。（三）状态与具体时间无关。</p>
+<p><img src="./解释.jpg" alt="基本"></p>
 <blockquote>
-<p>talk is cheep show me code：</p>
+<p>了解这三个问题之后就已经知道HMM能够干什么，能够处理什么问题。这就足够了。<br> 以下是解决三个问题的算法</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isMatch</span><span class="params">(self, s, p)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :type p: str</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        lens = len(s)</span><br><span class="line">        lenp = len(p)</span><br><span class="line">        dp = [[<span class="keyword">False</span> <span class="keyword">for</span> col <span class="keyword">in</span> range(lenp+<span class="number">1</span>)] <span class="keyword">for</span> row <span class="keyword">in</span> range(lens+<span class="number">1</span>)]</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, lenp+<span class="number">1</span>):</span><br><span class="line">            dp[<span class="number">0</span>][j] = p[j<span class="number">-1</span>]==<span class="string">'*'</span> <span class="keyword">and</span> dp[<span class="number">0</span>][j<span class="number">-2</span>]==<span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, lens+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, lenp+<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> p[j<span class="number">-1</span>] == <span class="string">'*'</span>:</span><br><span class="line">                    dp[i][j] = dp[i][j<span class="number">-2</span>] <span class="keyword">or</span> dp[i][j<span class="number">-1</span>] <span class="keyword">or</span> (dp[i<span class="number">-1</span>][j] <span class="keyword">and</span> (s[i<span class="number">-1</span>]==p[j<span class="number">-2</span>] <span class="keyword">or</span> <span class="string">'.'</span>==p[j<span class="number">-2</span>]))</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>] <span class="keyword">and</span> (s[i<span class="number">-1</span>]==p[j<span class="number">-1</span>] <span class="keyword">or</span> <span class="string">'.'</span>==p[j<span class="number">-1</span>])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[lens][lenp]</span><br></pre></td></tr></table></figure>
+<h3 id="问题1的暴力解法"><a href="#问题1的暴力解法" class="headerlink" title="问题1的暴力解法"></a>问题1的暴力解法</h3><p>枚举所有的状态序列I（长度为T）<br><img src="./暴力.jpg" alt="暴力算法"></p>
+<script type="math/tex; mode=display">
+P(Q|\lambda)=\pi_{q_1}\cdot a_{q_1q_2}\cdot...a_{q_{T-1}q_{T}}</script><script type="math/tex; mode=display">
+P(O|Q,\lambda)=b_{I_1O_1}\cdot b_{I_2O_2}...b_{I_{T-1}O_T}</script><script type="math/tex; mode=display">
+P(O,Q|\lambda)=P(O|I,\lambda)\cdot P(I|\lambda)</script><script type="math/tex; mode=display">
+P(O|\lambda)=\sum_I P(O,Q|\lambda)</script><p>复杂度为 $O(2T\cdot N^T)$ 基本上无法完成</p>
+<h3 id="forward-backward-算法"><a href="#forward-backward-算法" class="headerlink" title="forward-backward 算法"></a>forward-backward 算法</h3><p>问题1的解法：</p>
+<h4 id="前向算法"><a href="#前向算法" class="headerlink" title="前向算法"></a>前向算法</h4><p>假设：$\alpha_t(i)=P(o_1o_2…o_t,q_t=s_i|\lambda)$</p>
+<p>那么就会有：</p>
+<p>初值：$\alpha_1(i)=\pi_ib_{io_1}$</p>
+<p>递推：对于t=1,2…T-1</p>
+<script type="math/tex; mode=display">
+\alpha_{t+1}(j)=(\sum_{i=1}^N \alpha_t(i)a_{ij})b_{jO_{t+1}}</script><p><img src="./前向.jpg" alt="前向算法"><br>最终：$P(O|\lambda)=\sum_{i=1}^N\alpha_T(i)$</p>
+<h4 id="后向算法"><a href="#后向算法" class="headerlink" title="后向算法"></a>后向算法</h4><p>假设：$\beta_t(i)=P(o_{t+1}o_{t+2}…o_T|q_t=s_i,\lambda)$</p>
+<p>初值：$\beta_T(i)=1$</p>
+<p>那么递推就会有：</p>
+<script type="math/tex; mode=display">
+\beta_{t}(j)=\sum_{i=1}^N a_{ji}b_{iO_{t+1}}\beta_{t+1}(i)</script><p><img src="./后向.jpg" alt="后向算法"></p>
+<p>最终：$P(O|\lambda)=\sum_{i=1}^N\pi_ib_{iO1}\beta_1(i)$</p>
+<p>至此前向后向算法就描述完了，其实我个人比较难理解后向算法。</p>
+<h3 id="Viterbi-算法"><a href="#Viterbi-算法" class="headerlink" title="Viterbi 算法"></a>Viterbi 算法</h3><p>问题2的解法：问题 2 是一个解码问题，即从 $N^T$ 个可能的状态序列中找到一个”最优”的状态序列。</p>
+<p>Viterbi 算法：给定观察序列 $Ο=Ο_1Ο_2..Ο_T$，利用 Viterbi 动态规划算法可以有效率的找到一个最优的状态序列 $Q=q_1q_2…q_T$，计算量为 $NT^2$，如下图大致也能明白利用动态规划来找到一个最优的序列。</p>
+<p><img src="./Viterbi.jpg" alt="Viterbi算法"></p>
+<p>假设：$\delta_t(i)=max(P(o_1o_2…o_t,q_t=s_i|\lambda))$<br>初值 : $\delta_1(i)=\pi_ib_i(o_1)$</p>
+<p>递推：</p>
+<script type="math/tex; mode=display">
+\delta_{t+1}(i) = max[\delta_t(j)a_{ji}]b_i(o_t)</script><h3 id="Baum-welch算法"><a href="#Baum-welch算法" class="headerlink" title="Baum-welch算法"></a>Baum-welch算法</h3><p>问题3的解法：使用Baum-welch算法进行最大似然估计。<br>这部分稍微有点复杂自身还未明白。就不在这里贴了，大家感兴趣可以在下文参考资料里找到想要的。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://www.cnblogs.com/shixiangwan/p/8979106.html" target="_blank" rel="noopener">https://www.cnblogs.com/shixiangwan/p/8979106.html</a><br><a href="https://www.cnblogs.com/skyme/p/4651331.html" target="_blank" rel="noopener">https://www.cnblogs.com/skyme/p/4651331.html</a></p>
 
       
     </div>
@@ -589,7 +564,7 @@ dp[i][j-1],                             &  p[j-1]为\* 考虑到\*只重复1次
     <strong>Post author:  </strong>doudou0o</li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://github.com/doudou0o/2017/02/27/2017-02-leetcode_10_Regular_Expression_Matching/" title="10. Regular Expression Matching">https://github.com/doudou0o/2017/02/27/2017-02-leetcode_10_Regular_Expression_Matching/</a>
+    <a href="https://github.com/doudou0o/archives/a66e40a/隐马尔科夫模型.html" title="隐马尔科夫模型">https://github.com/doudou0o/archives/a66e40a/隐马尔科夫模型.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</li>
@@ -599,6 +574,12 @@ dp[i][j-1],                             &  p[j-1]为\* 考虑到\*只重复1次
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+          
+        </div>
       
 
       
@@ -629,8 +610,8 @@ dp[i][j-1],                             &  p[j-1]为\* 考虑到\*只重复1次
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/26/2017-02-python_logging/" rel="next" title="python logging日志模块以及多进程日志">
-                <i class="fa fa-chevron-left"></i> python logging日志模块以及多进程日志
+              <a href="/archives/2456c8ba/拉格朗日乘数法笔记.html" rel="next" title="拉格朗日乘数法笔记">
+                <i class="fa fa-chevron-left"></i> 拉格朗日乘数法笔记
               </a>
             
           </div>
@@ -639,8 +620,8 @@ dp[i][j-1],                             &  p[j-1]为\* 考虑到\*只重复1次
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/12/2017-02-python版本共存和虚拟环境/" rel="prev" title="python版本共存和虚拟环境">
-                python版本共存和虚拟环境 <i class="fa fa-chevron-right"></i>
+              <a href="/archives/45aaf959/特征处理之背景知识.html" rel="prev" title="特征处理之背景知识">
+                特征处理之背景知识 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -757,17 +738,17 @@ dp[i][j-1],                             &  p[j-1]为\* 考虑到\*只重复1次
             <div class="links-of-author motion-element">
               
                 <span class="links-of-author-item">
-                  <a href="https://github.com/doudou0o" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i></a>
+                  <a href="https://github.com/doudou0o" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i></a>
                   
                 </span>
               
                 <span class="links-of-author-item">
-                  <a href="mailto:bluecc021@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i></a>
+                  <a href="mailto:bluecc021@gmail.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i></a>
                   
                 </span>
               
                 <span class="links-of-author-item">
-                  <a href="https://www.jianshu.com/u/fc401e542314" target="_blank" title="简书"><i class="fa fa-fw fa-book"></i></a>
+                  <a href="https://www.jianshu.com/u/fc401e542314" target="_blank" title="简书" rel="external nofollow"><i class="fa fa-fw fa-book"></i></a>
                   
                 </span>
               
@@ -798,7 +779,7 @@ dp[i][j-1],                             &  p[j-1]为\* 考虑到\*只重复1次
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#10-Regular-Expression-Matching"><span class="nav-number">1.</span> <span class="nav-text">10. Regular Expression Matching</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法有两种"><span class="nav-number">1.0.1.</span> <span class="nav-text">解法有两种</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归"><span class="nav-number">1.0.2.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划"><span class="nav-number">1.0.3.</span> <span class="nav-text">动态规划</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#隐马尔可夫模型"><span class="nav-number">1.</span> <span class="nav-text">隐马尔可夫模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#离散马尔可夫过程"><span class="nav-number">1.1.</span> <span class="nav-text">离散马尔可夫过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐马尔科夫要素"><span class="nav-number">1.2.</span> <span class="nav-text">隐马尔科夫要素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐马尔可夫的三个基本问题"><span class="nav-number">1.3.</span> <span class="nav-text">隐马尔可夫的三个基本问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题1的暴力解法"><span class="nav-number">1.4.</span> <span class="nav-text">问题1的暴力解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#forward-backward-算法"><span class="nav-number">1.5.</span> <span class="nav-text">forward-backward 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前向算法"><span class="nav-number">1.5.1.</span> <span class="nav-text">前向算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后向算法"><span class="nav-number">1.5.2.</span> <span class="nav-text">后向算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Viterbi-算法"><span class="nav-number">1.6.</span> <span class="nav-text">Viterbi 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Baum-welch算法"><span class="nav-number">1.7.</span> <span class="nav-text">Baum-welch算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">1.8.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -830,9 +811,11 @@ dp[i][j-1],                             &  p[j-1]为\* 考虑到\*只重复1次
 </div>
 
 
+  
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a></div>
 
 
 
@@ -840,7 +823,7 @@ dp[i][j-1],                             &  p[j-1]为\* 考虑到\*只重复1次
 
 
 
-  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Gemini</a></div>
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a></div>
 
 
 
@@ -983,7 +966,7 @@ dp[i][j-1],                             &  p[j-1]为\* 考虑到\*只重复1次
       <script type="text/javascript">
       function renderGitment(){
         var gitment = new Gitmint({
-            id: '10. Regular Expression Matching',
+            id: '隐马尔科夫模型',
             owner: 'doudou0o',
             repo: 'doudou0o.github.io',
             
@@ -1407,6 +1390,21 @@ dp[i][j-1],                             &  p[j-1]为\* 考虑到\*只重复1次
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
   

@@ -138,29 +138,24 @@
 
 
 
-  <meta name="description" content="列举一些常用的 markdown 语法, 作为测试以及备忘。">
-<meta name="keywords" content="Markdown">
+  <meta name="description" content="leetcode #10 Regular Expression Matching 题目详解, 看网上帖子说的不清楚都是直接给代码也没个例子，所以起个帖子记录下自己的思路。 本文主要讲述递归解法和动态规划解法的思想。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Test Markdown">
-<meta property="og:url" content="https://github.com/doudou0o/2017/02/22/2017-02-Test_Markdown/index.html">
+<meta property="og:title" content="10. Regular Expression Matching">
+<meta property="og:url" content="https://github.com/doudou0o/archives/6358f960/10-regular-expression-matching.html">
 <meta property="og:site_name" content="doudou0o blog">
-<meta property="og:description" content="列举一些常用的 markdown 语法, 作为测试以及备忘。">
+<meta property="og:description" content="leetcode #10 Regular Expression Matching 题目详解, 看网上帖子说的不清楚都是直接给代码也没个例子，所以起个帖子记录下自己的思路。 本文主要讲述递归解法和动态规划解法的思想。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png">
-<meta property="og:image" content="https://github.com/doudou0o/2017/02/22/2017-02-Test_Markdown/start.jpg">
-<meta property="og:image" content="https://github.com/2017/02/22/2017-02-Test_Markdown/start.jpg">
-<meta property="og:updated_time" content="2018-08-29T15:29:12.899Z">
+<meta property="og:updated_time" content="2018-09-21T16:26:04.534Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Test Markdown">
-<meta name="twitter:description" content="列举一些常用的 markdown 语法, 作为测试以及备忘。">
-<meta name="twitter:image" content="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png">
+<meta name="twitter:title" content="10. Regular Expression Matching">
+<meta name="twitter:description" content="leetcode #10 Regular Expression Matching 题目详解, 看网上帖子说的不清楚都是直接给代码也没个例子，所以起个帖子记录下自己的思路。 本文主要讲述递归解法和动态规划解法的思想。">
 
 
 
 
 
 
-  <link rel="canonical" href="https://github.com/doudou0o/2017/02/22/2017-02-Test_Markdown/"/>
+  <link rel="canonical" href="https://github.com/doudou0o/archives/6358f960/10-regular-expression-matching.html"/>
 
 
 
@@ -170,7 +165,7 @@
   };
 </script>
 
-  <title>Test Markdown | doudou0o blog</title>
+  <title>10. Regular Expression Matching | doudou0o blog</title>
   
 
 
@@ -234,7 +229,7 @@
     </div>
     
       
-        <p class="site-subtitle">沉淀知识 分享知识</p>
+        <h1 class="site-subtitle" itemprop="description">沉淀知识 分享知识</h1>
       
     
   </div>
@@ -266,7 +261,7 @@
         
         
           
-          <li class="menu-item menu-item-archives">
+          <li class="menu-item menu-item-archives menu-item-active">
     <a href="/archives/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
   </li>
@@ -366,7 +361,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/doudou0o/2017/02/22/2017-02-Test_Markdown/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/doudou0o/archives/6358f960/10-regular-expression-matching.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="doudou0o">
@@ -383,10 +378,10 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Test Markdown
+          <h2 class="post-title" itemprop="name headline">10. Regular Expression Matching
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -408,7 +403,7 @@
                 
               
 
-              <time title="Created: 2017-02-22 10:20:26" itemprop="dateCreated datePublished" datetime="2017-02-22T10:20:26+08:00">2017-02-22</time>
+              <time title="Created: 2017-02-27 15:30:10" itemprop="dateCreated datePublished" datetime="2017-02-27T15:30:10+08:00">2017-02-27</time>
             
 
             
@@ -422,7 +417,7 @@
 
           
           
-             <span id="/2017/02/22/2017-02-Test_Markdown/" class="leancloud_visitors" data-flag-title="Test Markdown">
+             <span id="/archives/6358f960/10-regular-expression-matching.html" class="leancloud_visitors" data-flag-title="10. Regular Expression Matching">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -453,137 +448,97 @@
       
 
       
-        <p>列举一些常用的 <code>markdown</code> 语法, 作为测试以及备忘。</p>
+        <p>leetcode #10 Regular Expression Matching 题目详解, 看网上帖子说的不清楚都是直接给代码也没个例子，所以起个帖子记录下自己的思路。</p>
+<p>本文主要讲述递归解法和动态规划解法的思想。</p>
 <a id="more"></a>
-<p>You can write regular <a href="http://markdowntutorial.com/" target="_blank" rel="noopener">markdown</a> here and Jekyll will automatically convert it to a nice webpage.  I strongly encourage you to <a href="http://markdowntutorial.com/" target="_blank" rel="noopener">take 5 minutes to learn how to write in markdown</a> - it’ll teach you how to transform regular text into bold/italics/headings/tables/etc.</p>
-<p>Markdown 语法手册</p>
-<hr>
-<h3 id="1-分级标题"><a href="#1-分级标题" class="headerlink" title="1. 分级标题"></a>1. 分级标题</h3><p>使用 === 表示一级标题，使用 —- 表示二级标题<br>你也可以选择在行首加井号表示不同级别的标题 (H1-H6)，例如：# H1, ## H2, ### H3<br>一般来说都是使用 #号 来使用, 注意 #号 需要顶格写<br>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">这是一个一级标题</span><br><span class="line">===</span><br><span class="line">这是一个二级标题</span><br><span class="line">----</span><br><span class="line">### 这是一个三级标题</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="2-斜体和粗体"><a href="#2-斜体和粗体" class="headerlink" title="2. 斜体和粗体"></a>2. 斜体和粗体</h3><p>使用 <code>*</code>和 <code>**</code> 表示斜体和粗体</p>
-<p>示例：</p>
-<blockquote>
-<p>这是*斜体* 这是**粗体**<br> 这是<em>斜体</em>   这是<strong>粗体</strong></p>
-</blockquote>
-<p> 这是<em>斜体</em>   这是<strong>粗体</strong></p>
-<hr>
-<h3 id="3-链接"><a href="#3-链接" class="headerlink" title="3. 链接"></a>3. 链接</h3><p>使用 [描述](链接地址) 为文字增加链接</p>
-<p>示例：</p>
-<blockquote>
-<p>这是去往[本人博客](<a href="http://doudou0o.github.com/blog" target="_blank" rel="noopener">http://doudou0o.github.com/blog</a>) 的链接<br>  这是去往 <a href="http://doudou0o.github.com/blog" target="_blank" rel="noopener">本人博客</a> 的链接</p>
-</blockquote>
-<hr>
-<h3 id="4-插入图像"><a href="#4-插入图像" class="headerlink" title="4. 插入图像"></a>4. 插入图像</h3><p>使用 ![描述](图片链接) 插入图像(好像插入时保持原图片大小)<br><em>和链接比较类似,唯一的区别就是前面有一个!</em><br>在Hexo 中本地图片使用 ![本地图片](/img/a.jpg)</p>
-<p>示例：<br>在线图片<br>![图片](<a href="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" target="_blank" rel="noopener">https://assets-cdn.github.com/images/modules/logos_page/Octocat.png</a>)<br><img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" alt="图片"></p>
-<p>本地图片<br>![本地图片](./start.jpg)<br><img src="./start.jpg" alt="本地图片"></p>
-<p>大小控制图片<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;/2017/02/22/2017-02-Test_Markdown/start.jpg&quot; alt=&quot;logo&quot; width=&quot;50%&quot; height=&quot;50%&quot; /&gt;</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2017/02/22/2017-02-Test_Markdown/start.jpg" alt="logo" width="50%" height="50%"></p>
-<hr>
-<h3 id="5-文字引用"><a href="#5-文字引用" class="headerlink" title="5. 文字引用"></a>5. 文字引用</h3><p>使用 &gt; 表示文字引用<br>同 #号 一样需要定格写否则没有效果而且上下需要有空格</p>
-<p>示例：</p>
-<blockquote>
-<p>你好我是引用文档</p>
-</blockquote>
-<hr>
-<h3 id="6-无序列表"><a href="#6-无序列表" class="headerlink" title="6. 无序列表"></a>6. 无序列表</h3><p>使用 *，+，- 表示无序列表<br>都是需要顶格写且前后得有空行</p>
-<p>示例：</p>
-<ul>
-<li>无序列表项 一</li>
-<li>无序列表项 二</li>
-<li>无序列表项 三</li>
-</ul>
-<hr>
-<h3 id="7-有序列表"><a href="#7-有序列表" class="headerlink" title="7. 有序列表"></a>7. 有序列表</h3><p>使用数字和点表示有序列表。例: 1. xxxx 注意要有一个空格!</p>
-<p>示例：</p>
+<h1 id="10-Regular-Expression-Matching"><a href="#10-Regular-Expression-Matching" class="headerlink" title="10. Regular Expression Matching"></a>10. Regular Expression Matching</h1><p>原文要求如下：</p>
+<p>Implement regular expression matching with support for <code>&#39;.&#39;</code> and <code>&#39;*&#39;</code>.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&apos;.&apos; Matches any single character.</span><br><span class="line">&apos;*&apos; Matches zero or more of the preceding element.</span><br><span class="line"></span><br><span class="line">The matching should cover the **entire** input string (not partial).</span><br><span class="line"></span><br><span class="line">The function prototype should be:</span><br><span class="line">bool isMatch(const char *s, const char *p)</span><br><span class="line"></span><br><span class="line">Some examples:</span><br><span class="line">isMatch(&quot;aa&quot;,&quot;a&quot;) → false</span><br><span class="line">isMatch(&quot;aa&quot;,&quot;aa&quot;) → true</span><br><span class="line">isMatch(&quot;aaa&quot;,&quot;aa&quot;) → false</span><br><span class="line">isMatch(&quot;aa&quot;, &quot;a*&quot;) → true</span><br><span class="line">isMatch(&quot;aa&quot;, &quot;.*&quot;) → true</span><br><span class="line">isMatch(&quot;ab&quot;, &quot;.*&quot;) → true</span><br><span class="line">isMatch(&quot;aab&quot;, &quot;c*a*b&quot;) → true</span><br><span class="line">isMatch(&quot;aaaa&quot;,&quot;ab*a*c*a&quot;) → true #自己加的</span><br></pre></td></tr></table></figure></p>
+<h3 id="解法有两种"><a href="#解法有两种" class="headerlink" title="解法有两种"></a>解法有两种</h3><h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><p>递归想法比较简单代码也比较清楚，但耗时很长复杂度是指数级别<br>考虑递归思想时，只需要考虑终结情况，和当前情况，其他的任由递归完成<br>当前情况的考虑如下：<br>因为<code>*</code>号是最复杂的情况甚至可以发生0次于是分成两种情况分别考虑：p[1] 为 <code>*</code> 和 p[1] 不为 <code>*</code></p>
 <ol>
-<li>有序列表项 一</li>
-<li>有序列表项 二</li>
-<li>有序列表项 三</li>
+<li><code>p[1] != *</code> 时：说明当前p[0]不会发生0-n次的变化直接对比就可以，剩下的交给递归<ol>
+<li><code>s[0] == p[0]</code> 判等（这个相等包含了<code>.</code>的情况，后面相同）</li>
+<li>递归判断 <code>isMatch(s[1:],p[1:])</code> 两个子串</li>
 </ol>
-<hr>
-<h3 id="8-行内代码块"><a href="#8-行内代码块" class="headerlink" title="8. 行内代码块"></a>8. 行内代码块</h3><p>使用 `代码` 表示行内代码块<br>好像在行内代码块中不会高亮</p>
-<p>示例：<br>此行内有一个行内代码块<code>java vs cpp</code></p>
-<hr>
-<h3 id="9-代码块"><a href="#9-代码块" class="headerlink" title="9. 代码块"></a>9. 代码块</h3><p>代码块使用    </p>
+</li>
+<li><code>p[1] == *</code> 时：说明当前p[0]会发生0-n次的变化，而且都是有效的<ol>
+<li>假设发生 0次 ：那么直接将p[0,1]跳过进行递归 <code>isMatch(s,p[2:])</code></li>
+<li>假设发生 1次以上：那么得先判等，然后s+1进行递归 <code>s[0]==p[0] and isMatch(s[1:],p)</code></li>
+</ol>
+</li>
+</ol>
+<p>好了所有情况都考虑好了，就可以直接上代码了，递归思想还是比较简单，直接看代码可能比看上述文字更加简单直接。</p>
 <blockquote>
-<p>``` python(或者~~~)<br>balabala<br>```    </p>
+<p>talk is cheep show me code：</p>
 </blockquote>
-<p>包裹起来而且可以加上所用的语言,也可以不加<br>另外由于 Pygments 或 Rouge 的使用,可以用    </p>
-<p>包裹更加好看(不要加行号! 不然会超级难看)    </p>
-<pre><code class="lang-ruby">def show
-  @widget = Widget(params[:id])
-  respond_to do |format|
-    format.html # show.html.erb
-    format.json { render json: @widget }
-  end
-end
-</code></pre>
-<hr>
-<h3 id="10-表格"><a href="#10-表格" class="headerlink" title="10. 表格"></a>10. 表格</h3><div class="table-container">
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isMatch</span><span class="params">(self, s, p)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :type p: str</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> p==<span class="string">""</span>:</span><br><span class="line">            <span class="keyword">return</span> s==<span class="string">""</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> len(p)&gt;<span class="number">1</span> <span class="keyword">and</span> <span class="string">'*'</span> == p[<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">return</span> self.isMatch(s, p[<span class="number">2</span>:]) <span class="keyword">or</span> ((s!=<span class="string">""</span> <span class="keyword">and</span> (s[<span class="number">0</span>]==p[<span class="number">0</span>] <span class="keyword">or</span> <span class="string">'.'</span>==p[<span class="number">0</span>])) <span class="keyword">and</span> self.isMatch(s[<span class="number">1</span>:], p))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> (s!=<span class="string">""</span> <span class="keyword">and</span> (s[<span class="number">0</span>]==p[<span class="number">0</span>] <span class="keyword">or</span> <span class="string">'.'</span>==p[<span class="number">0</span>])) <span class="keyword">and</span> self.isMatch(s[<span class="number">1</span>:], p[<span class="number">1</span>:])</span><br></pre></td></tr></table></figure>
+<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><p>动态规划处理这个问题，更加有效，复杂度为 <code>O(N*M)</code>.但是不同于递归直接看代码，动态规划我简直还是先看状态公式更加明了。<br>用dp[i][j]来代表 s[0:i] 与 p[0:j] 是否匹配，初始化 dp[0][0]=1(空串匹配空串)</p>
+<script type="math/tex; mode=display">
+dp[i][j]=
+\begin{cases}
+dp[i][j-1],                             &  p[j-1]为\* 考虑到\*只重复1次
+\\\\dp[i][j-2],                         &  p[j-1]为\* 考虑到\*只重复0次
+\\\\dp[i-1][j]\;\&\&\;S[i-1]==P[j-2],   &  p[j-1]为\* 考虑到\*只重复多次
+\\\\dp[i-1][j-1] \;\&\&\; S[i-1]=P[j-1],&  p[j-1]不为\*
+\end{cases}</script><p>从状态公式基本也能看的明白，要计算 dp[i][j] 的值，要分成两个情况，两个情况分别处理后就能将dp填满，则最后的结果就是 dp[len(s)][len(p)]的值</p>
+<p>如果看公式还有点不清楚，来举个栗子：<code>s=&quot;ccd&quot; , p=&quot;a*c*d&quot;</code><br>dp的矩阵情况如下：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th style="text-align:left">Number</th>
-<th style="text-align:left">Next number</th>
-<th style="text-align:left">Previous number</th>
+<th>#</th>
+<th>^</th>
+<th>a</th>
+<th>*</th>
+<th>c</th>
+<th>*</th>
+<th>d</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">Five</td>
-<td style="text-align:left">Six</td>
-<td style="text-align:left">Four</td>
+<td>^</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
 </tr>
 <tr>
-<td style="text-align:left">Ten</td>
-<td style="text-align:left">Eleven</td>
-<td style="text-align:left">Nine</td>
+<td>c</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td><font color="blue">1</font></td>
+<td>0</td>
 </tr>
 <tr>
-<td style="text-align:left">Seven</td>
-<td style="text-align:left">Eight</td>
-<td style="text-align:left">Six</td>
+<td>c</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td><font color="red">1</font></td>
+<td>0</td>
 </tr>
 <tr>
-<td style="text-align:left">Two</td>
-<td style="text-align:left">Three</td>
-<td style="text-align:left">One</td>
+<td>d</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
 </tr>
 </tbody>
 </table>
 </div>
-<hr>
-<h3 id="11-Todo-列表"><a href="#11-Todo-列表" class="headerlink" title="11. Todo 列表"></a>11. Todo 列表</h3><p>使用带有 [ ] 或 [x] （未完成或已完成）项的列表语法撰写一个待办事宜列表<br>并且支持子列表嵌套以及混用Markdown语法，示例：</p>
-<pre><code>- [ ] **买菜**
-    - [ ] 小排
-    - [x] 鸡肉
-    - [ ] 番茄
-    - [x] 辣椒
-        - [x] 小辣椒
-        - [x] 红辣椒
-</code></pre><p>生成 这样一个 Todo 列表：</p>
-<ul>
-<li>[ ] <strong>买菜</strong><ul>
-<li>[ ] 小排</li>
-<li>[x] 鸡肉</li>
-<li>[ ] 番茄</li>
-<li>[x] 辣椒<ul>
-<li>[x] 小辣椒</li>
-<li>[x] 红辣椒</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="12-注脚"><a href="#12-注脚" class="headerlink" title="12. 注脚"></a>12. 注脚</h3><p>使用 [^keyword] 表示注脚</p>
-<p>这是一个注脚<sup><a href="#fn_footnote" id="reffn_footnote">footnote</a></sup>的样例</p>
-<hr>
-<h3 id="13-页内链接-hexo下暂时无效没找到正确的姿势"><a href="#13-页内链接-hexo下暂时无效没找到正确的姿势" class="headerlink" title="13. 页内链接(hexo下暂时无效没找到正确的姿势)"></a>13. 页内链接(hexo下暂时无效没找到正确的姿势)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">先在某处设定一个锚点`&lt;a id=&quot;jump&quot; name=&quot;jump&quot;&gt;锚点&lt;/a&gt;`类似这样</span><br><span class="line">然后使用 `\[结论\](\#jump) `这样的方法就可以在页内跳转</span><br><span class="line">或者在标题后面跟上ID也可以同样跳转`### 标题 &#123;#ID&#125;`</span><br><span class="line"></span><br><span class="line">示例:    </span><br><span class="line">[示例1](#jump)    </span><br><span class="line">[示例2](#ID2)</span><br></pre></td></tr></table></figure>
-<blockquote id="fn_footnote">
-<sup>footnote</sup>. 这是一个 <em>注脚</em><a href="#reffn_footnote" title="Jump back to footnote [footnote] in the text."> &#8617;</a>
+<p>蓝色那个是因为 dp[i][j-1]=1 所以这个*只重复1的匹配结果，因此可以为 1<br>红色那个是因为 dp[i-1][j]=1 &amp;&amp; s[i-1]==p[j-2] 代表已经被重复过了，不止1次，但依然可以被继续重复下去</p>
+<blockquote>
+<p>talk is cheep show me code：</p>
 </blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isMatch</span><span class="params">(self, s, p)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :type p: str</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        lens = len(s)</span><br><span class="line">        lenp = len(p)</span><br><span class="line">        dp = [[<span class="keyword">False</span> <span class="keyword">for</span> col <span class="keyword">in</span> range(lenp+<span class="number">1</span>)] <span class="keyword">for</span> row <span class="keyword">in</span> range(lens+<span class="number">1</span>)]</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, lenp+<span class="number">1</span>):</span><br><span class="line">            dp[<span class="number">0</span>][j] = p[j<span class="number">-1</span>]==<span class="string">'*'</span> <span class="keyword">and</span> dp[<span class="number">0</span>][j<span class="number">-2</span>]==<span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, lens+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, lenp+<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> p[j<span class="number">-1</span>] == <span class="string">'*'</span>:</span><br><span class="line">                    dp[i][j] = dp[i][j<span class="number">-2</span>] <span class="keyword">or</span> dp[i][j<span class="number">-1</span>] <span class="keyword">or</span> (dp[i<span class="number">-1</span>][j] <span class="keyword">and</span> (s[i<span class="number">-1</span>]==p[j<span class="number">-2</span>] <span class="keyword">or</span> <span class="string">'.'</span>==p[j<span class="number">-2</span>]))</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>] <span class="keyword">and</span> (s[i<span class="number">-1</span>]==p[j<span class="number">-1</span>] <span class="keyword">or</span> <span class="string">'.'</span>==p[j<span class="number">-1</span>])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[lens][lenp]</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -634,7 +589,7 @@ end
     <strong>Post author:  </strong>doudou0o</li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://github.com/doudou0o/2017/02/22/2017-02-Test_Markdown/" title="Test Markdown">https://github.com/doudou0o/2017/02/22/2017-02-Test_Markdown/</a>
+    <a href="https://github.com/doudou0o/archives/6358f960/10-regular-expression-matching.html" title="10. Regular Expression Matching">https://github.com/doudou0o/archives/6358f960/10-regular-expression-matching.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</li>
@@ -644,12 +599,6 @@ end
     
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Markdown/" rel="tag"># Markdown</a>
-          
-        </div>
       
 
       
@@ -680,8 +629,8 @@ end
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/20/2017-02-Hexo搭建博客/" rel="next" title="Hexo 搭建博客">
-                <i class="fa fa-chevron-left"></i> Hexo 搭建博客
+              <a href="/archives/fe118cd8/python-logging日志模块以及多进程日志.html" rel="next" title="python logging日志模块以及多进程日志">
+                <i class="fa fa-chevron-left"></i> python logging日志模块以及多进程日志
               </a>
             
           </div>
@@ -690,8 +639,8 @@ end
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/02/26/2017-02-python_logging/" rel="prev" title="python logging日志模块以及多进程日志">
-                python logging日志模块以及多进程日志 <i class="fa fa-chevron-right"></i>
+              <a href="/archives/e3ad352f/python版本共存和虚拟环境.html" rel="prev" title="python版本共存和虚拟环境">
+                python版本共存和虚拟环境 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -808,17 +757,17 @@ end
             <div class="links-of-author motion-element">
               
                 <span class="links-of-author-item">
-                  <a href="https://github.com/doudou0o" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i></a>
+                  <a href="https://github.com/doudou0o" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i></a>
                   
                 </span>
               
                 <span class="links-of-author-item">
-                  <a href="mailto:bluecc021@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i></a>
+                  <a href="mailto:bluecc021@gmail.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i></a>
                   
                 </span>
               
                 <span class="links-of-author-item">
-                  <a href="https://www.jianshu.com/u/fc401e542314" target="_blank" title="简书"><i class="fa fa-fw fa-book"></i></a>
+                  <a href="https://www.jianshu.com/u/fc401e542314" target="_blank" title="简书" rel="external nofollow"><i class="fa fa-fw fa-book"></i></a>
                   
                 </span>
               
@@ -849,7 +798,7 @@ end
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-分级标题"><span class="nav-number">1.</span> <span class="nav-text">1. 分级标题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-斜体和粗体"><span class="nav-number">2.</span> <span class="nav-text">2. 斜体和粗体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-链接"><span class="nav-number">3.</span> <span class="nav-text">3. 链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-插入图像"><span class="nav-number">4.</span> <span class="nav-text">4. 插入图像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-文字引用"><span class="nav-number">5.</span> <span class="nav-text">5. 文字引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-无序列表"><span class="nav-number">6.</span> <span class="nav-text">6. 无序列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-有序列表"><span class="nav-number">7.</span> <span class="nav-text">7. 有序列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-行内代码块"><span class="nav-number">8.</span> <span class="nav-text">8. 行内代码块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-代码块"><span class="nav-number">9.</span> <span class="nav-text">9. 代码块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-表格"><span class="nav-number">10.</span> <span class="nav-text">10. 表格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-Todo-列表"><span class="nav-number">11.</span> <span class="nav-text">11. Todo 列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-注脚"><span class="nav-number">12.</span> <span class="nav-text">12. 注脚</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-页内链接-hexo下暂时无效没找到正确的姿势"><span class="nav-number">13.</span> <span class="nav-text">13. 页内链接(hexo下暂时无效没找到正确的姿势)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#10-Regular-Expression-Matching"><span class="nav-number">1.</span> <span class="nav-text">10. Regular Expression Matching</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法有两种"><span class="nav-number">1.0.1.</span> <span class="nav-text">解法有两种</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归"><span class="nav-number">1.0.2.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划"><span class="nav-number">1.0.3.</span> <span class="nav-text">动态规划</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -881,9 +830,11 @@ end
 </div>
 
 
+  
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a></div>
 
 
 
@@ -891,7 +842,7 @@ end
 
 
 
-  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Gemini</a></div>
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a></div>
 
 
 
@@ -1034,7 +985,7 @@ end
       <script type="text/javascript">
       function renderGitment(){
         var gitment = new Gitmint({
-            id: 'Test Markdown',
+            id: '10. Regular Expression Matching',
             owner: 'doudou0o',
             repo: 'doudou0o.github.io',
             
@@ -1458,6 +1409,21 @@ end
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
   
@@ -1465,6 +1431,30 @@ end
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 

@@ -138,32 +138,25 @@
 
 
 
-  <meta name="description" content="隐马尔科夫模型是一种统计模型，他由马尔科夫随机过程生成无法观察的状态随机序列，每个状态又会生成不同的观测值，从而产生随机观测序列。">
-<meta name="keywords" content="Algorithm">
+  <meta name="description" content="python有很多版本，如何在同一台系统中共存这些版本而且不会冲突，是python开发者一个重要的需求，所以诞生出了Python版本管理器pyenv。另外每个Python项目都会有很多包需要导入，而另一些项目并不需要，如果所有包都加入到系统Python的包目录下的话一方面不好管理另一方面容易出现包的冲突，因此需要为每个项目建立一个虚拟的独立的Python环境就太好了，于是virtualenv和co">
+<meta name="keywords" content="python虚拟环境,python版本切换">
 <meta property="og:type" content="article">
-<meta property="og:title" content="隐马尔科夫模型">
-<meta property="og:url" content="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/index.html">
+<meta property="og:title" content="python版本共存和虚拟环境">
+<meta property="og:url" content="https://github.com/doudou0o/archives/e3ad352f/python版本共存和虚拟环境.html">
 <meta property="og:site_name" content="doudou0o blog">
-<meta property="og:description" content="隐马尔科夫模型是一种统计模型，他由马尔科夫随机过程生成无法观察的状态随机序列，每个状态又会生成不同的观测值，从而产生随机观测序列。">
+<meta property="og:description" content="python有很多版本，如何在同一台系统中共存这些版本而且不会冲突，是python开发者一个重要的需求，所以诞生出了Python版本管理器pyenv。另外每个Python项目都会有很多包需要导入，而另一些项目并不需要，如果所有包都加入到系统Python的包目录下的话一方面不好管理另一方面容易出现包的冲突，因此需要为每个项目建立一个虚拟的独立的Python环境就太好了，于是virtualenv和co">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/base.jpg">
-<meta property="og:image" content="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/解释.jpg">
-<meta property="og:image" content="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/暴力.jpg">
-<meta property="og:image" content="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/前向.jpg">
-<meta property="og:image" content="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/后向.jpg">
-<meta property="og:image" content="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/Viterbi.jpg">
-<meta property="og:updated_time" content="2018-08-29T17:12:35.796Z">
+<meta property="og:updated_time" content="2018-09-21T16:26:04.535Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="隐马尔科夫模型">
-<meta name="twitter:description" content="隐马尔科夫模型是一种统计模型，他由马尔科夫随机过程生成无法观察的状态随机序列，每个状态又会生成不同的观测值，从而产生随机观测序列。">
-<meta name="twitter:image" content="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/base.jpg">
+<meta name="twitter:title" content="python版本共存和虚拟环境">
+<meta name="twitter:description" content="python有很多版本，如何在同一台系统中共存这些版本而且不会冲突，是python开发者一个重要的需求，所以诞生出了Python版本管理器pyenv。另外每个Python项目都会有很多包需要导入，而另一些项目并不需要，如果所有包都加入到系统Python的包目录下的话一方面不好管理另一方面容易出现包的冲突，因此需要为每个项目建立一个虚拟的独立的Python环境就太好了，于是virtualenv和co">
 
 
 
 
 
 
-  <link rel="canonical" href="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/"/>
+  <link rel="canonical" href="https://github.com/doudou0o/archives/e3ad352f/python版本共存和虚拟环境.html"/>
 
 
 
@@ -173,7 +166,7 @@
   };
 </script>
 
-  <title>隐马尔科夫模型 | doudou0o blog</title>
+  <title>python版本共存和虚拟环境 | doudou0o blog</title>
   
 
 
@@ -237,7 +230,7 @@
     </div>
     
       
-        <p class="site-subtitle">沉淀知识 分享知识</p>
+        <h1 class="site-subtitle" itemprop="description">沉淀知识 分享知识</h1>
       
     
   </div>
@@ -269,7 +262,7 @@
         
         
           
-          <li class="menu-item menu-item-archives">
+          <li class="menu-item menu-item-archives menu-item-active">
     <a href="/archives/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
   </li>
@@ -369,7 +362,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/doudou0o/archives/e3ad352f/python版本共存和虚拟环境.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="doudou0o">
@@ -386,10 +379,10 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">隐马尔科夫模型
+          <h2 class="post-title" itemprop="name headline">python版本共存和虚拟环境
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -411,7 +404,7 @@
                 
               
 
-              <time title="Created: 2018-02-08 10:20:26" itemprop="dateCreated datePublished" datetime="2018-02-08T10:20:26+08:00">2018-02-08</time>
+              <time title="Created: 2017-03-12 10:20:20" itemprop="dateCreated datePublished" datetime="2017-03-12T10:20:20+08:00">2017-03-12</time>
             
 
             
@@ -425,7 +418,7 @@
 
           
           
-             <span id="/2018/02/08/2018-02-隐马尔科夫模型/" class="leancloud_visitors" data-flag-title="隐马尔科夫模型">
+             <span id="/archives/e3ad352f/python版本共存和虚拟环境.html" class="leancloud_visitors" data-flag-title="python版本共存和虚拟环境">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -456,64 +449,60 @@
       
 
       
-        <p>隐马尔科夫模型是一种统计模型，他由马尔科夫随机过程生成<strong>无法观察的状态随机序列</strong>，每个状态又会生成不同的观测值，从而产生<strong>随机观测序列</strong>。</p>
+        <p>python有很多版本，如何在同一台系统中共存这些版本而且不会冲突，是python开发者一个重要的需求，所以诞生出了Python版本管理器pyenv。另外每个Python项目都会有很多包需要导入，而另一些项目并不需要，如果所有包都加入到系统Python的包目录下的话一方面不好管理另一方面容易出现包的冲突，因此需要为每个项目建立一个虚拟的独立的Python环境就太好了，于是virtualenv和conda工具就出现了。</p>
 <a id="more"></a>
-<h2 id="隐马尔可夫模型"><a href="#隐马尔可夫模型" class="headerlink" title="隐马尔可夫模型"></a>隐马尔可夫模型</h2><p>隐马尔科夫模型(HMM)是一种统计模型，他由马尔可夫随机过程生成<strong>无法观察的状态随机序列</strong>，每个状态又会生成不同的观测值，从而产生<strong>随机观测序列</strong>。<br>因为状态序列是隐含的并且符合马尔科夫过程因此称为隐马尔可夫模型。他有三个基本问题，处理好这三个基本问题，基本就能熟练运用隐马尔可夫模型。<br><strong>概率计算问题</strong>: 能够对某个观测序列给出其发生的概率；<br><strong>学习问题</strong>: 通过一个观测序列，调整(学习)参数使得这个观测序列发生概率最大；(最大似然)<br><strong>编码问题</strong>: 通过一个观测序列，给出隐含的概率最大的状态序列</p>
-<h3 id="离散马尔可夫过程"><a href="#离散马尔可夫过程" class="headerlink" title="离散马尔可夫过程"></a>离散马尔可夫过程</h3><p>首先什么是马尔可夫过程。假设有N个不同的状态 $\{S_1,S_2,…S_N\}$ 的随机过程。$a_{ij}$ 代表 $S_i$ 到 $S_j$ 的转移概率。当这个随机过程满足：当前的状态仅与它之前的状态有关时，就是马尔可夫过程。用公式表达即：</p>
-<script type="math/tex; mode=display">
-P[q_t=S_i|q_{t-1}=s_j,q_{t-2}=s_k,...] = P[q_t=s_i|q_{t-1}=s_j]</script><p>于是得到转移概率：</p>
-<script type="math/tex; mode=display">
-a_{ij}=P[q_t=s_i|q_{t-1}=s_j]</script><p>其中转移概率$a{ij}$自然有两个属性：$a_{ij}\geq0$和$\sum_{j=1}^{N}a_{ij}=1$</p>
-<p>以上就是离散马尔科夫随机过程。</p>
-<h3 id="隐马尔科夫要素"><a href="#隐马尔科夫要素" class="headerlink" title="隐马尔科夫要素"></a>隐马尔科夫要素</h3><p>隐马尔可夫有五个要素组成：</p>
-<ol>
-<li>$N$ ，表示模型中的状态数（隐式状态）。模型中的各个状态是相互连结的，任何状态能从其它状态到达。我们用 $S$ 表示各个状态的集合，$S=\{s_1,s_2,…,s_N\}$， $q_t$ 表示 t 时刻的状态。</li>
-<li>$M$ ，表示模型中每个状态不同的观察集合(可见状态)数量。我们用$V$表示各个观察值(可见状态)集合，$V=\{v_1,v_2,…,v_M\}$</li>
-<li>$A$ ，状态转移概率分布</li>
-<li>$B$ ，观察字符在状态j时的概率分布，$B=\{b_j(k)\}$，其中$b_j(k)=P[v_k|q_t=S_j]$</li>
-<li>$\pi$ ，表示状态分布，$\pi=\{\pi_j\}$，其中$\pi_j=P[q_1=S_j]$</li>
-</ol>
-<p>给定$N,M,A,B,\pi$，HMMs能输出一个观察序列$O=O_1O_2…O_T$，其中$O_t\in V$ ，$T$ 是观察序列的数量。</p>
-<p><img src="./base.jpg" alt="基本"></p>
-<p>从以上的讨论可知，一个完整的隐马尔可夫模型要求两个具体的模型参数 $N$ 和 $M$，和三个概率矩阵 $A,B,π$，也即隐马尔可夫模型可形式化定义为一个五元组$(N,M,A,B,π)$。</p>
-<h3 id="隐马尔可夫的三个基本问题"><a href="#隐马尔可夫的三个基本问题" class="headerlink" title="隐马尔可夫的三个基本问题"></a>隐马尔可夫的三个基本问题</h3><ol>
-<li><strong>概率计算问题</strong>：给定一个模型$\lambda=(N,M,A,B,\pi)$，如何高效地计算某一输出观察序列$O=O_1O_2…O_T$的概率$P(O|\lambda)$</li>
-<li><strong>编码问题</strong>：给定一个模型$\lambda=(N,M,A,B,\pi)$，和一个输出观察序列$O=O_1O_2…O_T$，如果找到产生这一序列概率最大的状态序列$Q=s_is_j…s_T$</li>
-<li><strong>学习问题</strong>：给定一个模型$\lambda=(N,M,A,B,\pi)$，和一个输出观察序列$O=O_1O_2…O_T$，如何调整参数使得产生这一序列概率最大。</li>
-</ol>
-<p>为了方便分析问题和给出解决方案，这里先介绍一下隐马尔可夫模型的条件独立性假设。隐马可尔可夫模型是一个生成模型，给定一个观察序列，HMMs 模型隐含一个与观察序列对应的状态序列。隐马可夫模型图示如下，图中清楚的表示出了隐马尔可夫模型内部的条件独立关系，有三个独立性假设：（一）t时刻的状态$q_t=s_i$只依赖于t-1时刻的状态。（二）t时刻所生成的值$b_i(O_t)$只依赖于t时刻的状态。（三）状态与具体时间无关。</p>
-<p><img src="./解释.jpg" alt="基本"></p>
-<blockquote>
-<p>了解这三个问题之后就已经知道HMM能够干什么，能够处理什么问题。这就足够了。<br> 以下是解决三个问题的算法</p>
-</blockquote>
-<h3 id="问题1的暴力解法"><a href="#问题1的暴力解法" class="headerlink" title="问题1的暴力解法"></a>问题1的暴力解法</h3><p>枚举所有的状态序列I（长度为T）<br><img src="./暴力.jpg" alt="暴力算法"></p>
-<script type="math/tex; mode=display">
-P(Q|\lambda)=\pi_{q_1}\cdot a_{q_1q_2}\cdot...a_{q_{T-1}q_{T}}</script><script type="math/tex; mode=display">
-P(O|Q,\lambda)=b_{I_1O_1}\cdot b_{I_2O_2}...b_{I_{T-1}O_T}</script><script type="math/tex; mode=display">
-P(O,Q|\lambda)=P(O|I,\lambda)\cdot P(I|\lambda)</script><script type="math/tex; mode=display">
-P(O|\lambda)=\sum_I P(O,Q|\lambda)</script><p>复杂度为 $O(2T\cdot N^T)$ 基本上无法完成</p>
-<h3 id="forward-backward-算法"><a href="#forward-backward-算法" class="headerlink" title="forward-backward 算法"></a>forward-backward 算法</h3><p>问题1的解法：</p>
-<h4 id="前向算法"><a href="#前向算法" class="headerlink" title="前向算法"></a>前向算法</h4><p>假设：$\alpha_t(i)=P(o_1o_2…o_t,q_t=s_i|\lambda)$</p>
-<p>那么就会有：</p>
-<p>初值：$\alpha_1(i)=\pi_ib_{io_1}$</p>
-<p>递推：对于t=1,2…T-1</p>
-<script type="math/tex; mode=display">
-\alpha_{t+1}(j)=(\sum_{i=1}^N \alpha_t(i)a_{ij})b_{jO_{t+1}}</script><p><img src="./前向.jpg" alt="前向算法"><br>最终：$P(O|\lambda)=\sum_{i=1}^N\alpha_T(i)$</p>
-<h4 id="后向算法"><a href="#后向算法" class="headerlink" title="后向算法"></a>后向算法</h4><p>假设：$\beta_t(i)=P(o_{t+1}o_{t+2}…o_T|q_t=s_i,\lambda)$</p>
-<p>初值：$\beta_T(i)=1$</p>
-<p>那么递推就会有：</p>
-<script type="math/tex; mode=display">
-\beta_{t}(j)=\sum_{i=1}^N a_{ji}b_{iO_{t+1}}\beta_{t+1}(i)</script><p><img src="./后向.jpg" alt="后向算法"></p>
-<p>最终：$P(O|\lambda)=\sum_{i=1}^N\pi_ib_{iO1}\beta_1(i)$</p>
-<p>至此前向后向算法就描述完了，其实我个人比较难理解后向算法。</p>
-<h3 id="Viterbi-算法"><a href="#Viterbi-算法" class="headerlink" title="Viterbi 算法"></a>Viterbi 算法</h3><p>问题2的解法：问题 2 是一个解码问题，即从 $N^T$ 个可能的状态序列中找到一个”最优”的状态序列。</p>
-<p>Viterbi 算法：给定观察序列 $Ο=Ο_1Ο_2..Ο_T$，利用 Viterbi 动态规划算法可以有效率的找到一个最优的状态序列 $Q=q_1q_2…q_T$，计算量为 $NT^2$，如下图大致也能明白利用动态规划来找到一个最优的序列。</p>
-<p><img src="./Viterbi.jpg" alt="Viterbi算法"></p>
-<p>假设：$\delta_t(i)=max(P(o_1o_2…o_t,q_t=s_i|\lambda))$<br>初值 : $\delta_1(i)=\pi_ib_i(o_1)$</p>
-<p>递推：</p>
-<script type="math/tex; mode=display">
-\delta_{t+1}(i) = max[\delta_t(j)a_{ji}]b_i(o_t)</script><h3 id="Baum-welch算法"><a href="#Baum-welch算法" class="headerlink" title="Baum-welch算法"></a>Baum-welch算法</h3><p>问题3的解法：使用Baum-welch算法进行最大似然估计。<br>这部分稍微有点复杂自身还未明白。就不在这里贴了，大家感兴趣可以在下文参考资料里找到想要的。</p>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://www.cnblogs.com/shixiangwan/p/8979106.html" target="_blank" rel="noopener">https://www.cnblogs.com/shixiangwan/p/8979106.html</a><br><a href="https://www.cnblogs.com/skyme/p/4651331.html" target="_blank" rel="noopener">https://www.cnblogs.com/skyme/p/4651331.html</a></p>
+<h2 id="python-版本"><a href="#python-版本" class="headerlink" title="python 版本"></a>python 版本</h2><p>2.7.X<br>3.X<br>Anaconda2<br>Anaconda3<br>python有很多版本，如何在同一台系统中共存这些版本而且不会冲突，是python开发者一个重要的需求，所以诞生出了Python版本管理器pyenv。另外每个Python项目都会有很多包需要导入，而另一些项目并不需要，如果所有包都加入到系统Python的包目录下的话一方面不好管理另一方面容易出现包的冲突，因此需要为每个项目建立一个虚拟的独立的Python环境就太好了，于是virtualenv和conda工具就出现了。</p>
+<h2 id="pyenv"><a href="#pyenv" class="headerlink" title="pyenv"></a>pyenv</h2><p>pyenv是一个管理各个python版本的管理器。可以在系统里同时保留多个python版本，等需要时定义需要的版本。</p>
+<p><a href="https://github.com/pyenv/pyenv">项目地址</a></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>看项目地址中的readme</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv install --list</span><br></pre></td></tr></table></figure>
+<p>查看pyenv可安装的版本列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pyenv install anaconda2-4.2.0</span><br><span class="line">pyenv uninstall x.x.x</span><br></pre></td></tr></table></figure>
+<p>安装和卸载指定版本，会将python版本安装在<code>$(pyenv root)/versions/</code>中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv versions</span><br></pre></td></tr></table></figure>
+<p>查看当前已经安装了的python版本。输出内容中，system关键字是系统python版本。 *表示当前环境所处的版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv global anaconda2</span><br></pre></td></tr></table></figure>
+<p>全局切换为anaconda科学计算环境(不建议这么做)，做了如果要恢复，则将最后一个参数改为—unset</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv local python3.4.1</span><br></pre></td></tr></table></figure>
+<p>当前环境接环。在当前目录以下。如果要恢复，则将最后一个参数改为—unset</p>
+<h2 id="virtualenv"><a href="#virtualenv" class="headerlink" title="virtualenv"></a>virtualenv</h2><p>本来这是一个单独的软件用来虚拟一个python版本环境，让每个工作环境都有一套独立的python各自的第三方插件互不影响。然而在 pyenv 下有一个插件 pyenv-virtualenv 他可以在 pyenv 的环境下担负起 virtualenv 的事情。（如果使用的是原生python可以用这个工具，如果用的是anaconda则不用这个，用下一章说的conda工具来完成虚拟环境）</p>
+<p><a href="https://github.com/pyenv/pyenv-virtualenv">项目地址</a></p>
+<h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><p>看项目地址中的readme</p>
+<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv virtualenv 2.7.1 env271</span><br></pre></td></tr></table></figure>
+<p>在当前目录下创建一个 python 版本为2.7.1的环境，环境名字为 env271。 这个环境的真实目录位于<code>~/.pyenv/versions/</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv activate env271</span><br></pre></td></tr></table></figure>
+<p>（创建时并不激活）激活当前环境。此时已经进入虚拟环境，在当前环境下所有pip等操作都不会影响系统环境和系统路径。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv deactivate</span><br></pre></td></tr></table></figure>
+<p>离开已激活的环境，切换回系统环境。但并没有被删除，下次依旧可以启动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv uninstall env271</span><br></pre></td></tr></table></figure>
+<p>删除一个环境，当然也可以到真实目录下删除文件夹。</p>
+<h2 id="conda"><a href="#conda" class="headerlink" title="conda"></a>conda</h2><p>本来不想用这个的，但是因为 pyenv-virtualenv 有一些问题，无法很好的管理conda环境，比如有一些anaconda 自带的一些命令(例如pylint)无法被使用。因此还是老老实实使用 conda 来管理虚拟环境。</p>
+<h3 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h3><p>conda 是自带于 anaconda 的所以并不需要额外安装，如果在 anaconda 环境中就可以使用。conda 不仅可以进行 <strong>环境管理</strong>，还可以<strong>包管理</strong>，和对 anaconda和conda 进行<strong>版本升级</strong>。</p>
+<h3 id="使用-2"><a href="#使用-2" class="headerlink" title="使用"></a>使用</h3><p>由于conda使用方法太多，因此这里罗列一些常用的主要是一些虚拟环境的命令。具体的到<a href="https://conda.io/docs/using/index.html" target="_blank" rel="noopener">官网文档</a>去查看一下。</p>
+<p>首先conda工具是需要在anaconda环境下的，因此先执行<code>pyenv local anaconda3-4.2.0</code>进入anaconda环境后就可以执行conda工具了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda create --name myflakes python=x.x anaconda</span><br><span class="line">conda create --help</span><br></pre></td></tr></table></figure>
+<p>创建一个虚拟环境。可以指定名字，指定包，甚至制定python(这样的话就python版本管理了所以不建议使用，python版本管理交给pyenv)，所以命令中 python=x.x 可以不写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda info --envs</span><br><span class="line">conda env list</span><br></pre></td></tr></table></figure>
+<p>罗列已经创建的环境，两条命令是一样的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source activate myflakes //Linux,OSX</span><br><span class="line">activate myflakes        //Windows</span><br></pre></td></tr></table></figure>
+<p>激活一个环境。和virtualenv一样，创建不等于激活。激活后才能真正使用虚拟环境。<br>如果发生错误<code>Error: activate must be sourced. Run &#39;source activate envname&#39;</code>说明activate命令没有找对，导致错误。吧命令改成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source &lt;PATH TO ANACONDA&gt;/anaconda3/bin/activate &lt;ENV NAME&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这样就能成功建立虚拟环境了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deactivate myflakes</span><br><span class="line">source deactivate myflakes</span><br></pre></td></tr></table></figure>
+<p>退出虚拟环境。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove --name myflakes --all</span><br></pre></td></tr></table></figure>
+<p>删除一个虚拟环境。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create --name flowers --clone snowflakes</span><br></pre></td></tr></table></figure>
+<p>复制一个虚拟环境。这个是个不错的好功能。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda env export &gt; environment.yml</span><br><span class="line">conda env create -f environment.yml</span><br></pre></td></tr></table></figure>
+<p>conda还能吧环境配置文件导出，在另一台机器上重新读入配置文件，就能复刻你的环境了。</p>
+<h3 id="其他使用"><a href="#其他使用" class="headerlink" title="其他使用"></a>其他使用</h3><p>conda 还能进行包的管理。调用的是 pip 所以也很棒。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda list</span><br><span class="line">conda list -n myflakes</span><br><span class="line">conda search numpy //查询package</span><br></pre></td></tr></table></figure>
+<p>查看当前环境已安装包，用-n指定后，就是查看某个环境下的已安装包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda install -n  myflakes numpy</span><br><span class="line">conda update  -n  myflakes numpy</span><br><span class="line">conda remove  -n  myflakes numpy</span><br></pre></td></tr></table></figure>
+<p>为某个指定的环境安装包，升级包，删除包。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda update conda</span><br><span class="line">conda update anaconda</span><br><span class="line">conda update python</span><br></pre></td></tr></table></figure>
+<p>它还能升级自身和anaconda和python的版本。</p>
+<p>它和pip一样也能设置安装包的镜像位置。其余还有能使用R命令等等，都到官网文档中搜索一下。</p>
 
       
     </div>
@@ -564,7 +553,7 @@ P(O|\lambda)=\sum_I P(O,Q|\lambda)</script><p>复杂度为 $O(2T\cdot N^T)$ 基�
     <strong>Post author:  </strong>doudou0o</li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/" title="隐马尔科夫模型">https://github.com/doudou0o/2018/02/08/2018-02-隐马尔科夫模型/</a>
+    <a href="https://github.com/doudou0o/archives/e3ad352f/python版本共存和虚拟环境.html" title="python版本共存和虚拟环境">https://github.com/doudou0o/archives/e3ad352f/python版本共存和虚拟环境.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</li>
@@ -577,7 +566,7 @@ P(O|\lambda)=\sum_I P(O,Q|\lambda)</script><p>复杂度为 $O(2T\cdot N^T)$ 基�
       
         <div class="post-tags">
           
-            <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+            <a href="/tags/Python/" rel="tag"># Python</a>
           
         </div>
       
@@ -610,8 +599,8 @@ P(O|\lambda)=\sum_I P(O,Q|\lambda)</script><p>复杂度为 $O(2T\cdot N^T)$ 基�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/22/2017-03-拉格朗日乘数法/" rel="next" title="拉格朗日乘数法笔记">
-                <i class="fa fa-chevron-left"></i> 拉格朗日乘数法笔记
+              <a href="/archives/6358f960/10-regular-expression-matching.html" rel="next" title="10. Regular Expression Matching">
+                <i class="fa fa-chevron-left"></i> 10. Regular Expression Matching
               </a>
             
           </div>
@@ -620,8 +609,8 @@ P(O|\lambda)=\sum_I P(O,Q|\lambda)</script><p>复杂度为 $O(2T\cdot N^T)$ 基�
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/20/2018-07-特征处理之背景知识/" rel="prev" title="特征处理之背景知识">
-                特征处理之背景知识 <i class="fa fa-chevron-right"></i>
+              <a href="/archives/2456c8ba/拉格朗日乘数法笔记.html" rel="prev" title="拉格朗日乘数法笔记">
+                拉格朗日乘数法笔记 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -738,17 +727,17 @@ P(O|\lambda)=\sum_I P(O,Q|\lambda)</script><p>复杂度为 $O(2T\cdot N^T)$ 基�
             <div class="links-of-author motion-element">
               
                 <span class="links-of-author-item">
-                  <a href="https://github.com/doudou0o" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i></a>
+                  <a href="https://github.com/doudou0o" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i></a>
                   
                 </span>
               
                 <span class="links-of-author-item">
-                  <a href="mailto:bluecc021@gmail.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i></a>
+                  <a href="mailto:bluecc021@gmail.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i></a>
                   
                 </span>
               
                 <span class="links-of-author-item">
-                  <a href="https://www.jianshu.com/u/fc401e542314" target="_blank" title="简书"><i class="fa fa-fw fa-book"></i></a>
+                  <a href="https://www.jianshu.com/u/fc401e542314" target="_blank" title="简书" rel="external nofollow"><i class="fa fa-fw fa-book"></i></a>
                   
                 </span>
               
@@ -779,7 +768,7 @@ P(O|\lambda)=\sum_I P(O,Q|\lambda)</script><p>复杂度为 $O(2T\cdot N^T)$ 基�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#隐马尔可夫模型"><span class="nav-number">1.</span> <span class="nav-text">隐马尔可夫模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#离散马尔可夫过程"><span class="nav-number">1.1.</span> <span class="nav-text">离散马尔可夫过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐马尔科夫要素"><span class="nav-number">1.2.</span> <span class="nav-text">隐马尔科夫要素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐马尔可夫的三个基本问题"><span class="nav-number">1.3.</span> <span class="nav-text">隐马尔可夫的三个基本问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题1的暴力解法"><span class="nav-number">1.4.</span> <span class="nav-text">问题1的暴力解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#forward-backward-算法"><span class="nav-number">1.5.</span> <span class="nav-text">forward-backward 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前向算法"><span class="nav-number">1.5.1.</span> <span class="nav-text">前向算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后向算法"><span class="nav-number">1.5.2.</span> <span class="nav-text">后向算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Viterbi-算法"><span class="nav-number">1.6.</span> <span class="nav-text">Viterbi 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Baum-welch算法"><span class="nav-number">1.7.</span> <span class="nav-text">Baum-welch算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">1.8.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#python-版本"><span class="nav-number">1.</span> <span class="nav-text">python 版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyenv"><span class="nav-number">2.</span> <span class="nav-text">pyenv</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">2.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#virtualenv"><span class="nav-number">3.</span> <span class="nav-text">virtualenv</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-1"><span class="nav-number">3.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-1"><span class="nav-number">3.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conda"><span class="nav-number">4.</span> <span class="nav-text">conda</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-2"><span class="nav-number">4.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-2"><span class="nav-number">4.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他使用"><span class="nav-number">4.3.</span> <span class="nav-text">其他使用</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -811,9 +800,11 @@ P(O|\lambda)=\sum_I P(O,Q|\lambda)</script><p>复杂度为 $O(2T\cdot N^T)$ 基�
 </div>
 
 
+  
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a></div>
 
 
 
@@ -821,7 +812,7 @@ P(O|\lambda)=\sum_I P(O,Q|\lambda)</script><p>复杂度为 $O(2T\cdot N^T)$ 基�
 
 
 
-  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Gemini</a></div>
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Gemini</a></div>
 
 
 
@@ -964,7 +955,7 @@ P(O|\lambda)=\sum_I P(O,Q|\lambda)</script><p>复杂度为 $O(2T\cdot N^T)$ 基�
       <script type="text/javascript">
       function renderGitment(){
         var gitment = new Gitmint({
-            id: '隐马尔科夫模型',
+            id: 'python版本共存和虚拟环境',
             owner: 'doudou0o',
             repo: 'doudou0o.github.io',
             
@@ -1388,37 +1379,28 @@ P(O|\lambda)=\sum_I P(O,Q|\lambda)</script><p>复杂度为 $O(2T\cdot N^T)$ 基�
   
 
   
-
-  
-  
-
-  
-  
-
-  
-    
-      <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      },
-      TeX: {equationNumbers: { autoNumber: "AMS" }}
-    });
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
 </script>
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-      var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-    
+  
+  
+
+  
+  
+
   
 
 
