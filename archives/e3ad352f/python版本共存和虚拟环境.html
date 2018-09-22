@@ -146,7 +146,7 @@
 <meta name="keywords" content="python虚拟环境,python版本切换">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python版本共存和虚拟环境">
-<meta property="og:url" content="https://github.com/doudou0o/archives/e3ad352f/python版本共存和虚拟环境.html">
+<meta property="og:url" content="http://doudou0o.com/archives/e3ad352f/python版本共存和虚拟环境.html">
 <meta property="og:site_name" content="doudou0o blog">
 <meta property="og:description" content="python有很多版本，如何在同一台系统中共存这些版本而且不会冲突，是python开发者一个重要的需求，所以诞生出了Python版本管理器pyenv。另外每个Python项目都会有很多包需要导入，而另一些项目并不需要，如果所有包都加入到系统Python的包目录下的话一方面不好管理另一方面容易出现包的冲突，因此需要为每个项目建立一个虚拟的独立的Python环境就太好了，于是virtualenv和co">
 <meta property="og:locale" content="zh-Hans">
@@ -160,7 +160,7 @@
 
 
 
-  <link rel="canonical" href="https://github.com/doudou0o/archives/e3ad352f/python版本共存和虚拟环境.html"/>
+  <link rel="canonical" href="http://doudou0o.com/archives/e3ad352f/python版本共存和虚拟环境.html"/>
 
 
 
@@ -366,7 +366,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://github.com/doudou0o/archives/e3ad352f/python版本共存和虚拟环境.html">
+    <link itemprop="mainEntityOfPage" href="http://doudou0o.com/archives/e3ad352f/python版本共存和虚拟环境.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="doudou0o">
@@ -457,7 +457,7 @@
 <a id="more"></a>
 <h2 id="python-版本"><a href="#python-版本" class="headerlink" title="python 版本"></a>python 版本</h2><p>2.7.X<br>3.X<br>Anaconda2<br>Anaconda3<br>python有很多版本，如何在同一台系统中共存这些版本而且不会冲突，是python开发者一个重要的需求，所以诞生出了Python版本管理器pyenv。另外每个Python项目都会有很多包需要导入，而另一些项目并不需要，如果所有包都加入到系统Python的包目录下的话一方面不好管理另一方面容易出现包的冲突，因此需要为每个项目建立一个虚拟的独立的Python环境就太好了，于是virtualenv和conda工具就出现了。</p>
 <h2 id="pyenv"><a href="#pyenv" class="headerlink" title="pyenv"></a>pyenv</h2><p>pyenv是一个管理各个python版本的管理器。可以在系统里同时保留多个python版本，等需要时定义需要的版本。</p>
-<p><a href="https://github.com/pyenv/pyenv">项目地址</a></p>
+<p><a href="https://github.com/pyenv/pyenv" target="_blank" rel="noopener">项目地址</a></p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>看项目地址中的readme</p>
 <h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv install --list</span><br></pre></td></tr></table></figure>
 <p>查看pyenv可安装的版本列表</p>
@@ -470,7 +470,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv local python3.4.1</span><br></pre></td></tr></table></figure>
 <p>当前环境接环。在当前目录以下。如果要恢复，则将最后一个参数改为—unset</p>
 <h2 id="virtualenv"><a href="#virtualenv" class="headerlink" title="virtualenv"></a>virtualenv</h2><p>本来这是一个单独的软件用来虚拟一个python版本环境，让每个工作环境都有一套独立的python各自的第三方插件互不影响。然而在 pyenv 下有一个插件 pyenv-virtualenv 他可以在 pyenv 的环境下担负起 virtualenv 的事情。（如果使用的是原生python可以用这个工具，如果用的是anaconda则不用这个，用下一章说的conda工具来完成虚拟环境）</p>
-<p><a href="https://github.com/pyenv/pyenv-virtualenv">项目地址</a></p>
+<p><a href="https://github.com/pyenv/pyenv-virtualenv" target="_blank" rel="noopener">项目地址</a></p>
 <h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><p>看项目地址中的readme</p>
 <h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv virtualenv 2.7.1 env271</span><br></pre></td></tr></table></figure>
 <p>在当前目录下创建一个 python 版本为2.7.1的环境，环境名字为 env271。 这个环境的真实目录位于<code>~/.pyenv/versions/</code></p>
@@ -557,7 +557,7 @@
     <strong>Post author:  </strong>doudou0o</li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://github.com/doudou0o/archives/e3ad352f/python版本共存和虚拟环境.html" title="python版本共存和虚拟环境">https://github.com/doudou0o/archives/e3ad352f/python版本共存和虚拟环境.html</a>
+    <a href="http://doudou0o.com/archives/e3ad352f/python版本共存和虚拟环境.html" title="python版本共存和虚拟环境">http://doudou0o.com/archives/e3ad352f/python版本共存和虚拟环境.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</li>
