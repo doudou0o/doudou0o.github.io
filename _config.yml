@@ -15,7 +15,7 @@ sitemap:
   path: sitemap.xml
 baidusitemap:
   path: baidusitemap.xml
-url: https://github.com/doudou0o/
+url: http://doudou0o.com
 root: /
 #permalink: :year/:month/:day/:title/
 permalink: archives/:abbrlink/:post_title.html
@@ -76,5 +76,9 @@ theme: next #yilia #pure # Yelee
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: git@github.com:doudou0o/doudou0o.github.io.git
+  #repository: git@github.com:doudou0o/doudou0o.github.io.git
+  repo: 
+    github: git@github.com:doudou0o/doudou0o.github.io.git
+    coding: git@git.coding.net:doudou0o/doudou0o.git
   branch: master
+
