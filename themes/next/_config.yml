@@ -572,7 +572,7 @@ needmoreshare2:
 
 # Google Webmaster tools verification setting
 # See: https://www.google.com/webmasters/
-#google_site_verification:
+google_site_verification: nfywEFXCX92uifv9iMxQo7tOUk7wcKyu_z_ggzQPPHA
 
 # Google Analytics
 #google_analytics:
@@ -587,7 +587,7 @@ needmoreshare2:
 
 # Baidu Webmaster tools verification setting
 # See: https://ziyuan.baidu.com/site/
-#baidu_site_verification:
+baidu_site_verification: GEFo6ATv6U
 
 # CNZZ count
 #cnzz_siteid:

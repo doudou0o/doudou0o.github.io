@@ -12,5 +12,5 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 
-Sitemap: https://www.doudou0o.com/sitemap.xml
-Sitemap: https://www.doudou0o.com/baidusitemap.xml
+Sitemap: http://www.doudou0o.com/sitemap.xml
+Sitemap: http://www.doudou0o.com/baidusitemap.xml

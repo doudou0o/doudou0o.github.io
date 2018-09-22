@@ -11,6 +11,10 @@ language: zh-Hans
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+sitemap: 
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
 url: https://github.com/doudou0o/
 root: /
 #permalink: :year/:month/:day/:title/
