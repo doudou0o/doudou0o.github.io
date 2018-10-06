@@ -142,28 +142,29 @@
 
 
 
-  <meta name="description" content="在求解函数最优化问题中，拉格朗日乘子法（Lagrange Multiplier）和KKT（Karush Kuhn Tucker）条件是两种最常用的方法。函数有等式约束时使用拉格朗日乘子法，函数有不等约束时使用KKT条件。本文简要的复习下拉格朗日乘数法的浅层次问题。">
-<meta name="keywords" content="拉格朗日乘数法">
+  <meta name="description" content="前段时间有小伙伴问了我好几次中文切词是怎么切的，我想着应该是我没表达清楚所以小伙伴才会重复问多次，是我表达能力不够，临时说也说不上来。所以就写一篇了简单的中文切词方法的短文，一方面是锻炼下自己的表达能力，另一方面下次小伙伴再问就直接扔给他Y(^o^)Y">
+<meta name="keywords" content="切词,中文切词">
 <meta property="og:type" content="article">
-<meta property="og:title" content="拉格朗日乘数法笔记">
-<meta property="og:url" content="http://doudou0o.com/archives/2456c8ba/拉格朗日乘数法笔记.html">
+<meta property="og:title" content="中文切词方法学习">
+<meta property="og:url" content="http://doudou0o.com/archives/d5955c4c/中文切词方法学习.html">
 <meta property="og:site_name" content="doudou0o blog">
-<meta property="og:description" content="在求解函数最优化问题中，拉格朗日乘子法（Lagrange Multiplier）和KKT（Karush Kuhn Tucker）条件是两种最常用的方法。函数有等式约束时使用拉格朗日乘子法，函数有不等约束时使用KKT条件。本文简要的复习下拉格朗日乘数法的浅层次问题。">
+<meta property="og:description" content="前段时间有小伙伴问了我好几次中文切词是怎么切的，我想着应该是我没表达清楚所以小伙伴才会重复问多次，是我表达能力不够，临时说也说不上来。所以就写一篇了简单的中文切词方法的短文，一方面是锻炼下自己的表达能力，另一方面下次小伙伴再问就直接扔给他Y(^o^)Y">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://doudou0o.com/archives/2456c8ba/拉格朗日乘数法笔记/hyperbola.png">
-<meta property="og:image" content="http://doudou0o.com/archives/2456c8ba/拉格朗日乘数法笔记/contour_line.png">
-<meta property="og:updated_time" content="2018-09-22T14:01:19.067Z">
+<meta property="og:image" content="http://doudou0o.com/archives/d5955c4c/中文切词方法学习/wordpath.png">
+<meta property="og:image" content="http://doudou0o.com/archives/d5955c4c/中文切词方法学习/wordpathp.png">
+<meta property="og:image" content="http://doudou0o.com/archives/d5955c4c/中文切词方法学习/hmmword.png">
+<meta property="og:updated_time" content="2018-10-05T17:30:14.156Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="拉格朗日乘数法笔记">
-<meta name="twitter:description" content="在求解函数最优化问题中，拉格朗日乘子法（Lagrange Multiplier）和KKT（Karush Kuhn Tucker）条件是两种最常用的方法。函数有等式约束时使用拉格朗日乘子法，函数有不等约束时使用KKT条件。本文简要的复习下拉格朗日乘数法的浅层次问题。">
-<meta name="twitter:image" content="http://doudou0o.com/archives/2456c8ba/拉格朗日乘数法笔记/hyperbola.png">
+<meta name="twitter:title" content="中文切词方法学习">
+<meta name="twitter:description" content="前段时间有小伙伴问了我好几次中文切词是怎么切的，我想着应该是我没表达清楚所以小伙伴才会重复问多次，是我表达能力不够，临时说也说不上来。所以就写一篇了简单的中文切词方法的短文，一方面是锻炼下自己的表达能力，另一方面下次小伙伴再问就直接扔给他Y(^o^)Y">
+<meta name="twitter:image" content="http://doudou0o.com/archives/d5955c4c/中文切词方法学习/wordpath.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://doudou0o.com/archives/2456c8ba/拉格朗日乘数法笔记.html"/>
+  <link rel="canonical" href="http://doudou0o.com/archives/d5955c4c/中文切词方法学习.html"/>
 
 
 
@@ -173,7 +174,7 @@
   };
 </script>
 
-  <title>拉格朗日乘数法笔记 | doudou0o blog</title>
+  <title>中文切词方法学习 | doudou0o blog</title>
   
 
 
@@ -369,7 +370,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://doudou0o.com/archives/2456c8ba/拉格朗日乘数法笔记.html">
+    <link itemprop="mainEntityOfPage" href="http://doudou0o.com/archives/d5955c4c/中文切词方法学习.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="doudou0o">
@@ -386,7 +387,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">拉格朗日乘数法笔记
+          <h2 class="post-title" itemprop="name headline">中文切词方法学习
               
             
           </h2>
@@ -411,7 +412,7 @@
                 
               
 
-              <time title="Created: 2017-03-22 10:20:26" itemprop="dateCreated datePublished" datetime="2017-03-22T10:20:26+08:00">2017-03-22</time>
+              <time title="Created: 2018-07-12 23:51:40" itemprop="dateCreated datePublished" datetime="2018-07-12T23:51:40+08:00">2018-07-12</time>
             
 
             
@@ -425,7 +426,7 @@
 
           
           
-             <span id="/archives/2456c8ba/拉格朗日乘数法笔记.html" class="leancloud_visitors" data-flag-title="拉格朗日乘数法笔记">
+             <span id="/archives/d5955c4c/中文切词方法学习.html" class="leancloud_visitors" data-flag-title="中文切词方法学习">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -456,41 +457,213 @@
       
 
       
-        <p>在求解函数最优化问题中，拉格朗日乘子法（Lagrange Multiplier）和KKT（Karush Kuhn Tucker）条件是两种最常用的方法。函数有等式约束时使用拉格朗日乘子法，函数有不等约束时使用KKT条件。本文简要的复习下拉格朗日乘数法的浅层次问题。</p>
+        <p>前段时间有小伙伴问了我好几次中文切词是怎么切的，我想着应该是我没表达清楚所以小伙伴才会重复问多次，是我表达能力不够，临时说也说不上来。所以就写一篇了简单的中文切词方法的短文，一方面是锻炼下自己的表达能力，另一方面下次小伙伴再问就直接扔给他<code>Y(^o^)Y</code></p>
 <a id="more"></a>
-<h1 id="拉格朗日乘数法"><a href="#拉格朗日乘数法" class="headerlink" title="拉格朗日乘数法"></a>拉格朗日乘数法</h1><blockquote>
-<p>在求解函数最优化问题中，拉格朗日乘子法（Lagrange Multiplier）和KKT（Karush Kuhn Tucker）条件是两种最常用的方法。函数有等式约束时使用拉格朗日乘子法，函数有不等约束时使用KKT条件。</p>
+<h2 id="中文分词介绍"><a href="#中文分词介绍" class="headerlink" title="中文分词介绍"></a>中文分词介绍</h2><p>在文本处理中，如果需要理解分析句子背后的含义(语义)，或者需要加入人的一些词语的先验知识，又或者数据量不够大细粒度的单元(字)容易导致过拟合(字的字典表一般都比较小)，或者有些特殊的只适合词的模型的一些场景下都需要 <strong>切词</strong> 来将句子切分成词的有序串。特别的，“词”是表达/承载语义的最小单位，在需要表达句子乃至文章意义的时候切词是必要的。<br>但并不是所有文本处理都需要/适合切词，在数据集比较足够大的情况，或者一些深度网络模型，或者机器翻译的场景中，都是字粒度表现的更好。<br>所以是否真的需要切词，是在不同的场景下不同的数据下需要分别对待的。在不是必须要分词的情况下，优先尝试使用字粒度的模型能够更快更便捷的不错的结果再考虑是否引入词/语音的概念。</p>
+<p>在英文中每个词本身就有分割的标记，但是在中文当中词与词之间没有明显的区分标记，而且经常会有字的前后语境不一样切分方式就差别很大的情况。因此如何切词(切词算法)就显得额外重要。下面以我自己的理解和简单的语言浅显地分享下我个人理解的各种分词策略。</p>
+<h2 id="中文切词分类"><a href="#中文切词分类" class="headerlink" title="中文切词分类"></a>中文切词分类</h2><p>在中文切词中大多数文章都会分为三类:<br><strong>1. 基于词典的分词方法(也有文章称”基于字符串匹配方法”)</strong><br><strong>2. 基于统计的分词方法</strong><br><strong>3. 基于序列标注的分词方法</strong></p>
+<h4 id="第一类基于词典的分词方法"><a href="#第一类基于词典的分词方法" class="headerlink" title="第一类基于词典的分词方法"></a>第一类基于词典的分词方法</h4><p>扫描方向不同：正向/逆向最大匹配法、双向匹配分词法。<br>长度倾向不同：最少切分算法。<br>它们最重要的思想就是按照一定策略将待分析的字串与一个<strong>大词典</strong>中的词条进行匹配，若字串在词典中存在则匹配成功，然后进行下一个字串的猜想。</p>
+<h4 id="第二类基于统计的分词方法"><a href="#第二类基于统计的分词方法" class="headerlink" title="第二类基于统计的分词方法"></a>第二类基于统计的分词方法</h4><p>N元模型(N-gram)、Aprior算法(频繁项集算法)<br>他们最重要的思想就是在大量文本中，某些相邻(有顺序)的字(/词)同时出现的次数越多，就越可能构成一个词(/词串)。因此这些算法是统计或者分析字与字顺序相邻出现的概率来得到最大概率的切词结果。</p>
+<h4 id="第三类基于序列标注的分词方法"><a href="#第三类基于序列标注的分词方法" class="headerlink" title="第三类基于序列标注的分词方法"></a>第三类基于序列标注的分词方法</h4><p>条件随机场(CRF)、隐马尔科夫模型(HMM)、最大熵算法等<br>当然也包括神经网络分词模型。<br>他们都属于一种字构词方法，最重要的思想是把分词过程视为字在字串中的标注问题（例如将字标注为“首字中间字尾字”或者其他标注方式）。当这些标注完成的时候切词也就自然完成了。这种策略能够平衡地看待词表词和未登录词(未收录到词典的词)的识别问题，大大简化了使用门槛，并得到一个相当不错的切词结果。</p>
+<blockquote>
+<p>*强行插入一波广告<a href="http://doudou0o.com/archives/a66e40a/%E9%9A%90%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E6%A8%A1%E5%9E%8B.html">隐马尔科夫模型的浅显介绍链接</a></p>
 </blockquote>
-<h3 id="本篇文章主要整理拉格朗日乘子法"><a href="#本篇文章主要整理拉格朗日乘子法" class="headerlink" title="本篇文章主要整理拉格朗日乘子法"></a>本篇文章主要整理<em>拉格朗日乘子法</em></h3><p>这种方法可以将一个有 n 个变量与 k 个约束条件的最优化问题转换为一个解有 n + k 个变量的方程组的解的问题。这种方法中引入了一个或一组新的未知数，即拉格朗日乘数，又称拉格朗日乘子，或拉氏乘子，它们是在转换后的方程，即约束方程中作为梯度（gradient）的线性组合中各个向量的系数。</p>
-<p>总结伸手党，比如两个变量求最优时，求 $f(x, y)$ 在条件 $ g(x,y)=c $ 时的最大值，我们可以引入新变量拉格朗日乘数 $ \lambda $，这时我们只需要下列拉格朗日函数的极值,此时就回归到了无约束时的最值问题：</p>
+<h4 id="第四类其他分词方法"><a href="#第四类其他分词方法" class="headerlink" title="第四类其他分词方法"></a>第四类其他分词方法</h4><p>分词方法不限于上述几种方式和算法。还有很多有效可靠的算法，我没有很好地将他们分类。包括N-最短路径算法，自动感知机算法，基于字的生成式模型，等等。另外还有通过计算机模拟人类对句子的理解，同时具备句法的分析，语义的理解，并共同作用于分词的结果而且能顺带给出歧义的最优解。<br>还有一个最准最强分词器(性能差了点)——人脑。小伙伴们有没有发现人脑能简单地进行分词，机器却这么复杂和困难才勉强能使用，人脑还是hin强大啊。</p>
+<blockquote>
+<p>以上就是基本分词算法的分类以及其主要的思想。</p>
+</blockquote>
+<p>下面分享一些基本的算法理论介绍，觉得无趣的小伙伴先去洗洗睡吧。</p>
+<h2 id="正向-逆向最大匹配算法"><a href="#正向-逆向最大匹配算法" class="headerlink" title="正向/逆向最大匹配算法"></a>正向/逆向最大匹配算法</h2><p>先说说<strong>最大匹配算法</strong>，最大匹配算法就是按照某种策略使得切得的词包含的字串长度最大。正向最大匹配算法是从左往右进行匹配，反向则是从右往左进行匹配。举个栗子:</p>
+<blockquote>
+<p>词典: 研究，研究生，生活，水平，活水，的确，确实，在理。<br>句子: 研究生活水平；他说的确实在理。</p>
+</blockquote>
+<p>那么正向匹配算法，匹配过程：(咱们字典最大长度为3)<br>从左往右先选择最大的长度作为待查字串，然后查询字典，没命中的情况下，将最后一个字去除，再查询字典，如此往复，直到待查字串为空。<br>第一句: 研究生活水平</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">待查字串</th>
+<th style="text-align:center">是否命中字典</th>
+<th style="text-align:center">输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">研究生</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">研究生</td>
+</tr>
+<tr>
+<td style="text-align:left">活水平</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">活水</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">研究生 活水</td>
+</tr>
+<tr>
+<td style="text-align:left">平</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">null</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">研究生 活水 平</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>下一句: 他说的确实在理。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">待查字串</th>
+<th style="text-align:center">是否命中字典</th>
+<th style="text-align:center">输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">他说的</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">他说</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">他</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">null</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">他</td>
+</tr>
+<tr>
+<td style="text-align:left">说的确</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">…略</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">他 说</td>
+</tr>
+<tr>
+<td style="text-align:left">的确在</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:left">的确</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">他 说 的确</td>
+</tr>
+<tr>
+<td style="text-align:left">实在理</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">实在</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">他 说 的确 实在</td>
+</tr>
+<tr>
+<td style="text-align:left">理</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:left">null</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">他 说 的确 实在 理</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>那么逆向最大匹配算法，也就是说是个从右往左的一个反向过程，实际上与上述过程一样。只写一句栗子。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">待查字串</th>
+<th style="text-align:center">是否命中字典</th>
+<th style="text-align:center">输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">实在理</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">在理</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">在理</td>
+</tr>
+<tr>
+<td style="text-align:left">的确实</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">确实</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">确实 在理</td>
+</tr>
+<tr>
+<td style="text-align:left">他说的</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">说的</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left">…略</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">他 说 的 确实 在理</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>小伙伴也看到了，逆向匹配好像要优于正向匹配。也确实实验表明(哪里有过统计)，逆向最大匹配算法要优于正向最大匹配算法的。但也不绝对，还是有不少句子正向的结果要比反向结果要好很多的。</p>
+<h2 id="双向最大匹配算法"><a href="#双向最大匹配算法" class="headerlink" title="双向最大匹配算法"></a>双向最大匹配算法</h2><p>双向最大匹配算法是将正向最大匹配法与逆向最大匹配法组合。将句子分别使用正向最大匹配和逆向最大匹配法进行扫描切分。如果两种分词方法得到的匹配结果相同，则认为分词正确，否则，按照最小集或者其他策略进行选择和融合处理。<br>据说，中文中90.0％左右的句子，正向最大匹配法和逆向最大匹配法完全重合且正确，只有大概9.0％的句子两种切分方法得到 的结果不一样，但其中必有一个是正确的(歧义检测成功)，只有不到1.0％的句子，正向最大匹配法和逆向最大匹配法的切分虽重合却是错的，或者正向最大匹配法和逆向最大匹配法切分不同但两个都不对(歧义检测失败)。这正是双向最大匹配法在实用中文信息处理系统中得以广泛使用的原因所在。</p>
+<h2 id="最少切分策略"><a href="#最少切分策略" class="headerlink" title="最少切分策略"></a>最少切分策略</h2><p>最少切分策略，思路也比较简单，将几种切分算法得到的结果，选择词数最少的，如果词数一样再用其他方式进行挑选。这个只是个挑选策略，事实证明句子词数最少的切分方式往往都是正确的。</p>
+<h2 id="N元模型-N-gram-切词"><a href="#N元模型-N-gram-切词" class="headerlink" title="N元模型(N-gram)切词"></a>N元模型(N-gram)切词</h2><p>基于N元模型的切词策略是将训练好的N-gram模型进行路径计算得到最优切分策略路径。巨大多数句子由于歧义的存在，肯定会有多种切分路径，之前的最大匹配算法就是就是用一种贪婪的规则方式选择最优的路径，N-gram模型则是用统计得到的先验概率来得到概率最大的路径。<br>依然还是举上述的例子:</p>
+<blockquote>
+<p>句子: 他说的确实在理<br>假设我们使用的2-gram，每个字出现的概率只与其前面的一个字有关</p>
+</blockquote>
+<p>那么我们能举例出所有的词路径：<br><img src="./中文切词方法学习/wordpath.png" alt=""></p>
+<p>找出其最优的路径，就能得到最优的切分方式。<br>在其他算法中如最短路径算法，是设定每个路径上的每条边作为一个触达距离，然后再使用Dijkstra或者其他最短路径法来得到最短的触达距离作为最优解。<br>在<strong>N-gram模型</strong>的算法中，每个路径上的边都是一个N-gram的概率于是得到如下概率路径有向图。<br><img src="./中文切词方法学习/wordpathp.png" alt=""></p>
+<p>那么分词任务就转变为<strong>如何求解最优策略路径</strong><br>假设随机变量S为一个汉字序列，W是S上所有可能的<strong>切分路径</strong>(如上图所有从头至尾的不同路径)。对于分词，实际上就是求解使条件概率P(W∣S)最大的切分路径$W^*$，P(W∣S)即为每条路径的衡量标准。</p>
 <script type="math/tex; mode=display">
-F(x,y,\lambda) = f(x,y)+\lambda \cdot(g(x,y)-c)</script><h3 id="无约束时函数最优问题"><a href="#无约束时函数最优问题" class="headerlink" title="无约束时函数最优问题"></a>无约束时函数最优问题</h3><p>这种问题，通常的解决办法是，对各变量求偏导，使得各偏导同时为零得到驻点。再判断驻点是否为极值点，最后代入原函数验证最优。</p>
-<h3 id="等式约束时函数最优问题"><a href="#等式约束时函数最优问题" class="headerlink" title="等式约束时函数最优问题"></a>等式约束时函数最优问题</h3><p>设目标函数为 $f(x,y)$， 约束条件为 $g(x,y)=c$。问题是如何在满足约束条件的情况下，使得目标函数最大(最小)。</p>
-<p>使用一个例子来描述这个问题：在双曲线 xy=3 的情况下，哪个点离原点最近。</p>
-<script type="math/tex; mode=display">f(x,y)=x^2+y^2 g(x,y)=xy=3</script><p>如图：</p>
-<img src="/archives/2456c8ba/拉格朗日乘数法笔记/hyperbola.png" class="full-image" width="500" height="500">
-<p>那么f(x,y) 可以被描述为无数个一圈圈的等高线(图中所有颜色的圆圈线)，这些等高线与双曲线相交的点是满足约束条件的点。那么离原点最近的点，就是等高线与双曲线互切处的点，如图中，红色的点。</p>
-<p><img src="./拉格朗日乘数法笔记/contour_line.png" alt="11"></p>
-<ol>
-<li>绿色的等高线无法与双曲线相交，没有满足约束条件的解</li>
-<li>蓝色点虽然满足约束条件，但并非最优解</li>
-<li>只有等高线与双曲线相切的红色的点，才是最优解。</li>
-</ol>
-<p>在取最优解时，我们发现只有相切才能取最优解。那么如何判断相切呢？ 那就使用梯度向量（如图中红色蓝色的梯度向量），如果两者梯度向量互相平行时，那么两条曲线相切。于是引入一个参数 $\lambda$ 使得满足如下梯度公式：</p>
+W^* = argmax_W P(W|S)</script><p>做贝叶斯公式转换:</p>
 <script type="math/tex; mode=display">
-\nabla f(x,y) = \lambda \cdot \nabla g(x, y)</script><p>那么原目标函数 f(x,y) 和 约束条件 g(x,y) ，在取最优值时满足上述公式那么：</p>
+W^* = argmax_W \frac{P(W)P(S|W)}{P(S)}</script><p>由于P(S)为归一化因子，而且一般情况下(词序列无论怎么变子序列都是不会变化)P(S∣W)为1，因此只需要求解 $P(W)$。<br>假设我们使用 2-gram 语言模型进行建模(一个字词的出现只依赖它前面的那个字或词)。</p>
 <script type="math/tex; mode=display">
-\begin{cases}
-f'_x = \lambda \cdot g'_x\\
-f'_y = \lambda \cdot g'_y
-\end{cases}</script><p>此时我们就拥有了三个公式，三个未知数的多项式。把三个未知数全部解出来。代入原目标函数就是函数最值。</p>
-<p><strong>最后</strong>我们稍微整理下这三条公式:</p>
-<script type="math/tex; mode=display">
-\begin{cases}
-f'_x - \lambda \cdot g'_x = 0 \\\\
-f'_y - \lambda \cdot g'_y = 0 \\\\
-g(x,y)=c
-\end{cases}</script><p><strong>发现</strong>原最优问题可以被替换成求$F(x,y,\lambda) = f(x,y)+\lambda \cdot(g(x,y)-c)$的最优问题。且这个问题不受g(x,y)所约束，因此可以使用无约束时函数最优问题来解决。至此呼应了开头伸手党结论。</p>
+P(W) = P(w_1w_2w_3...w_N) = P(w_1|s) \cdot P(w_2|w_1) \cdot P(w_3|w_2)... P(w_{N}|w_{N-1}) \cdot P(e|w_N)</script><p>有了上述模型，就可以得到每条切分路径的$P(W|S)$也就是开头说的每条切分路径的衡量标准。<br>在这只后再使用暴力穷举也好，动态规划也好，最短路径算法也好，最终找出最优解$W^*$序列即为最优的切词策略。</p>
+<h2 id="隐马尔科夫模型-HMM-切词"><a href="#隐马尔科夫模型-HMM-切词" class="headerlink" title="隐马尔科夫模型(HMM)切词"></a>隐马尔科夫模型(HMM)切词</h2><blockquote>
+<p>*再次强行插入一波广告<a href="http://doudou0o.com/archives/a66e40a/%E9%9A%90%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E6%A8%A1%E5%9E%8B.html">隐马尔科夫模型的浅显介绍链接</a></p>
+</blockquote>
+<p>字构词的分词方法思想，是将分词问题转化为字的分类问题（序列标注问题）。就是说序列标注有以下几种: 词首，词中，词尾，单子词等。举个下面的列子就能明白了。<br>|研|究|生|说|的|确|实|在|理|<br>|:—:|:—:|:—:|:—:|:—:|:—:|:—:|:—:|:—:|<br>|词首|词中|词尾|单字词|单字词|词首|词尾|词首|词尾|<br>当每个字的标注都得出的时候，切词也就顺理成章得完成了。</p>
+<p><img src="./中文切词方法学习/hmmword.png" alt=""></p>
+<p>在<strong>隐马尔科夫模型</strong>中上述切词问题，对应以下几种要素，<strong>字</strong>为观察符号，<strong>标注</strong>为隐含状态，目标是找出概率最大的<strong>标注序列</strong>，实际上就是隐马尔科夫模型三大问题中的解码问题。</p>
+<blockquote>
+<p>给定一个模型λ ， 和一个观察序列O，找出产生这一序列概率最大的状态序列Q<br>这个问题可以使用Viterbi算法就可以轻松解决。</p>
+</blockquote>
+<h2 id="CRF切词"><a href="#CRF切词" class="headerlink" title="CRF切词"></a>CRF切词</h2><p><strong>条件随机场(CRF)</strong>同样也是一种标注思想，但与HMM不同的地方在于，HMM还算是生成式的话，CRF就属于判别式了，因为CRF主要的思想是将字进行分类任务得到它的最优的标注。<br>CRF假设标注序列Y在给定观察序列X的条件下，Y构成的图为一个MRF(马尔科夫随机场)。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.cnblogs.com/en-heng/p/6214023.html" target="_blank" rel="noopener">https://www.cnblogs.com/en-heng/p/6214023.html</a><br><a href="https://zhuanlan.zhihu.com/p/33261835" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/33261835</a></p>
 
       
     </div>
@@ -541,7 +714,7 @@ g(x,y)=c
     <strong>Post author:  </strong>doudou0o</li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="http://doudou0o.com/archives/2456c8ba/拉格朗日乘数法笔记.html" title="拉格朗日乘数法笔记">http://doudou0o.com/archives/2456c8ba/拉格朗日乘数法笔记.html</a>
+    <a href="http://doudou0o.com/archives/d5955c4c/中文切词方法学习.html" title="中文切词方法学习">http://doudou0o.com/archives/d5955c4c/中文切词方法学习.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</li>
@@ -554,7 +727,7 @@ g(x,y)=c
       
         <div class="post-tags">
           
-            <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+            <a href="/tags/Algorithm-NLP/" rel="tag"># Algorithm, NLP</a>
           
         </div>
       
@@ -587,8 +760,8 @@ g(x,y)=c
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/archives/e3ad352f/python版本共存和虚拟环境.html" rel="next" title="python版本共存和虚拟环境">
-                <i class="fa fa-chevron-left"></i> python版本共存和虚拟环境
+              <a href="/archives/a66e40a/隐马尔科夫模型.html" rel="next" title="隐马尔科夫模型">
+                <i class="fa fa-chevron-left"></i> 隐马尔科夫模型
               </a>
             
           </div>
@@ -597,8 +770,8 @@ g(x,y)=c
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/archives/a66e40a/隐马尔科夫模型.html" rel="prev" title="隐马尔科夫模型">
-                隐马尔科夫模型 <i class="fa fa-chevron-right"></i>
+              <a href="/archives/45aaf959/特征处理之背景知识.html" rel="prev" title="特征处理之背景知识">
+                特征处理之背景知识 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -758,7 +931,7 @@ g(x,y)=c
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#拉格朗日乘数法"><span class="nav-number">1.</span> <span class="nav-text">拉格朗日乘数法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本篇文章主要整理拉格朗日乘子法"><span class="nav-number">1.0.1.</span> <span class="nav-text">本篇文章主要整理拉格朗日乘子法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无约束时函数最优问题"><span class="nav-number">1.0.2.</span> <span class="nav-text">无约束时函数最优问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#等式约束时函数最优问题"><span class="nav-number">1.0.3.</span> <span class="nav-text">等式约束时函数最优问题</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#中文分词介绍"><span class="nav-number">1.</span> <span class="nav-text">中文分词介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文切词分类"><span class="nav-number">2.</span> <span class="nav-text">中文切词分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一类基于词典的分词方法"><span class="nav-number">2.0.1.</span> <span class="nav-text">第一类基于词典的分词方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二类基于统计的分词方法"><span class="nav-number">2.0.2.</span> <span class="nav-text">第二类基于统计的分词方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三类基于序列标注的分词方法"><span class="nav-number">2.0.3.</span> <span class="nav-text">第三类基于序列标注的分词方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第四类其他分词方法"><span class="nav-number">2.0.4.</span> <span class="nav-text">第四类其他分词方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正向-逆向最大匹配算法"><span class="nav-number">3.</span> <span class="nav-text">正向/逆向最大匹配算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双向最大匹配算法"><span class="nav-number">4.</span> <span class="nav-text">双向最大匹配算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最少切分策略"><span class="nav-number">5.</span> <span class="nav-text">最少切分策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#N元模型-N-gram-切词"><span class="nav-number">6.</span> <span class="nav-text">N元模型(N-gram)切词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐马尔科夫模型-HMM-切词"><span class="nav-number">7.</span> <span class="nav-text">隐马尔科夫模型(HMM)切词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CRF切词"><span class="nav-number">8.</span> <span class="nav-text">CRF切词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">9.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
@@ -945,7 +1118,7 @@ g(x,y)=c
       <script type="text/javascript">
       function renderGitment(){
         var gitment = new Gitmint({
-            id: '拉格朗日乘数法笔记',
+            id: '中文切词方法学习',
             owner: 'doudou0o',
             repo: 'doudou0o.github.io',
             
