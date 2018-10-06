@@ -153,7 +153,7 @@
 <meta property="og:image" content="http://doudou0o.com/archives/d5955c4c/中文切词方法学习/wordpath.png">
 <meta property="og:image" content="http://doudou0o.com/archives/d5955c4c/中文切词方法学习/wordpathp.png">
 <meta property="og:image" content="http://doudou0o.com/archives/d5955c4c/中文切词方法学习/hmmword.png">
-<meta property="og:updated_time" content="2018-10-05T17:30:14.156Z">
+<meta property="og:updated_time" content="2018-10-06T01:50:51.439Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="中文切词方法学习">
 <meta name="twitter:description" content="前段时间有小伙伴问了我好几次中文切词是怎么切的，我想着应该是我没表达清楚所以小伙伴才会重复问多次，是我表达能力不够，临时说也说不上来。所以就写一篇了简单的中文切词方法的短文，一方面是锻炼下自己的表达能力，另一方面下次小伙伴再问就直接扔给他Y(^o^)Y">
@@ -459,6 +459,8 @@
       
         <p>前段时间有小伙伴问了我好几次中文切词是怎么切的，我想着应该是我没表达清楚所以小伙伴才会重复问多次，是我表达能力不够，临时说也说不上来。所以就写一篇了简单的中文切词方法的短文，一方面是锻炼下自己的表达能力，另一方面下次小伙伴再问就直接扔给他<code>Y(^o^)Y</code></p>
 <a id="more"></a>
+<p><a href="https://www.jianshu.com/p/7be436c22c8a" target="_blank" rel="noopener" style="color: deepskyblue;">本文简述链接
+</a></p>
 <h2 id="中文分词介绍"><a href="#中文分词介绍" class="headerlink" title="中文分词介绍"></a>中文分词介绍</h2><p>在文本处理中，如果需要理解分析句子背后的含义(语义)，或者需要加入人的一些词语的先验知识，又或者数据量不够大细粒度的单元(字)容易导致过拟合(字的字典表一般都比较小)，或者有些特殊的只适合词的模型的一些场景下都需要 <strong>切词</strong> 来将句子切分成词的有序串。特别的，“词”是表达/承载语义的最小单位，在需要表达句子乃至文章意义的时候切词是必要的。<br>但并不是所有文本处理都需要/适合切词，在数据集比较足够大的情况，或者一些深度网络模型，或者机器翻译的场景中，都是字粒度表现的更好。<br>所以是否真的需要切词，是在不同的场景下不同的数据下需要分别对待的。在不是必须要分词的情况下，优先尝试使用字粒度的模型能够更快更便捷的不错的结果再考虑是否引入词/语音的概念。</p>
 <p>在英文中每个词本身就有分割的标记，但是在中文当中词与词之间没有明显的区分标记，而且经常会有字的前后语境不一样切分方式就差别很大的情况。因此如何切词(切词算法)就显得额外重要。下面以我自己的理解和简单的语言浅显地分享下我个人理解的各种分词策略。</p>
 <h2 id="中文切词分类"><a href="#中文切词分类" class="headerlink" title="中文切词分类"></a>中文切词分类</h2><p>在中文切词中大多数文章都会分为三类:<br><strong>1. 基于词典的分词方法(也有文章称”基于字符串匹配方法”)</strong><br><strong>2. 基于统计的分词方法</strong><br><strong>3. 基于序列标注的分词方法</strong></p>
