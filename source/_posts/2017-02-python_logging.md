@@ -11,10 +11,11 @@ date: 2017-02-26 16:01:36
 
 本篇文章主要对 python logging 的介绍加深理解。更主要是 讨论在多进程环境下如何使用logging 来输出日志， 如何安全地切分日志文件。
 
-
 <!-- more -->
 
-本篇文章主要对 python logging 的介绍加深理解。更主要是 讨论在多进程环境下如何使用logging 来输出日志， 如何安全地切分日志文件。
+<a href="https://www.jianshu.com/p/d615bf01e37b" 
+target="_blank" rel="noopener" style="color: deepskyblue;">本文简述链接
+</a>
 
 ## 1. logging日志模块介绍
 python的logging模块提供了灵活的标准模块，使得任何Python程序都可以使用这个第三方模块来实现日志记录。[python logging 官方文档](https://docs.python.org/2/library/logging.html) 
