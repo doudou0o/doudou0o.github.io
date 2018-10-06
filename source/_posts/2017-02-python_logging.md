@@ -14,7 +14,7 @@ date: 2017-02-26 16:01:36
 <!-- more -->
 
 <a href="https://www.jianshu.com/p/d615bf01e37b" 
-target="_blank" rel="noopener" style="color: deepskyblue;">本文简述链接
+target="_blank" rel="noopener" style="color: deepskyblue;">本文简书链接
 </a>
 
 ## 1. logging日志模块介绍
