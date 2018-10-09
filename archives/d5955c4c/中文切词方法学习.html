@@ -153,7 +153,7 @@
 <meta property="og:image" content="http://doudou0o.com/archives/d5955c4c/中文切词方法学习/wordpath.png">
 <meta property="og:image" content="http://doudou0o.com/archives/d5955c4c/中文切词方法学习/wordpathp.png">
 <meta property="og:image" content="http://doudou0o.com/archives/d5955c4c/中文切词方法学习/hmmword.png">
-<meta property="og:updated_time" content="2018-10-06T02:17:12.321Z">
+<meta property="og:updated_time" content="2018-10-09T15:36:45.710Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="中文切词方法学习">
 <meta name="twitter:description" content="前段时间有小伙伴问了我好几次中文切词是怎么切的，我想着应该是我没表达清楚所以小伙伴才会重复问多次，是我表达能力不够，临时说也说不上来。所以就写一篇了简单的中文切词方法的短文，一方面是锻炼下自己的表达能力，另一方面下次小伙伴再问就直接扔给他Y(^o^)Y">
@@ -562,6 +562,7 @@
 <tr>
 <td style="text-align:left">的确在</td>
 <td style="text-align:center">否</td>
+<td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:left">的确</td>
@@ -581,6 +582,7 @@
 <tr>
 <td style="text-align:left">理</td>
 <td style="text-align:center">否</td>
+<td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:left">null</td>
@@ -658,7 +660,38 @@ P(W) = P(w_1w_2w_3...w_N) = P(w_1|s) \cdot P(w_2|w_1) \cdot P(w_3|w_2)... P(w_{N
 <h2 id="隐马尔科夫模型-HMM-切词"><a href="#隐马尔科夫模型-HMM-切词" class="headerlink" title="隐马尔科夫模型(HMM)切词"></a>隐马尔科夫模型(HMM)切词</h2><blockquote>
 <p>*再次强行插入一波广告<a href="http://doudou0o.com/archives/a66e40a/%E9%9A%90%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E6%A8%A1%E5%9E%8B.html">隐马尔科夫模型的浅显介绍链接</a></p>
 </blockquote>
-<p>字构词的分词方法思想，是将分词问题转化为字的分类问题（序列标注问题）。就是说序列标注有以下几种: 词首，词中，词尾，单子词等。举个下面的列子就能明白了。<br>|研|究|生|说|的|确|实|在|理|<br>|:—:|:—:|:—:|:—:|:—:|:—:|:—:|:—:|:—:|<br>|词首|词中|词尾|单字词|单字词|词首|词尾|词首|词尾|<br>当每个字的标注都得出的时候，切词也就顺理成章得完成了。</p>
+<p>字构词的分词方法思想，是将分词问题转化为字的分类问题（序列标注问题）。就是说序列标注有以下几种: 词首，词中，词尾，单子词等。举个下面的列子就能明白了。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">研</th>
+<th style="text-align:center">究</th>
+<th style="text-align:center">生</th>
+<th style="text-align:center">说</th>
+<th style="text-align:center">的</th>
+<th style="text-align:center">确</th>
+<th style="text-align:center">实</th>
+<th style="text-align:center">在</th>
+<th style="text-align:center">理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">词首</td>
+<td style="text-align:center">词中</td>
+<td style="text-align:center">词尾</td>
+<td style="text-align:center">单字词</td>
+<td style="text-align:center">单字词</td>
+<td style="text-align:center">词首</td>
+<td style="text-align:center">词尾</td>
+<td style="text-align:center">词首</td>
+<td style="text-align:center">词尾</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>当每个字的标注都得出的时候，切词也就顺理成章得完成了。</p>
 <p><img src="./中文切词方法学习/hmmword.png" alt=""></p>
 <p>在<strong>隐马尔科夫模型</strong>中上述切词问题，对应以下几种要素，<strong>字</strong>为观察符号，<strong>标注</strong>为隐含状态，目标是找出概率最大的<strong>标注序列</strong>，实际上就是隐马尔科夫模型三大问题中的解码问题。</p>
 <blockquote>
