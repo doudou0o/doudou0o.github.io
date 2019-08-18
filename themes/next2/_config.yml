@@ -888,7 +888,7 @@ swiftype_key:
 # See: https://chatra.io
 # Dashboard: https://app.chatra.io/settings/general
 chatra:
-  enable: true
+  enable: false
   async: true
   id: CN4rGCfu9FENoXZMY # Visit Dashboard to get your ChatraID
   #embed: # Unfinished experimental feature for developers. See: https://chatra.io/help/api/#injectto
