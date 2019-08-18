@@ -67,14 +67,15 @@ Markdown 语法手册
 
 本地图片
 \!\[本地图片](./{{ title }}/start.jpg)
-![本地图片](./test-markdown/start.jpg)
+\!\[本地图片](./{{ abbrlink }}/start.jpg)
+![本地图片](./{{ abbrlink }}/start.jpg)
 
 大小控制图片
 ```
-<img src="./{{ title }}/start.jpg" alt="logo" width="50%" height="50%" />
+<img src="./{{ abbrlink }}/start.jpg" alt="logo" width="50%" height="50%" />
 ```
 
-<img src="./test-markdown/start.jpg" alt="logo" width="50%" height="50%" />
+<img src="./{{ abbrlink }}/start.jpg" alt="logo" width="50%" height="50%" />
 
 
 -----

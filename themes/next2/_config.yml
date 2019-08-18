@@ -615,14 +615,14 @@ comments:
   style: tabs
   # Choose a comment system to be displayed by default.
   # Available values: changyan | disqus | disqusjs | facebook_comments_plugin | gitalk | livere | valine | vkontakte
-  active:
+  active: gitalk
   # Setting `true` means remembering the comment system selected by the visitor.
   storage: true
   # Modify icons and texts for any style, here are some examples.
   nav:
     #disqus: disqus
     #facebook_comments_plugin: <i class="fa fa-facebook-official" aria-hidden="true"></i> facebook
-    #gitalk: Load Gitalk
+    gitalk: Load Gitalk
 
 # Disqus
 disqus:
@@ -683,7 +683,7 @@ gitalk:
   repo: doudou0o.github.io # Repository name to store issues
   client_id: 60ed80a6055a3fa91e11 # GitHub Application Client ID
   client_secret: a753cf2091f8025d3dc7e488d6ec868a6d4613f9 # GitHub Application Client Secret
-  admin_user: doudou0o# GitHub repo owner and collaborators, only these guys can initialize gitHub issues
+  admin_user: doudou0o # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
   distraction_free_mode: true # Facebook-like distraction free mode
   # Gitalk's display language depends on user's browser or system environment
   # If you want everyone visiting your site to see a uniform language, you can set a force language value
@@ -734,7 +734,7 @@ needmoreshare2:
     options:
       iconStyle: default
       boxForm: horizontal
-      position: bottomRight
+      position: bottomCenter
       networks: Weibo,Wechat,Douban,QQZone
   float:
     enable: false
@@ -814,7 +814,7 @@ leancloud_visitors:
   # Dependencies: https://github.com/theme-next/hexo-leancloud-counter-security
   # If you don't care about security in leancloud counter and just want to use it directly
   # (without hexo-leancloud-counter-security plugin), set `security` to `false`.
-  security: true
+  security: false
   betterPerformance: false
 
 # Another tool to show number of visitors to each article.
