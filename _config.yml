@@ -7,9 +7,9 @@ title: doudou0o blog
 subtitle: 沉淀知识 分享知识
 description: Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.
 author: doudou0o
-language: zh-Hans
+#language: zh-Hans
 #language: zh-CN
-#language: en
+language: en
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -20,7 +20,8 @@ baidusitemap:
 url: http://doudou0o.com
 root: /
 #permalink: :year/:month/:day/:title/
-permalink: archives/:abbrlink/:post_title.html
+#permalink: archives/:abbrlink/:post_title.html
+permalink: archives/:abbrlink.html
 abbrlink:
   alg: crc32  # 算法：crc16(default) and crc32
   rep: hex    # 进制：dec(default) and hex
@@ -72,7 +73,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next #yilia #pure # Yelee
+theme: next2 #yilia #pure # Yelee
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
