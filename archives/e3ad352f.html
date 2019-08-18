@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-64x64.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-64x64.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-64x64.png?v=7.3.0">
+  <link rel="mask-icon" href="/assets/img/favicon-64x64.png?v=7.3.0" color="#222">
+  <meta name="google-site-verification" content="nfywEFXCX92uifv9iMxQo7tOUk7wcKyu_z_ggzQPPHA">
+  <meta name="baidu-site-verification" content="GEFo6ATv6U">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","width":240,"display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="python有很多版本，如何在同一台系统中共存这些版本而且不会冲突，是python开发者一个重要的需求，所以诞生出了Python版本管理器pyenv。另外每个Python项目都会有很多包需要导入，而另一些项目并不需要，如果所有包都加入到系统Python的包目录下的话一方面不好管理另一方面容易出现包的冲突，因此需要为每个项目建立一个虚拟的独立的Python环境就太好了，于是virtualenv和co">
+<meta name="keywords" content="python虚拟环境,python版本切换">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python版本共存和虚拟环境">
+<meta property="og:url" content="http://doudou0o.com/archives/e3ad352f.html">
+<meta property="og:site_name" content="doudou0o blog">
+<meta property="og:description" content="python有很多版本，如何在同一台系统中共存这些版本而且不会冲突，是python开发者一个重要的需求，所以诞生出了Python版本管理器pyenv。另外每个Python项目都会有很多包需要导入，而另一些项目并不需要，如果所有包都加入到系统Python的包目录下的话一方面不好管理另一方面容易出现包的冲突，因此需要为每个项目建立一个虚拟的独立的Python环境就太好了，于是virtualenv和co">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-18T03:43:59.670Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python版本共存和虚拟环境">
+<meta name="twitter:description" content="python有很多版本，如何在同一台系统中共存这些版本而且不会冲突，是python开发者一个重要的需求，所以诞生出了Python版本管理器pyenv。另外每个Python项目都会有很多包需要导入，而另一些项目并不需要，如果所有包都加入到系统Python的包目录下的话一方面不好管理另一方面容易出现包的冲突，因此需要为每个项目建立一个虚拟的独立的Python环境就太好了，于是virtualenv和co">
+  <link rel="canonical" href="http://doudou0o.com/archives/e3ad352f">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>python版本共存和虚拟环境 | doudou0o blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">doudou0o blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">沉淀知识 分享知识</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    
+  <div class="popup search-popup">
+  <div class="search-header">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <div class="search-input-wrapper">
+      <input autocomplete="off" autocorrect="off" autocapitalize="none"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="search-input">
+    </div>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+  <div id="search-result"></div>
+</div>
+
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://doudou0o.com/archives/e3ad352f.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="doudou0o">
+      <meta itemprop="description" content="Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.">
+      <meta itemprop="image" content="/assets/img/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="doudou0o blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">python版本共存和虚拟环境
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2017-03-12 10:20:20" itemprop="dateCreated datePublished" datetime="2017-03-12T10:20:20+08:00">2017-03-12</time>
+            </span>
+          
+
+          
+            <span id="/archives/e3ad352f.html" class="post-meta-item leancloud_visitors" data-flag-title="python版本共存和虚拟环境" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>python有很多版本，如何在同一台系统中共存这些版本而且不会冲突，是python开发者一个重要的需求，所以诞生出了Python版本管理器pyenv。另外每个Python项目都会有很多包需要导入，而另一些项目并不需要，如果所有包都加入到系统Python的包目录下的话一方面不好管理另一方面容易出现包的冲突，因此需要为每个项目建立一个虚拟的独立的Python环境就太好了，于是virtualenv和conda工具就出现了。</p>
+<a id="more"></a>
+<h2 id="python-版本"><a href="#python-版本" class="headerlink" title="python 版本"></a>python 版本</h2><p>2.7.X<br>3.X<br>Anaconda2<br>Anaconda3<br>python有很多版本，如何在同一台系统中共存这些版本而且不会冲突，是python开发者一个重要的需求，所以诞生出了Python版本管理器pyenv。另外每个Python项目都会有很多包需要导入，而另一些项目并不需要，如果所有包都加入到系统Python的包目录下的话一方面不好管理另一方面容易出现包的冲突，因此需要为每个项目建立一个虚拟的独立的Python环境就太好了，于是virtualenv和conda工具就出现了。</p>
+<h2 id="pyenv"><a href="#pyenv" class="headerlink" title="pyenv"></a>pyenv</h2><p>pyenv是一个管理各个python版本的管理器。可以在系统里同时保留多个python版本，等需要时定义需要的版本。</p>
+<p><a href="https://github.com/pyenv/pyenv" target="_blank" rel="noopener">项目地址</a></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>看项目地址中的readme</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv install --list</span><br></pre></td></tr></table></figure>
+<p>查看pyenv可安装的版本列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pyenv install anaconda2-4.2.0</span><br><span class="line">pyenv uninstall x.x.x</span><br></pre></td></tr></table></figure>
+<p>安装和卸载指定版本，会将python版本安装在<code>$(pyenv root)/versions/</code>中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv versions</span><br></pre></td></tr></table></figure>
+<p>查看当前已经安装了的python版本。输出内容中，system关键字是系统python版本。 *表示当前环境所处的版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv global anaconda2</span><br></pre></td></tr></table></figure>
+<p>全局切换为anaconda科学计算环境(不建议这么做)，做了如果要恢复，则将最后一个参数改为—unset</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv local python3.4.1</span><br></pre></td></tr></table></figure>
+<p>当前环境接环。在当前目录以下。如果要恢复，则将最后一个参数改为—unset</p>
+<h2 id="virtualenv"><a href="#virtualenv" class="headerlink" title="virtualenv"></a>virtualenv</h2><p>本来这是一个单独的软件用来虚拟一个python版本环境，让每个工作环境都有一套独立的python各自的第三方插件互不影响。然而在 pyenv 下有一个插件 pyenv-virtualenv 他可以在 pyenv 的环境下担负起 virtualenv 的事情。（如果使用的是原生python可以用这个工具，如果用的是anaconda则不用这个，用下一章说的conda工具来完成虚拟环境）</p>
+<p><a href="https://github.com/pyenv/pyenv-virtualenv" target="_blank" rel="noopener">项目地址</a></p>
+<h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><p>看项目地址中的readme</p>
+<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv virtualenv 2.7.1 env271</span><br></pre></td></tr></table></figure>
+<p>在当前目录下创建一个 python 版本为2.7.1的环境，环境名字为 env271。 这个环境的真实目录位于<code>~/.pyenv/versions/</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv activate env271</span><br></pre></td></tr></table></figure>
+<p>（创建时并不激活）激活当前环境。此时已经进入虚拟环境，在当前环境下所有pip等操作都不会影响系统环境和系统路径。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv deactivate</span><br></pre></td></tr></table></figure>
+<p>离开已激活的环境，切换回系统环境。但并没有被删除，下次依旧可以启动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv uninstall env271</span><br></pre></td></tr></table></figure>
+<p>删除一个环境，当然也可以到真实目录下删除文件夹。</p>
+<h2 id="conda"><a href="#conda" class="headerlink" title="conda"></a>conda</h2><p>本来不想用这个的，但是因为 pyenv-virtualenv 有一些问题，无法很好的管理conda环境，比如有一些anaconda 自带的一些命令(例如pylint)无法被使用。因此还是老老实实使用 conda 来管理虚拟环境。</p>
+<h3 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h3><p>conda 是自带于 anaconda 的所以并不需要额外安装，如果在 anaconda 环境中就可以使用。conda 不仅可以进行 <strong>环境管理</strong>，还可以<strong>包管理</strong>，和对 anaconda和conda 进行<strong>版本升级</strong>。</p>
+<h3 id="使用-2"><a href="#使用-2" class="headerlink" title="使用"></a>使用</h3><p>由于conda使用方法太多，因此这里罗列一些常用的主要是一些虚拟环境的命令。具体的到<a href="https://conda.io/docs/using/index.html" target="_blank" rel="noopener">官网文档</a>去查看一下。</p>
+<p>首先conda工具是需要在anaconda环境下的，因此先执行<code>pyenv local anaconda3-4.2.0</code>进入anaconda环境后就可以执行conda工具了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda create --name myflakes python=x.x anaconda</span><br><span class="line">conda create --help</span><br></pre></td></tr></table></figure>
+<p>创建一个虚拟环境。可以指定名字，指定包，甚至制定python(这样的话就python版本管理了所以不建议使用，python版本管理交给pyenv)，所以命令中 python=x.x 可以不写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda info --envs</span><br><span class="line">conda env list</span><br></pre></td></tr></table></figure>
+<p>罗列已经创建的环境，两条命令是一样的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source activate myflakes //Linux,OSX</span><br><span class="line">activate myflakes        //Windows</span><br></pre></td></tr></table></figure>
+<p>激活一个环境。和virtualenv一样，创建不等于激活。激活后才能真正使用虚拟环境。<br>如果发生错误<code>Error: activate must be sourced. Run &#39;source activate envname&#39;</code>说明activate命令没有找对，导致错误。吧命令改成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source &lt;PATH TO ANACONDA&gt;/anaconda3/bin/activate &lt;ENV NAME&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这样就能成功建立虚拟环境了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deactivate myflakes</span><br><span class="line">source deactivate myflakes</span><br></pre></td></tr></table></figure>
+<p>退出虚拟环境。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove --name myflakes --all</span><br></pre></td></tr></table></figure>
+<p>删除一个虚拟环境。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create --name flowers --clone snowflakes</span><br></pre></td></tr></table></figure>
+<p>复制一个虚拟环境。这个是个不错的好功能。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda env export &gt; environment.yml</span><br><span class="line">conda env create -f environment.yml</span><br></pre></td></tr></table></figure>
+<p>conda还能吧环境配置文件导出，在另一台机器上重新读入配置文件，就能复刻你的环境了。</p>
+<h3 id="其他使用"><a href="#其他使用" class="headerlink" title="其他使用"></a>其他使用</h3><p>conda 还能进行包的管理。调用的是 pip 所以也很棒。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda list</span><br><span class="line">conda list -n myflakes</span><br><span class="line">conda search numpy //查询package</span><br></pre></td></tr></table></figure>
+<p>查看当前环境已安装包，用-n指定后，就是查看某个环境下的已安装包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda install -n  myflakes numpy</span><br><span class="line">conda update  -n  myflakes numpy</span><br><span class="line">conda remove  -n  myflakes numpy</span><br></pre></td></tr></table></figure>
+<p>为某个指定的环境安装包，升级包，删除包。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda update conda</span><br><span class="line">conda update anaconda</span><br><span class="line">conda update python</span><br></pre></td></tr></table></figure>
+<p>它还能升级自身和anaconda和python的版本。</p>
+<p>它和pip一样也能设置安装包的镜像位置。其余还有能使用R命令等等，都到官网文档中搜索一下。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/assets/img/weixinpay.jpg" alt="doudou0o WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/assets/img/alipay.jpg" alt="doudou0o Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Python/" rel="tag"># Python</a>
+            
+          </div>
+        
+
+        
+  <div class="post-widgets">
+    <div class="social-share">
+      
+      
+        <div id="needsharebutton-postbottom">
+          <span class="btn">
+            <i class="fa fa-share-alt" aria-hidden="true"></i>
+          </span>
+        </div>
+      
+    </div>
+  
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/archives/6358f960.html" rel="next" title="10. Regular Expression Matching">
+                  <i class="fa fa-chevron-left"></i> 10. Regular Expression Matching
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/archives/2456c8ba.html" rel="prev" title="拉格朗日乘数法笔记">
+                  拉格朗日乘数法笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/assets/img/avatar.gif"
+      alt="doudou0o">
+  <p class="site-author-name" itemprop="name">doudou0o</p>
+  <div class="site-description motion-element" itemprop="description">Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://github.com/doudou0o" title="GitHub &rarr; https://github.com/doudou0o" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="mailto:bluecc021@gmail.com" title="E-Mail &rarr; mailto:bluecc021@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://www.jianshu.com/u/fc401e542314" title="简书 &rarr; https://www.jianshu.com/u/fc401e542314" rel="noopener" target="_blank"><i class="fa fa-fw fa-book"></i></a>
+      </span>
+    
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#python-版本"><span class="nav-number">1.</span> <span class="nav-text">python 版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyenv"><span class="nav-number">2.</span> <span class="nav-text">pyenv</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">2.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#virtualenv"><span class="nav-number">3.</span> <span class="nav-text">virtualenv</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-1"><span class="nav-number">3.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-1"><span class="nav-number">3.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conda"><span class="nav-number">4.</span> <span class="nav-text">conda</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-2"><span class="nav-number">4.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-2"><span class="nav-number">4.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他使用"><span class="nav-number">4.3.</span> <span class="nav-text">其他使用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">doudou0o</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+  
+<script src="/lib/needsharebutton/needsharebutton.js"></script>
+<script>
+    pbOptions = {};
+      pbOptions.iconStyle = "default";
+    
+      pbOptions.boxForm = "horizontal";
+    
+      pbOptions.position = "bottomRight";
+    
+      pbOptions.networks = "Weibo,Wechat,Douban,QQZone";
+    
+    new needShareButton('#needsharebutton-postbottom', pbOptions);
+</script>
+
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+  
+  <script>
+  function leancloudSelector(url) {
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = visitors.getAttribute('id').trim();
+      var title = visitors.getAttribute('data-flag-title').trim();
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+            
+              .catch(error => {
+                console.log('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return element.getAttribute('id').trim();
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.url;
+            var time = item.time;
+            leancloudSelector(url).innerText = time;
+          }
+          for (var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=dA1sbLdvYXxRBcazcbct0JXj-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'dA1sbLdvYXxRBcazcbct0JXj-gzGzoHsz',
+            'X-LC-Key': 'LVJztVzprpmRivJmu0RScKB2',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+        if (localhost.test(document.URL)) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'CN4rGCfu9FENoXZMY';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '60ed80a6055a3fa91e11',
+      clientSecret: 'a753cf2091f8025d3dc7e488d6ec868a6d4613f9',
+      repo: 'doudou0o.github.io',
+      owner: 'doudou0o',
+      admin: ['doudou0o'],
+      id: 'python版本共存和虚拟环境',
+      <!-- id: '3cf37de7c4f13bc9065f9e81535602fb', -->
+        language: 'zh-CN',
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>

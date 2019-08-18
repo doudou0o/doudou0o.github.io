@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-64x64.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-64x64.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-64x64.png?v=7.3.0">
+  <link rel="mask-icon" href="/assets/img/favicon-64x64.png?v=7.3.0" color="#222">
+  <meta name="google-site-verification" content="nfywEFXCX92uifv9iMxQo7tOUk7wcKyu_z_ggzQPPHA">
+  <meta name="baidu-site-verification" content="GEFo6ATv6U">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","width":240,"display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="leetcode #10 Regular Expression Matching 题目详解, 看网上帖子说的不清楚都是直接给代码也没个例子，所以起个帖子记录下自己的思路。 本文主要讲述递归解法和动态规划解法的思想。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10. Regular Expression Matching">
+<meta property="og:url" content="http://doudou0o.com/archives/6358f960.html">
+<meta property="og:site_name" content="doudou0o blog">
+<meta property="og:description" content="leetcode #10 Regular Expression Matching 题目详解, 看网上帖子说的不清楚都是直接给代码也没个例子，所以起个帖子记录下自己的思路。 本文主要讲述递归解法和动态规划解法的思想。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-18T03:43:59.669Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="10. Regular Expression Matching">
+<meta name="twitter:description" content="leetcode #10 Regular Expression Matching 题目详解, 看网上帖子说的不清楚都是直接给代码也没个例子，所以起个帖子记录下自己的思路。 本文主要讲述递归解法和动态规划解法的思想。">
+  <link rel="canonical" href="http://doudou0o.com/archives/6358f960">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>10. Regular Expression Matching | doudou0o blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">doudou0o blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">沉淀知识 分享知识</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    
+  <div class="popup search-popup">
+  <div class="search-header">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <div class="search-input-wrapper">
+      <input autocomplete="off" autocorrect="off" autocapitalize="none"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="search-input">
+    </div>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+  <div id="search-result"></div>
+</div>
+
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://doudou0o.com/archives/6358f960.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="doudou0o">
+      <meta itemprop="description" content="Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.">
+      <meta itemprop="image" content="/assets/img/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="doudou0o blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">10. Regular Expression Matching
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2017-02-27 15:30:10" itemprop="dateCreated datePublished" datetime="2017-02-27T15:30:10+08:00">2017-02-27</time>
+            </span>
+          
+
+          
+            <span id="/archives/6358f960.html" class="post-meta-item leancloud_visitors" data-flag-title="10. Regular Expression Matching" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>leetcode #10 Regular Expression Matching 题目详解, 看网上帖子说的不清楚都是直接给代码也没个例子，所以起个帖子记录下自己的思路。</p>
+<p>本文主要讲述递归解法和动态规划解法的思想。</p>
+<a id="more"></a>
+<h1 id="10-Regular-Expression-Matching"><a href="#10-Regular-Expression-Matching" class="headerlink" title="10. Regular Expression Matching"></a>10. Regular Expression Matching</h1><p>原文要求如下：</p>
+<p>Implement regular expression matching with support for <code>&#39;.&#39;</code> and <code>&#39;*&#39;</code>.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&apos;.&apos; Matches any single character.</span><br><span class="line">&apos;*&apos; Matches zero or more of the preceding element.</span><br><span class="line"></span><br><span class="line">The matching should cover the **entire** input string (not partial).</span><br><span class="line"></span><br><span class="line">The function prototype should be:</span><br><span class="line">bool isMatch(const char *s, const char *p)</span><br><span class="line"></span><br><span class="line">Some examples:</span><br><span class="line">isMatch(&quot;aa&quot;,&quot;a&quot;) → false</span><br><span class="line">isMatch(&quot;aa&quot;,&quot;aa&quot;) → true</span><br><span class="line">isMatch(&quot;aaa&quot;,&quot;aa&quot;) → false</span><br><span class="line">isMatch(&quot;aa&quot;, &quot;a*&quot;) → true</span><br><span class="line">isMatch(&quot;aa&quot;, &quot;.*&quot;) → true</span><br><span class="line">isMatch(&quot;ab&quot;, &quot;.*&quot;) → true</span><br><span class="line">isMatch(&quot;aab&quot;, &quot;c*a*b&quot;) → true</span><br><span class="line">isMatch(&quot;aaaa&quot;,&quot;ab*a*c*a&quot;) → true #自己加的</span><br></pre></td></tr></table></figure></p>
+<h3 id="解法有两种"><a href="#解法有两种" class="headerlink" title="解法有两种"></a>解法有两种</h3><h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><p>递归想法比较简单代码也比较清楚，但耗时很长复杂度是指数级别<br>考虑递归思想时，只需要考虑终结情况，和当前情况，其他的任由递归完成<br>当前情况的考虑如下：<br>因为<code>*</code>号是最复杂的情况甚至可以发生0次于是分成两种情况分别考虑：p[1] 为 <code>*</code> 和 p[1] 不为 <code>*</code></p>
+<ol>
+<li><code>p[1] != *</code> 时：说明当前p[0]不会发生0-n次的变化直接对比就可以，剩下的交给递归<ol>
+<li><code>s[0] == p[0]</code> 判等（这个相等包含了<code>.</code>的情况，后面相同）</li>
+<li>递归判断 <code>isMatch(s[1:],p[1:])</code> 两个子串</li>
+</ol>
+</li>
+<li><code>p[1] == *</code> 时：说明当前p[0]会发生0-n次的变化，而且都是有效的<ol>
+<li>假设发生 0次 ：那么直接将p[0,1]跳过进行递归 <code>isMatch(s,p[2:])</code></li>
+<li>假设发生 1次以上：那么得先判等，然后s+1进行递归 <code>s[0]==p[0] and isMatch(s[1:],p)</code></li>
+</ol>
+</li>
+</ol>
+<p>好了所有情况都考虑好了，就可以直接上代码了，递归思想还是比较简单，直接看代码可能比看上述文字更加简单直接。</p>
+<blockquote>
+<p>talk is cheep show me code：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isMatch</span><span class="params">(self, s, p)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :type p: str</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> p==<span class="string">""</span>:</span><br><span class="line">            <span class="keyword">return</span> s==<span class="string">""</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> len(p)&gt;<span class="number">1</span> <span class="keyword">and</span> <span class="string">'*'</span> == p[<span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">return</span> self.isMatch(s, p[<span class="number">2</span>:]) <span class="keyword">or</span> ((s!=<span class="string">""</span> <span class="keyword">and</span> (s[<span class="number">0</span>]==p[<span class="number">0</span>] <span class="keyword">or</span> <span class="string">'.'</span>==p[<span class="number">0</span>])) <span class="keyword">and</span> self.isMatch(s[<span class="number">1</span>:], p))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> (s!=<span class="string">""</span> <span class="keyword">and</span> (s[<span class="number">0</span>]==p[<span class="number">0</span>] <span class="keyword">or</span> <span class="string">'.'</span>==p[<span class="number">0</span>])) <span class="keyword">and</span> self.isMatch(s[<span class="number">1</span>:], p[<span class="number">1</span>:])</span><br></pre></td></tr></table></figure>
+<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><p>动态规划处理这个问题，更加有效，复杂度为 <code>O(N*M)</code>.但是不同于递归直接看代码，动态规划我简直还是先看状态公式更加明了。<br>用dp[i][j]来代表 s[0:i] 与 p[0:j] 是否匹配，初始化 dp[0][0]=1(空串匹配空串)</p>
+<script type="math/tex; mode=display">
+dp[i][j]=
+\begin{cases}
+dp[i][j-1],                             &  p[j-1]为\* 考虑到\*只重复1次
+\\\\dp[i][j-2],                         &  p[j-1]为\* 考虑到\*只重复0次
+\\\\dp[i-1][j]\;\&\&\;S[i-1]==P[j-2],   &  p[j-1]为\* 考虑到\*只重复多次
+\\\\dp[i-1][j-1] \;\&\&\; S[i-1]=P[j-1],&  p[j-1]不为\*
+\end{cases}</script><p>从状态公式基本也能看的明白，要计算 dp[i][j] 的值，要分成两个情况，两个情况分别处理后就能将dp填满，则最后的结果就是 dp[len(s)][len(p)]的值</p>
+<p>如果看公式还有点不清楚，来举个栗子：<code>s=&quot;ccd&quot; , p=&quot;a*c*d&quot;</code><br>dp的矩阵情况如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>^</th>
+<th>a</th>
+<th>*</th>
+<th>c</th>
+<th>*</th>
+<th>d</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>^</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>c</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td><font color="blue">1</font></td>
+<td>0</td>
+</tr>
+<tr>
+<td>c</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td><font color="red">1</font></td>
+<td>0</td>
+</tr>
+<tr>
+<td>d</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>蓝色那个是因为 dp[i][j-1]=1 所以这个*只重复1的匹配结果，因此可以为 1<br>红色那个是因为 dp[i-1][j]=1 &amp;&amp; s[i-1]==p[j-2] 代表已经被重复过了，不止1次，但依然可以被继续重复下去</p>
+<blockquote>
+<p>talk is cheep show me code：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isMatch</span><span class="params">(self, s, p)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :type p: str</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        lens = len(s)</span><br><span class="line">        lenp = len(p)</span><br><span class="line">        dp = [[<span class="keyword">False</span> <span class="keyword">for</span> col <span class="keyword">in</span> range(lenp+<span class="number">1</span>)] <span class="keyword">for</span> row <span class="keyword">in</span> range(lens+<span class="number">1</span>)]</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, lenp+<span class="number">1</span>):</span><br><span class="line">            dp[<span class="number">0</span>][j] = p[j<span class="number">-1</span>]==<span class="string">'*'</span> <span class="keyword">and</span> dp[<span class="number">0</span>][j<span class="number">-2</span>]==<span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, lens+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, lenp+<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> p[j<span class="number">-1</span>] == <span class="string">'*'</span>:</span><br><span class="line">                    dp[i][j] = dp[i][j<span class="number">-2</span>] <span class="keyword">or</span> dp[i][j<span class="number">-1</span>] <span class="keyword">or</span> (dp[i<span class="number">-1</span>][j] <span class="keyword">and</span> (s[i<span class="number">-1</span>]==p[j<span class="number">-2</span>] <span class="keyword">or</span> <span class="string">'.'</span>==p[j<span class="number">-2</span>]))</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>] <span class="keyword">and</span> (s[i<span class="number">-1</span>]==p[j<span class="number">-1</span>] <span class="keyword">or</span> <span class="string">'.'</span>==p[j<span class="number">-1</span>])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp[lens][lenp]</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/assets/img/weixinpay.jpg" alt="doudou0o WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/assets/img/alipay.jpg" alt="doudou0o Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+  <div class="post-widgets">
+    <div class="social-share">
+      
+      
+        <div id="needsharebutton-postbottom">
+          <span class="btn">
+            <i class="fa fa-share-alt" aria-hidden="true"></i>
+          </span>
+        </div>
+      
+    </div>
+  
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/archives/fe118cd8.html" rel="next" title="python logging日志模块以及多进程日志">
+                  <i class="fa fa-chevron-left"></i> python logging日志模块以及多进程日志
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/archives/e3ad352f.html" rel="prev" title="python版本共存和虚拟环境">
+                  python版本共存和虚拟环境 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/assets/img/avatar.gif"
+      alt="doudou0o">
+  <p class="site-author-name" itemprop="name">doudou0o</p>
+  <div class="site-description motion-element" itemprop="description">Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://github.com/doudou0o" title="GitHub &rarr; https://github.com/doudou0o" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="mailto:bluecc021@gmail.com" title="E-Mail &rarr; mailto:bluecc021@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://www.jianshu.com/u/fc401e542314" title="简书 &rarr; https://www.jianshu.com/u/fc401e542314" rel="noopener" target="_blank"><i class="fa fa-fw fa-book"></i></a>
+      </span>
+    
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#10-Regular-Expression-Matching"><span class="nav-number">1.</span> <span class="nav-text">10. Regular Expression Matching</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解法有两种"><span class="nav-number">1.0.1.</span> <span class="nav-text">解法有两种</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归"><span class="nav-number">1.0.2.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划"><span class="nav-number">1.0.3.</span> <span class="nav-text">动态规划</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">doudou0o</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+  
+<script src="/lib/needsharebutton/needsharebutton.js"></script>
+<script>
+    pbOptions = {};
+      pbOptions.iconStyle = "default";
+    
+      pbOptions.boxForm = "horizontal";
+    
+      pbOptions.position = "bottomRight";
+    
+      pbOptions.networks = "Weibo,Wechat,Douban,QQZone";
+    
+    new needShareButton('#needsharebutton-postbottom', pbOptions);
+</script>
+
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+  
+  <script>
+  function leancloudSelector(url) {
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = visitors.getAttribute('id').trim();
+      var title = visitors.getAttribute('data-flag-title').trim();
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+            
+              .catch(error => {
+                console.log('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return element.getAttribute('id').trim();
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.url;
+            var time = item.time;
+            leancloudSelector(url).innerText = time;
+          }
+          for (var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=dA1sbLdvYXxRBcazcbct0JXj-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'dA1sbLdvYXxRBcazcbct0JXj-gzGzoHsz',
+            'X-LC-Key': 'LVJztVzprpmRivJmu0RScKB2',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+        if (localhost.test(document.URL)) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'CN4rGCfu9FENoXZMY';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '60ed80a6055a3fa91e11',
+      clientSecret: 'a753cf2091f8025d3dc7e488d6ec868a6d4613f9',
+      repo: 'doudou0o.github.io',
+      owner: 'doudou0o',
+      admin: ['doudou0o'],
+      id: '10. Regular Expression Matching',
+      <!-- id: '76ab8ef217c5a13137803ab1a3236c1a', -->
+        language: 'zh-CN',
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>
