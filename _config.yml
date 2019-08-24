@@ -82,6 +82,6 @@ deploy:
   #repository: git@github.com:doudou0o/doudou0o.github.io.git
   repo: 
     github: git@github.com:doudou0o/doudou0o.github.io.git
-    coding: git@git.coding.net:doudou0o/doudou0o.git
+    #coding: git@git.coding.net:doudou0o/doudou0o.git
   branch: master
 
