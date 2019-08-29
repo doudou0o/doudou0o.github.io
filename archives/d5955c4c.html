@@ -7,7 +7,7 @@
 <html class="theme-next gemini use-motion" lang="en">
 <head>
   <meta charset="UTF-8">
-<meta name="generator" content="Hexo 3.5.0">
+<meta name="generator" content="Hexo 3.9.0">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -496,8 +496,8 @@
 <blockquote>
 <p>句子: 他说的确实在理<br>假设我们使用的2-gram，每个字出现的概率只与其前面的一个字有关</p>
 </blockquote>
-<p>那么我们能举例出所有的词路径：<br><img src="./d5955c4c/wordpath.png" alt=""></p>
-<p>找出其最优的路径，就能得到最优的切分方式。<br>在其他算法中如最短路径算法，是设定每个路径上的每条边作为一个触达距离，然后再使用Dijkstra或者其他最短路径法来得到最短的触达距离作为最优解。<br>在<strong>N-gram模型</strong>的算法中，每个路径上的边都是一个N-gram的概率于是得到如下概率路径有向图。<br><img src="./d5955c4c/wordpathp.png" alt=""></p>
+<p>那么我们能举例出所有的词路径：<br><img src="./d5955c4c/wordpath.png" alt></p>
+<p>找出其最优的路径，就能得到最优的切分方式。<br>在其他算法中如最短路径算法，是设定每个路径上的每条边作为一个触达距离，然后再使用Dijkstra或者其他最短路径法来得到最短的触达距离作为最优解。<br>在<strong>N-gram模型</strong>的算法中，每个路径上的边都是一个N-gram的概率于是得到如下概率路径有向图。<br><img src="./d5955c4c/wordpathp.png" alt></p>
 <p>那么分词任务就转变为<strong>如何求解最优策略路径</strong><br>假设随机变量S为一个汉字序列，W是S上所有可能的<strong>切分路径</strong>(如上图所有从头至尾的不同路径)。对于分词，实际上就是求解使条件概率P(W∣S)最大的切分路径$W^*$，P(W∣S)即为每条路径的衡量标准。</p>
 <script type="math/tex; mode=display">
 W^* = argmax_W P(W|S)</script><p>做贝叶斯公式转换:</p>
@@ -540,7 +540,7 @@ P(W) = P(w_1w_2w_3...w_N) = P(w_1|s) \cdot P(w_2|w_1) \cdot P(w_3|w_2)... P(w_{N
 </table>
 </div>
 <p>当每个字的标注都得出的时候，切词也就顺理成章得完成了。</p>
-<p><img src="./d5955c4c/hmmword.png" alt=""></p>
+<p><img src="./d5955c4c/hmmword.png" alt></p>
 <p>在<strong>隐马尔科夫模型</strong>中上述切词问题，对应以下几种要素，<strong>字</strong>为观察符号，<strong>标注</strong>为隐含状态，目标是找出概率最大的<strong>标注序列</strong>，实际上就是隐马尔科夫模型三大问题中的解码问题。</p>
 <blockquote>
 <p>给定一个模型λ ， 和一个观察序列O，找出产生这一序列概率最大的状态序列Q<br>这个问题可以使用Viterbi算法就可以轻松解决。</p>
@@ -780,7 +780,7 @@ P(W) = P(w_1w_2w_3...w_N) = P(w_1|s) \cdot P(w_2|w_1) \cdot P(w_3|w_2)... P(w_{N
   </span>
   <span class="author" itemprop="copyrightHolder">doudou0o</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.5.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
 
