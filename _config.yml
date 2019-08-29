@@ -17,7 +17,7 @@ sitemap:
   path: sitemap.xml
 baidusitemap:
   path: baidusitemap.xml
-url: http://doudou0o.com
+url: https://doudou0o.com
 root: /
 #permalink: :year/:month/:day/:title/
 #permalink: archives/:abbrlink/:post_title.html
