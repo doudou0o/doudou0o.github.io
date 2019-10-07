@@ -71,7 +71,11 @@
 <meta property="og:image" content="https://doudou0o.com/archives/efc41243/house/house.jpg">
 <meta property="og:image" content="https://doudou0o.com/archives/efc41243/house/house_1.jpg">
 <meta property="og:image" content="https://doudou0o.com/archives/efc41243/house/house_15.jpg">
+<meta property="og:image" content="https://doudou0o.com/archives/efc41243/fruits/fruit_shape_2_feat.jpg">
+<meta property="og:image" content="https://doudou0o.com/archives/efc41243/fruits/classifier.jpg">
+<meta property="og:image" content="https://doudou0o.com/archives/efc41243/fruits/fruit_predict.jpg">
 <meta property="og:image" content="https://doudou0o.com/archives/efc41243/fruits/line.jpg">
+<meta property="og:image" content="https://doudou0o.com/archives/efc41243/fruits/judge.jpg">
 <meta property="og:image" content="https://doudou0o.com/archives/efc41243/clustering.jpg">
 <meta property="og:image" content="https://doudou0o.com/archives/efc41243/clustering2.jpg">
 <meta property="og:image" content="https://doudou0o.com/archives/efc41243/abnormal.jpg">
@@ -79,7 +83,7 @@
 <meta property="og:image" content="https://doudou0o.com/archives/efc41243/mlprocess/1_1.jpg">
 <meta property="og:image" content="https://doudou0o.com/archives/efc41243/mlprocess/2.jpg">
 <meta property="og:image" content="https://doudou0o.com/archives/efc41243/mlprocess/3.jpg">
-<meta property="og:updated_time" content="2019-10-07T12:46:33.387Z">
+<meta property="og:updated_time" content="2019-10-07T13:07:49.451Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习扫盲">
 <meta name="twitter:description" content="在工作中，经常遇到很多事情会涉及到算法机器学习，然而似乎有不少人会对算法亦或是机器学习有着这样那样的误解。于是我准备收拾一下，机器学习的基础知识，以辅助大家了解机器学习，知道机器学习是干什么的，它又是怎么工作的。🤗">
@@ -340,48 +344,37 @@
 <p>另外，这里插一段“过拟合”的描述。如下图。<br>其中蓝色直线为线性拟合，拟合程度肉眼可见的不够，很多点都离的比较远，像这种情况我们称为<font color="red">“欠拟合”</font><br>其中橙色曲线为5阶拟合，感觉拟合不错，而且曲线也较简单<br>其中绿色直线为15阶拟合，拟合程度相当给力几乎大部分点都在线上，但是！该曲线太过复杂，假设有测试集的话一定在测试集中表现相当不好。像这种情况我们称为<font color="red">“过拟合”</font></p>
 <p>无论是过拟合还是欠拟合，都不是我们希望发生的，都需要尽量避免的情况。<br><img src="./efc41243/house/house_15.jpg" alt="房价过拟合"></p>
 <h3 id="二-分类问题"><a href="#二-分类问题" class="headerlink" title="二. 分类问题"></a>二. 分类问题</h3><p>分类(classification)任务，是机器学习中最为常见的问题。她是在已标签数据样本中建立数据与标签的关联关系—分类器，以将未知标签的数据 分类 至确定的标签下。是一种有监督的学习。生活中常见的分类任务有，垃圾邮件判别，肿瘤判断，恶意评论分类，植物科目分类，情感分析等等。</p>
-<font color="green">常用的分类模型包括: 朴素贝叶斯，逻辑回归，KNN，决策树，SVM，神经网络</font>
-
+<font color="green">常用的分类模型包括: 朴素贝叶斯，逻辑回归，KNN，决策树，SVM，神经网络</font><br>
 <font size="4">接下来举一个分类的栗子🙋‍♂️:</font>
-我们有一篮子的水果我们并不认识它们，只是知道里面有两种水果被称为‘苹果’和‘柠檬’。
-**我们希望能够分类出篮子里面所有的水果(<font size="5" color="red">目标是水果分类</font>)**
 
-那么，我们先麻烦一个有知识的人去将一个篮子里面的水果标记为‘苹果’和‘柠檬’，我们需要利用这个篮子里面的已标记水果进行模型训练，再想办法用这个模型去分类那些没有标记的篮子。
-于是，我们挑选了水果的长和宽作为特征。如图:
-![水果长宽特征](./efc41243/fruits/fruit_shape_2_feat.jpg)
-
-那么接下来的分类任务，就是找一根直接(线性分类)，将这两类水果分离开。那么怎么找呢，就是上面介绍到的，逻辑回归模型啦，决策树模型啦等等。比如，我就用两个两种不同的模型做了两种不同的结果。
-![水果分类器](./efc41243/fruits/classifier.jpg)
-
-寻找这根直线的过程，称为<font color="red" size="4">学习过程</font>。
-
-紧接着我们就可以利用这个已经学习好的直线(分类器)，将未知的水果进行分类了。方式也很简单，就这个例子来说，落在直线左侧的未知点(图中的空心点)都被预测为‘柠檬’，对应的落在直线右侧的未知点(图中的空心点)都被预测为‘苹果’:
-![水果分类预测](./efc41243/fruits/fruit_predict.jpg)
-
-#### 分类问题番外
-> 不看也没关系，就是想写🤪
-
-分类(classification)任务中有几点是确定的<font color="red">非常重要的</font>:
-1. 首先她有一个<font color="blue">确定的离散的</font>标签集合
-2. 其次她是一个有监督的学习，所以需要有预先的<font color="blue">标注好的样本数据</font>
-3. 标注的数据与预测的数据，两者的<font color="blue">范围与分布是一致的</font>
-
+<p>我们有一篮子的水果我们并不认识它们，只是知道里面有两种水果被称为‘苹果’和‘柠檬’。</p>
+<p><strong>我们希望能够分类出篮子里面所有的水果(<font size="5" color="red">目标是水果分类</font>)</strong></p>
+<p>那么，我们先麻烦一个有知识的人去将一个篮子里面的水果标记为‘苹果’和‘柠檬’，我们需要利用这个篮子里面的已标记水果进行模型训练，再想办法用这个模型去分类那些没有标记的篮子。<br>于是，我们挑选了水果的长和宽作为特征。如图:<br><img src="./efc41243/fruits/fruit_shape_2_feat.jpg" alt="水果长宽特征"></p>
+<p>那么接下来的分类任务，就是找一根直接(线性分类)，将这两类水果分离开。那么怎么找呢，就是上面介绍到的，逻辑回归模型啦，决策树模型啦等等。比如，我就用两个两种不同的模型做了两种不同的结果。<br><img src="./efc41243/fruits/classifier.jpg" alt="水果分类器"></p>
+<p>寻找这根直线的过程，称为<font color="red" size="4">学习过程</font>。</p>
+<p>紧接着我们就可以利用这个已经学习好的直线(分类器)，将未知的水果进行分类了。方式也很简单，就这个例子来说，落在直线左侧的未知点(图中的空心点)都被预测为‘柠檬’，对应的落在直线右侧的未知点(图中的空心点)都被预测为‘苹果’:<br><img src="./efc41243/fruits/fruit_predict.jpg" alt="水果分类预测"></p>
+<h4 id="分类问题番外"><a href="#分类问题番外" class="headerlink" title="分类问题番外"></a>分类问题番外</h4><blockquote>
+<p>不看也没关系，就是想写🤪</p>
+</blockquote>
+<p>分类(classification)任务中有几点是确定的<font color="red">非常重要的</font>:</p>
+<ol>
+<li>首先她有一个<font color="blue">确定的离散的</font>标签集合</li>
+<li>其次她是一个有监督的学习，所以需要有预先的<font color="blue">标注好的样本数据</font></li>
+<li>标注的数据与预测的数据，两者的<font color="blue">范围与分布是一致的</font></li>
+</ol>
 <font size="2">在工作中会有一些没有接触过机器学习分类的同学，会不经意破坏上述几点，给模型的训练和建立带来了不小的挑战。(如果大家有兴趣，当真破坏了上述某一项会发生什么，又应该如何应对，请给我留言)</font>
 
 <h5 id="线性分类-非线性分类"><a href="#线性分类-非线性分类" class="headerlink" title="线性分类/非线性分类"></a>线性分类/非线性分类</h5><p>在分类的模型中，根据分类的参数是否是线性函数(即是否具备线性分类面)来区分线性分类与非线性分类。另外，根据分类的训练目标不同又有生成模型和判别模型的区别。</p>
 <p><img src="./efc41243/fruits/line.jpg" alt="线性与非线性分类"></p>
 <h5 id="生成模型-判别模型"><a href="#生成模型-判别模型" class="headerlink" title="生成模型/判别模型"></a>生成模型/判别模型</h5><p>根据分类器的思路不同角度不同而区分出的两种不同的模型类型:</p>
-<font color="red">**生成模型**</font>:主要根据一类样本本身的特征生成一个模型，最终会为每个类别都生成一个单独的模型。准备分类时，将样本特征输入每个模型中得到该样本是该分类的概率，最终取概率最高的分类。
-<font color="blue">生成模型更关心每个类目的整体分布和类目中心。</font>
+<font color="red">**生成模型**</font>:主要根据一类样本本身的特征生成一个模型，最终会为每个类别都生成一个单独的模型。准备分类时，将样本特征输入每个模型中得到该样本是该分类的概率，最终取概率最高的分类。<br>
+<font color="blue">生成模型更关心每个类目的整体分布和类目中心。</font><br>
 
-<font color="red">**判别模型**</font>:主要根据类别之间的区别，利用区别显著的特征生成一个模型，最终只有一个模型。准备分类时，将样本特征输入该模型，就能得到具体的分类结果。
+<font color="red">**判别模型**</font>:主要根据类别之间的区别，利用区别显著的特征生成一个模型，最终只有一个模型。准备分类时，将样本特征输入该模型，就能得到具体的分类结果。<br>
 <font color="blue">判别模型更关心每个类目的边界。</font>
-![生成与判别模型](./efc41243/fruits/judge.jpg)
 
-
-### 三. 聚类问题
-聚类任务(Clustering)是将未知类目的数据，将彼此相似的对象聚集在同一个簇中。聚类分析是把一组数据按照相似性和差异性分为几个类别，其目的是使得属于同一类别的数据间的相似性尽可能大，不同类别中的数据间的相似性尽可能小。一般情况下，聚类任务都事先设定好聚成几个簇，但是不会知道这些簇的含义。甚至同一种算法，跑几遍都能够聚出不同的结果。
-
+<p><img src="./efc41243/fruits/judge.jpg" alt="生成与判别模型"></p>
+<h3 id="三-聚类问题"><a href="#三-聚类问题" class="headerlink" title="三. 聚类问题"></a>三. 聚类问题</h3><p>聚类任务(Clustering)是将未知类目的数据，将彼此相似的对象聚集在同一个簇中。聚类分析是把一组数据按照相似性和差异性分为几个类别，其目的是使得属于同一类别的数据间的相似性尽可能大，不同类别中的数据间的相似性尽可能小。一般情况下，聚类任务都事先设定好聚成几个簇，但是不会知道这些簇的含义。甚至同一种算法，跑几遍都能够聚出不同的结果。</p>
 <font color="green">常用的聚类模型包括: Kmeans，K-MEDOIDS，层次聚类</font>
 
 <p>聚类能够在我们无法预先知晓类目的情况下，将一些群体进行聚集，类似于客户群体分类，市场细分等等。</p>
@@ -630,7 +623,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习扫盲"><span class="nav-number">1.</span> <span class="nav-text">机器学习扫盲</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是机器学习"><span class="nav-number">1.1.</span> <span class="nav-text">什么是机器学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器学习关注哪些事情"><span class="nav-number">1.2.</span> <span class="nav-text">机器学习关注哪些事情</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-回归问题"><span class="nav-number">1.2.1.</span> <span class="nav-text">一. 回归问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-分类问题"><span class="nav-number">1.2.2.</span> <span class="nav-text">二. 分类问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#线性分类-非线性分类"><span class="nav-number">1.2.2.0.1.</span> <span class="nav-text">线性分类/非线性分类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#生成模型-判别模型"><span class="nav-number">1.2.2.0.2.</span> <span class="nav-text">生成模型/判别模型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-异常监测"><span class="nav-number">1.2.3.</span> <span class="nav-text">四. 异常监测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五-数据降维"><span class="nav-number">1.2.4.</span> <span class="nav-text">五. 数据降维</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器学习基本流程"><span class="nav-number">1.3.</span> <span class="nav-text">机器学习基本流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-总体流程"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 总体流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-、特征提取"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">(1)、特征提取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-、特征工程"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">(2)、特征工程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-、模型训练"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">(3)、模型训练</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-、结果评价"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">(4)、结果评价</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-、反馈"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">(5)、反馈</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-特征提取-amp-特征工程"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. 特征提取&amp;特征工程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-、特征提取-1"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">(1)、特征提取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-、特征工程-1"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">(2)、特征工程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-、模型训练-1"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">(3)、模型训练</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-、结果评价-1"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">(4)、结果评价</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器学习的应用领域"><span class="nav-number">1.4.</span> <span class="nav-text">机器学习的应用领域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#疑问答疑"><span class="nav-number">1.5.</span> <span class="nav-text">疑问答疑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-那么机器学习算法与算法导论的算法有什么区别？"><span class="nav-number">1.5.1.</span> <span class="nav-text">(1) 那么机器学习算法与算法导论的算法有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-分类与回归有什么区别"><span class="nav-number">1.5.2.</span> <span class="nav-text">(2) 分类与回归有什么区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-分类与聚类有什么区别"><span class="nav-number">1.5.3.</span> <span class="nav-text">(3) 分类与聚类有什么区别</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习扫盲"><span class="nav-number">1.</span> <span class="nav-text">机器学习扫盲</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是机器学习"><span class="nav-number">1.1.</span> <span class="nav-text">什么是机器学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器学习关注哪些事情"><span class="nav-number">1.2.</span> <span class="nav-text">机器学习关注哪些事情</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-回归问题"><span class="nav-number">1.2.1.</span> <span class="nav-text">一. 回归问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-分类问题"><span class="nav-number">1.2.2.</span> <span class="nav-text">二. 分类问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分类问题番外"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">分类问题番外</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#线性分类-非线性分类"><span class="nav-number">1.2.2.1.1.</span> <span class="nav-text">线性分类/非线性分类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#生成模型-判别模型"><span class="nav-number">1.2.2.1.2.</span> <span class="nav-text">生成模型/判别模型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-聚类问题"><span class="nav-number">1.2.3.</span> <span class="nav-text">三. 聚类问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-异常监测"><span class="nav-number">1.2.4.</span> <span class="nav-text">四. 异常监测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五-数据降维"><span class="nav-number">1.2.5.</span> <span class="nav-text">五. 数据降维</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器学习基本流程"><span class="nav-number">1.3.</span> <span class="nav-text">机器学习基本流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-总体流程"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 总体流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-、特征提取"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">(1)、特征提取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-、特征工程"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">(2)、特征工程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-、模型训练"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">(3)、模型训练</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-、结果评价"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">(4)、结果评价</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-、反馈"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">(5)、反馈</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-特征提取-amp-特征工程"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. 特征提取&amp;特征工程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-、特征提取-1"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">(1)、特征提取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-、特征工程-1"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">(2)、特征工程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-、模型训练-1"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">(3)、模型训练</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-、结果评价-1"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">(4)、结果评价</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机器学习的应用领域"><span class="nav-number">1.4.</span> <span class="nav-text">机器学习的应用领域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#疑问答疑"><span class="nav-number">1.5.</span> <span class="nav-text">疑问答疑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-那么机器学习算法与算法导论的算法有什么区别？"><span class="nav-number">1.5.1.</span> <span class="nav-text">(1) 那么机器学习算法与算法导论的算法有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-分类与回归有什么区别"><span class="nav-number">1.5.2.</span> <span class="nav-text">(2) 分类与回归有什么区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-分类与聚类有什么区别"><span class="nav-number">1.5.3.</span> <span class="nav-text">(3) 分类与聚类有什么区别</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
