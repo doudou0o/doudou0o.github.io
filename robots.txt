@@ -5,6 +5,7 @@ Allow: /tags/
 Allow: /about/ 
 Disallow: /datamining/
 Disallow: /leetcode/
+Disallow: /diary/
 Disallow: /vendors/
 Disallow: /js/
 Disallow: /css/
