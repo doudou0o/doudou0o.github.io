@@ -58,18 +58,18 @@
   };
 </script>
 
-  <meta name="description" content="Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.">
+  <meta name="description" content="数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已！很多情况下，数据总有可能缺失，但是若是放任不管可能造成严重的后果甚至模型无法收敛，所以我们得利用已有的信息进行数据填充来降低损失。特征组合是将不同的特征进行组合，生成新的特征，这种方式能提升模型更大的非线性能力和拟合能力。">
 <meta name="keywords" content="特征处理缺失值,特征组合,特征组合变换">
 <meta property="og:type" content="article">
 <meta property="og:title" content="特征处理之(四)：缺失值和组合">
 <meta property="og:url" content="https://doudou0o.com/archives/a06283d5.html">
 <meta property="og:site_name" content="doudou0o blog">
-<meta property="og:description" content="Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.">
+<meta property="og:description" content="数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已！很多情况下，数据总有可能缺失，但是若是放任不管可能造成严重的后果甚至模型无法收敛，所以我们得利用已有的信息进行数据填充来降低损失。特征组合是将不同的特征进行组合，生成新的特征，这种方式能提升模型更大的非线性能力和拟合能力。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-09T08:40:25.597Z">
+<meta property="og:updated_time" content="2019-12-12T12:07:57.548Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="特征处理之(四)：缺失值和组合">
-<meta name="twitter:description" content="Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.">
+<meta name="twitter:description" content="数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已！很多情况下，数据总有可能缺失，但是若是放任不管可能造成严重的后果甚至模型无法收敛，所以我们得利用已有的信息进行数据填充来降低损失。特征组合是将不同的特征进行组合，生成新的特征，这种方式能提升模型更大的非线性能力和拟合能力。">
   <link rel="canonical" href="https://doudou0o.com/archives/a06283d5">
 
 
@@ -301,7 +301,51 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p>数据和特征决定了机器学习的<font color="#dd00dd">上限</font>，而模型和算法只是<font color="#dd00dd">逼近</font>这个上限而已！<br>很多情况下，数据总有可能缺失，但是若是放任不管可能造成严重的后果甚至模型无法收敛，所以我们得利用已有的信息进行数据填充来降低损失。特征组合是将不同的特征进行组合，生成新的特征，这种方式能提升模型更大的非线性能力和拟合能力。</p>
+<a id="more"></a>
+<h1 id="特征处理之缺失值填充和特征组合变换"><a href="#特征处理之缺失值填充和特征组合变换" class="headerlink" title="特征处理之缺失值填充和特征组合变换"></a>特征处理之缺失值填充和特征组合变换</h1><h1 id="缺失值填充"><a href="#缺失值填充" class="headerlink" title="缺失值填充"></a>缺失值填充</h1><h2 id="一、为什么要进行缺失值填充"><a href="#一、为什么要进行缺失值填充" class="headerlink" title="一、为什么要进行缺失值填充"></a>一、为什么要进行缺失值填充</h2><p>数据缺失在许多研究领域都是一个复杂的问题。对数据挖掘来说，空值的存在，造成了以下影响：</p>
+<ol>
+<li><p>模型会丢失很多有用的信息</p>
+</li>
+<li><p>使得模型挖掘过程中陷入混乱，导致不可靠输出</p>
+</li>
+<li><p>依赖模型本身，无法很好地处理缺失值的情况，导致不确定性</p>
+</li>
+</ol>
+<p>另外数据缺失也分为三类:</p>
+<ul>
+<li><p>1) 完全随机缺失</p>
+</li>
+<li><p>2) 随机缺失</p>
+</li>
+<li><p>3) 非随机缺失</p>
+</li>
+</ul>
+<h2 id="二、如何进行缺失值填充"><a href="#二、如何进行缺失值填充" class="headerlink" title="二、如何进行缺失值填充"></a>二、如何进行缺失值填充</h2><h3 id="2-1-统计填充"><a href="#2-1-统计填充" class="headerlink" title="2.1 统计填充"></a>2.1 统计填充</h3><p>利用特征本身的数据进行对缺失值填充。思想是既然缺失了不知道他的值，那么就用最平常的值给它填不上，不要造成混乱，期望其他特征能表达出该样本的特性。</p>
+<p>所以利用特征本身的数据，计算出<font color="crimson">平均值</font>或者<font color="crimson">中位数</font>，或者其他统计型的平常数据，来填充缺失值。</p>
+<h3 id="2-2-相似填充"><a href="#2-2-相似填充" class="headerlink" title="2.2 相似填充"></a>2.2 相似填充</h3><p>利用其他不缺失的特征，找到相似的样本，用相似样本的该特征来对缺失值填充。思想是用相似样本来仿照出来值会更加靠谱。</p>
+<p>其中KNN方式填充，是比较常见的。利用非确实的特征，找到距离其最近的几个样本。利用这几个样本来帮助填充缺失值。</p>
+<h1 id="特征组合变换"><a href="#特征组合变换" class="headerlink" title="特征组合变换"></a>特征组合变换</h1><h2 id="一、特征组合变换有什么作用"><a href="#一、特征组合变换有什么作用" class="headerlink" title="一、特征组合变换有什么作用"></a>一、特征组合变换有什么作用</h2><p>通过对单独的特征进行变换和组合，能够得到新的特征，这些新特征自带非线性能力，提升了模型的表达，很大程度帮助提升结果。</p>
+<ol>
+<li><p>增加模型的表达能力</p>
+</li>
+<li><p>变相提升模型非线性能力</p>
+</li>
+<li><p>得到更加有效的特征</p>
+</li>
+</ol>
+<h2 id="二、单特征变换"><a href="#二、单特征变换" class="headerlink" title="二、单特征变换"></a>二、单特征变换</h2><script type="math/tex; mode=display">
+x ==> \sqrt{x},\frac{1}{x},x^2,logx</script><p>单特征变换，就如图一样，有几种简单的变换方式。形成新的特征。</p>
+<h2 id="三、多项式变换"><a href="#三、多项式变换" class="headerlink" title="三、多项式变换"></a>三、多项式变换</h2><script type="math/tex; mode=display">
+a,b ==> 1,a,b,a^2,b^2,ab</script><p>多项式变换是指两个或多个特征进行组合变换，生成高次特征。</p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p><font color="red">特征处理</font>是在机器学习中占据非常重要的地位，特征工程决定了整个模型的上限，而特征工程中最基础的就是<font color="red">特征处理</font>。本篇主要回顾下特征处理中的离散化。最后最后拿出成果：</p>
+<ol>
+<li>什么是缺失值填充/特征组合(这俩简单到不用解释了吧)</li>
+<li>缺失值填充/特征组合有什么作用</li>
+<li>缺失值填充/特征组合如何操作</li>
+</ol>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p><a href="./45aaf959/特征处理PPT.pptx">特征处理PPT</a></p>
+
     </div>
 
     
@@ -409,8 +453,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -491,6 +544,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#特征处理之缺失值填充和特征组合变换"><span class="nav-number">1.</span> <span class="nav-text">特征处理之缺失值填充和特征组合变换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缺失值填充"><span class="nav-number">2.</span> <span class="nav-text">缺失值填充</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、为什么要进行缺失值填充"><span class="nav-number">2.1.</span> <span class="nav-text">一、为什么要进行缺失值填充</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、如何进行缺失值填充"><span class="nav-number">2.2.</span> <span class="nav-text">二、如何进行缺失值填充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-统计填充"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1 统计填充</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-相似填充"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2 相似填充</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征组合变换"><span class="nav-number">3.</span> <span class="nav-text">特征组合变换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、特征组合变换有什么作用"><span class="nav-number">3.1.</span> <span class="nav-text">一、特征组合变换有什么作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、单特征变换"><span class="nav-number">3.2.</span> <span class="nav-text">二、单特征变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、多项式变换"><span class="nav-number">3.3.</span> <span class="nav-text">三、多项式变换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">5.</span> <span class="nav-text">附录</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
@@ -705,6 +775,56 @@
 
   
 
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
   
 
   
