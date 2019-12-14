@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-64x64.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-64x64.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-64x64.png?v=7.3.0">
+  <link rel="mask-icon" href="/assets/img/favicon-64x64.png?v=7.3.0" color="#222">
+  <meta name="google-site-verification" content="nfywEFXCX92uifv9iMxQo7tOUk7wcKyu_z_ggzQPPHA">
+  <meta name="baidu-site-verification" content="GEFo6ATv6U">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+<link rel="stylesheet" href="/css/ggfont.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","width":240,"display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已！很多情况下，数据总有可能缺失，但是若是放任不管可能造成严重的后果甚至模型无法收敛，所以我们得利用已有的信息进行数据填充来降低损失。特征组合是将不同的特征进行组合，生成新的特征，这种方式能提升模型更大的非线性能力和拟合能力。">
+<meta name="keywords" content="特征处理缺失值,特征组合,特征组合变换">
+<meta property="og:type" content="article">
+<meta property="og:title" content="特征处理之(四)：缺失值和组合">
+<meta property="og:url" content="https://doudou0o.com/archives/a06283d5.html">
+<meta property="og:site_name" content="doudou0o blog">
+<meta property="og:description" content="数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已！很多情况下，数据总有可能缺失，但是若是放任不管可能造成严重的后果甚至模型无法收敛，所以我们得利用已有的信息进行数据填充来降低损失。特征组合是将不同的特征进行组合，生成新的特征，这种方式能提升模型更大的非线性能力和拟合能力。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-14T02:24:03.549Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="特征处理之(四)：缺失值和组合">
+<meta name="twitter:description" content="数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已！很多情况下，数据总有可能缺失，但是若是放任不管可能造成严重的后果甚至模型无法收敛，所以我们得利用已有的信息进行数据填充来降低损失。特征组合是将不同的特征进行组合，生成新的特征，这种方式能提升模型更大的非线性能力和拟合能力。">
+  <link rel="canonical" href="https://doudou0o.com/archives/a06283d5">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>特征处理之(四)：缺失值和组合 | doudou0o blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">doudou0o blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">沉淀知识 分享知识</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    
+  <div class="popup search-popup">
+  <div class="search-header">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <div class="search-input-wrapper">
+      <input autocomplete="off" autocorrect="off" autocapitalize="none"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="search-input">
+    </div>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+  <div id="search-result"></div>
+</div>
+
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://doudou0o.com/archives/a06283d5.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="doudou0o">
+      <meta itemprop="description" content="Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.">
+      <meta itemprop="image" content="/assets/img/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="doudou0o blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">特征处理之(四)：缺失值和组合
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-02-07 12:02:07" itemprop="dateCreated datePublished" datetime="2019-02-07T12:02:07+08:00">2019-02-07</time>
+            </span>
+          
+
+          
+            <span id="/archives/a06283d5.html" class="post-meta-item leancloud_visitors" data-flag-title="特征处理之(四)：缺失值和组合" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>数据和特征决定了机器学习的<font color="#dd00dd">上限</font>，而模型和算法只是<font color="#dd00dd">逼近</font>这个上限而已！<br>很多情况下，数据总有可能缺失，但是若是放任不管可能造成严重的后果甚至模型无法收敛，所以我们得利用已有的信息进行数据填充来降低损失。特征组合是将不同的特征进行组合，生成新的特征，这种方式能提升模型更大的非线性能力和拟合能力。</p>
+<a id="more"></a>
+<h1 id="特征处理之缺失值填充和特征组合变换"><a href="#特征处理之缺失值填充和特征组合变换" class="headerlink" title="特征处理之缺失值填充和特征组合变换"></a>特征处理之缺失值填充和特征组合变换</h1><h1 id="缺失值填充"><a href="#缺失值填充" class="headerlink" title="缺失值填充"></a>缺失值填充</h1><h2 id="一、为什么要进行缺失值填充"><a href="#一、为什么要进行缺失值填充" class="headerlink" title="一、为什么要进行缺失值填充"></a>一、为什么要进行缺失值填充</h2><p>数据缺失在许多研究领域都是一个复杂的问题。对数据挖掘来说，空值的存在，造成了以下影响：</p>
+<ol>
+<li><p>模型会丢失很多有用的信息</p>
+</li>
+<li><p>使得模型挖掘过程中陷入混乱，导致不可靠输出</p>
+</li>
+<li><p>依赖模型本身，无法很好地处理缺失值的情况，导致不确定性</p>
+</li>
+</ol>
+<p>另外数据缺失也分为三类:</p>
+<ul>
+<li><p>1) 完全随机缺失</p>
+</li>
+<li><p>2) 随机缺失</p>
+</li>
+<li><p>3) 非随机缺失</p>
+</li>
+</ul>
+<h2 id="二、如何进行缺失值填充"><a href="#二、如何进行缺失值填充" class="headerlink" title="二、如何进行缺失值填充"></a>二、如何进行缺失值填充</h2><h3 id="2-1-统计填充"><a href="#2-1-统计填充" class="headerlink" title="2.1 统计填充"></a>2.1 统计填充</h3><p>利用特征本身的数据进行对缺失值填充。思想是既然缺失了不知道他的值，那么就用最平常的值给它填不上，不要造成混乱，期望其他特征能表达出该样本的特性。</p>
+<p>所以利用特征本身的数据，计算出<font color="crimson">平均值</font>或者<font color="crimson">中位数</font>，或者其他统计型的平常数据，来填充缺失值。</p>
+<h3 id="2-2-相似填充"><a href="#2-2-相似填充" class="headerlink" title="2.2 相似填充"></a>2.2 相似填充</h3><p>利用其他不缺失的特征，找到相似的样本，用相似样本的该特征来对缺失值填充。思想是用相似样本来仿照出来值会更加靠谱。</p>
+<p>其中KNN方式填充，是比较常见的。利用非确实的特征，找到距离其最近的几个样本。利用这几个样本来帮助填充缺失值。</p>
+<h1 id="特征组合变换"><a href="#特征组合变换" class="headerlink" title="特征组合变换"></a>特征组合变换</h1><h2 id="一、特征组合变换有什么作用"><a href="#一、特征组合变换有什么作用" class="headerlink" title="一、特征组合变换有什么作用"></a>一、特征组合变换有什么作用</h2><p>通过对单独的特征进行变换和组合，能够得到新的特征，这些新特征自带非线性能力，提升了模型的表达，很大程度帮助提升结果。</p>
+<ol>
+<li><p>增加模型的表达能力</p>
+</li>
+<li><p>变相提升模型非线性能力</p>
+</li>
+<li><p>得到更加有效的特征</p>
+</li>
+</ol>
+<h2 id="二、单特征变换"><a href="#二、单特征变换" class="headerlink" title="二、单特征变换"></a>二、单特征变换</h2><script type="math/tex; mode=display">
+x ==> \sqrt{x},\frac{1}{x},x^2,logx</script><p>单特征变换，就如图一样，有几种简单的变换方式。形成新的特征。</p>
+<h2 id="三、多项式变换"><a href="#三、多项式变换" class="headerlink" title="三、多项式变换"></a>三、多项式变换</h2><script type="math/tex; mode=display">
+a,b ==> 1,a,b,a^2,b^2,ab</script><p>多项式变换是指两个或多个特征进行组合变换，生成高次特征。</p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p><font color="red">特征处理</font>是在机器学习中占据非常重要的地位，特征工程决定了整个模型的上限，而特征工程中最基础的就是<font color="red">特征处理</font>。本篇主要回顾下特征处理中的缺失值填充和特征组合。最后最后拿出成果：</p>
+<ol>
+<li>什么是缺失值填充/特征组合(这俩简单到不用解释了吧)</li>
+<li>缺失值填充/特征组合有什么作用</li>
+<li>缺失值填充/特征组合如何操作</li>
+</ol>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p><a href="./45aaf959/特征处理PPT.pptx">特征处理PPT</a></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/assets/img/weixinpay.jpg" alt="doudou0o WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/assets/img/alipay.jpg" alt="doudou0o Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+            
+          </div>
+        
+
+        
+  <div class="post-widgets">
+    <div class="social-share">
+      
+      
+        <div id="needsharebutton-postbottom">
+          <span class="btn">
+            <i class="fa fa-share-alt" aria-hidden="true"></i>
+          </span>
+        </div>
+      
+    </div>
+  
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/archives/f4d50b3c.html" rel="next" title="特征处理之(三)：离散化">
+                  <i class="fa fa-chevron-left"></i> 特征处理之(三)：离散化
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/archives/efc41243.html" rel="prev" title="机器学习扫盲">
+                  机器学习扫盲 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/assets/img/avatar.gif"
+      alt="doudou0o">
+  <p class="site-author-name" itemprop="name">doudou0o</p>
+  <div class="site-description motion-element" itemprop="description">Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://github.com/doudou0o" title="GitHub &rarr; https://github.com/doudou0o" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="mailto:bluecc021@gmail.com" title="E-Mail &rarr; mailto:bluecc021@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://www.jianshu.com/u/fc401e542314" title="简书 &rarr; https://www.jianshu.com/u/fc401e542314" rel="noopener" target="_blank"><i class="fa fa-fw fa-book"></i></a>
+      </span>
+    
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#特征处理之缺失值填充和特征组合变换"><span class="nav-number">1.</span> <span class="nav-text">特征处理之缺失值填充和特征组合变换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缺失值填充"><span class="nav-number">2.</span> <span class="nav-text">缺失值填充</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、为什么要进行缺失值填充"><span class="nav-number">2.1.</span> <span class="nav-text">一、为什么要进行缺失值填充</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、如何进行缺失值填充"><span class="nav-number">2.2.</span> <span class="nav-text">二、如何进行缺失值填充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-统计填充"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1 统计填充</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-相似填充"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2 相似填充</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征组合变换"><span class="nav-number">3.</span> <span class="nav-text">特征组合变换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、特征组合变换有什么作用"><span class="nav-number">3.1.</span> <span class="nav-text">一、特征组合变换有什么作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、单特征变换"><span class="nav-number">3.2.</span> <span class="nav-text">二、单特征变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、多项式变换"><span class="nav-number">3.3.</span> <span class="nav-text">三、多项式变换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">5.</span> <span class="nav-text">附录</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">doudou0o</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+  
+<script src="/lib/needsharebutton/needsharebutton.js"></script>
+<script>
+    pbOptions = {};
+      pbOptions.iconStyle = "default";
+    
+      pbOptions.boxForm = "horizontal";
+    
+      pbOptions.position = "bottomCenter";
+    
+      pbOptions.networks = "Weibo,Wechat,Douban,QQZone";
+    
+    new needShareButton('#needsharebutton-postbottom', pbOptions);
+</script>
+
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+  
+  <script>
+  function leancloudSelector(url) {
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = visitors.getAttribute('id').trim();
+      var title = visitors.getAttribute('data-flag-title').trim();
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+            
+              .catch(error => {
+                console.log('Failed to save visitor count', error);
+              })
+          } else {
+              Counter('post', '/classes/Counter', { title: title, url: url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.log('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return element.getAttribute('id').trim();
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.url;
+            var time = item.time;
+            leancloudSelector(url).innerText = time;
+          }
+          for (var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=dA1sbLdvYXxRBcazcbct0JXj-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'dA1sbLdvYXxRBcazcbct0JXj-gzGzoHsz',
+            'X-LC-Key': 'LVJztVzprpmRivJmu0RScKB2',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+        if (localhost.test(document.URL)) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '60ed80a6055a3fa91e11',
+      clientSecret: 'a753cf2091f8025d3dc7e488d6ec868a6d4613f9',
+      repo: 'doudou0o.github.io',
+      owner: 'doudou0o',
+      admin: ['doudou0o'],
+      id: '特征处理之(四)：缺失值和组合',
+      <!-- id: 'eaaf838bc754725e81b6ffeb7ab6f413', -->
+        language: 'zh-CN',
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>

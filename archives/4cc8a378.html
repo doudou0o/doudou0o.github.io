@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-64x64.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-64x64.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-64x64.png?v=7.3.0">
+  <link rel="mask-icon" href="/assets/img/favicon-64x64.png?v=7.3.0" color="#222">
+  <meta name="google-site-verification" content="nfywEFXCX92uifv9iMxQo7tOUk7wcKyu_z_ggzQPPHA">
+  <meta name="baidu-site-verification" content="GEFo6ATv6U">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+<link rel="stylesheet" href="/css/ggfont.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","width":240,"display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    save_scroll: false,
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已！无量纲化能提升特征可比性，优化训练时间；哑编码能降低模型复杂度，提升特征表达能力，提升运算时间，提升非线性能力。">
+<meta name="keywords" content="特征处理,无量纲化,哑编码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="特征处理之(二)：无量纲化和哑编码">
+<meta property="og:url" content="https://doudou0o.com/archives/4cc8a378.html">
+<meta property="og:site_name" content="doudou0o blog">
+<meta property="og:description" content="数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已！无量纲化能提升特征可比性，优化训练时间；哑编码能降低模型复杂度，提升特征表达能力，提升运算时间，提升非线性能力。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://doudou0o.com/archives/4cc8a378/sample.png">
+<meta property="og:image" content="https://doudou0o.com/archives/4cc8a378/minmax.png">
+<meta property="og:image" content="https://doudou0o.com/archives/4cc8a378/zscore.png">
+<meta property="og:image" content="https://doudou0o.com/archives/4cc8a378/normalize_s.png">
+<meta property="og:image" content="https://doudou0o.com/archives/4cc8a378/normalize.png">
+<meta property="og:image" content="https://doudou0o.com/archives/4cc8a378/normalize_s.png">
+<meta property="og:image" content="https://doudou0o.com/archives/4cc8a378/encode.png">
+<meta property="og:image" content="https://doudou0o.com/archives/4cc8a378/onehot.png">
+<meta property="og:image" content="https://doudou0o.com/archives/4cc8a378/dummy.png">
+<meta property="og:updated_time" content="2019-12-14T02:24:03.492Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="特征处理之(二)：无量纲化和哑编码">
+<meta name="twitter:description" content="数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已！无量纲化能提升特征可比性，优化训练时间；哑编码能降低模型复杂度，提升特征表达能力，提升运算时间，提升非线性能力。">
+<meta name="twitter:image" content="https://doudou0o.com/archives/4cc8a378/sample.png">
+  <link rel="canonical" href="https://doudou0o.com/archives/4cc8a378">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>特征处理之(二)：无量纲化和哑编码 | doudou0o blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <div class="container sidebar-position-left">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">doudou0o blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">沉淀知识 分享知识</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    
+  <div class="popup search-popup">
+  <div class="search-header">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <div class="search-input-wrapper">
+      <input autocomplete="off" autocorrect="off" autocapitalize="none"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="search-input">
+    </div>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+  <div id="search-result"></div>
+</div>
+
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://doudou0o.com/archives/4cc8a378.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="doudou0o">
+      <meta itemprop="description" content="Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.">
+      <meta itemprop="image" content="/assets/img/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="doudou0o blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">特征处理之(二)：无量纲化和哑编码
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2018-07-31 15:48:27" itemprop="dateCreated datePublished" datetime="2018-07-31T15:48:27+08:00">2018-07-31</time>
+            </span>
+          
+
+          
+            <span id="/archives/4cc8a378.html" class="post-meta-item leancloud_visitors" data-flag-title="特征处理之(二)：无量纲化和哑编码" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>数据和特征决定了机器学习的<font color="#dd00dd">上限</font>，而模型和算法只是<font color="#dd00dd">逼近</font>这个上限而已！<br>无量纲化能提升特征可比性，优化训练时间；哑编码能降低模型复杂度，提升特征表达能力，提升运算时间，提升非线性能力。</p>
+<a id="more"></a>
+<h1 id="特征处理之无量纲化和哑编码"><a href="#特征处理之无量纲化和哑编码" class="headerlink" title="特征处理之无量纲化和哑编码"></a>特征处理之无量纲化和哑编码</h1><h1 id="无量纲化"><a href="#无量纲化" class="headerlink" title="无量纲化"></a>无量纲化</h1><h2 id="一、什么是无量纲化"><a href="#一、什么是无量纲化" class="headerlink" title="一、什么是无量纲化"></a>一、什么是无量纲化</h2><p>首先，什么是<font color="crimson">量纲</font>，量纲是指：<font color="deepskyblue">将一个物理导出量用若干个基本量的乘方之积表示出来的表达式，称为该物理量的量纲式，简称量纲</font>。举个简单的例子，“身高=1950mm”，这里面其实蕴涵着两样东西，一个是1950 是数字基本量，另一个是 1cm是单位基本量 ，所以 $1950mm = 1950 \times 1mm$ 就是一个<font color="crimson">量纲式</font>。另外相似的，“5平方米”，就是$5 \times 1m \times 1m$ 也是一个量纲式。</p>
+<p>那么量纲会带来一个问题，就是无法进行相互比较，身高1950mm的人，与身高20cm的人谁更高？1950&gt;20？于是1950mm的人更高吗？因此特征与特征之间因为量纲的存在导致数字量与数字量之间无法比较大小，也就在最后的时候无法判断特征与特征之间的重要性对比。比如模型 $y=\theta_1x_1+\theta_2x_2+ \theta_3$，其中 $\theta_1$ 就是特征值 $x_1$ 的参数也就意味着 $\theta_1$ 就是特征(身高)的重要性。但如果如下左图 $x_1$是身高， $x_2$是臂展，$\theta_1$需要除以10才能与 $\theta_2$对比大小，否则就不公平。</p>
+<p>于是我们需要去除特征值的量纲，那么去除量纲也有两种不同的方法，一个叫<font color="crimson">归一化</font>，一个叫<font color="crimson">标准化</font>。两者操作很像，但作用和目的不同。</p>
+<p><img src="./4cc8a378/sample.png" alt="什么是无量纲化" align="center" width="80%" height="80%"></p>
+<h2 id="二、无量纲化有什么作用"><a href="#二、无量纲化有什么作用" class="headerlink" title="二、无量纲化有什么作用"></a>二、无量纲化有什么作用</h2><font color="crimson" size="4">标准化的目的是将样本的各个特征值转换到同一量纲下使得不同度量的特征具有可比性；</font><br>
+
+<font color="crimson" size="4">归一化的目的是将各样本转化为单位向量使得模型迭代更快更好；</font>
+
+
+
+<h2 id="三、无量纲化如何操作"><a href="#三、无量纲化如何操作" class="headerlink" title="三、无量纲化如何操作"></a>三、无量纲化如何操作</h2><h3 id="3-1-标准化"><a href="#3-1-标准化" class="headerlink" title="3.1 标准化"></a>3.1 标准化</h3><p>数据的标准化是将数据按比例缩放，使之落入一个小的特定区间。标准化面向的是一个特征，对该特征的所有样本值进行标准化。</p>
+<h4 id="（1）-Min-Max-标准化"><a href="#（1）-Min-Max-标准化" class="headerlink" title="（1） Min-Max 标准化"></a>（1） Min-Max 标准化</h4><script type="math/tex; mode=display">
+x'= \frac{x-min}{max-min}</script><p>Min-Max 标准化，是可以将数据从自然范围缩放至0-1的区间，且不破坏分布情况。</p>
+<p><img src="./4cc8a378/minmax.png" alt="Min-Max" align="center" width="70%" height="70%"></p>
+<h4 id="（2）-Z-score-标准化"><a href="#（2）-Z-score-标准化" class="headerlink" title="（2） Z-score 标准化"></a>（2） Z-score 标准化</h4><script type="math/tex; mode=display">
+x'=\frac{x-\mu}{\sigma}</script><p>Z-score 标准化，是可以将数据从自然范围缩放至较小的区间，且满足均值为0，方差为1（注意并不是将分布变成了标准分布，只是满足了标准分布的均值方差条件）。也不会破坏原有的分布情况。</p>
+<p><img src="./4cc8a378/zscore.png" alt="Z-score" align="center" width="70%" height="70%"></p>
+<h4 id="（3）-Min-Max-与-Z-score-标准化的异同"><a href="#（3）-Min-Max-与-Z-score-标准化的异同" class="headerlink" title="（3） Min-Max 与 Z-score 标准化的异同"></a>（3） Min-Max 与 Z-score 标准化的异同</h4><ul>
+<li><p>异：Min-Max变换依赖某两个值最大和最小，Z-score标准化则依赖所有值</p>
+</li>
+<li><p>异：Min-Max会转变成[0-1]的区间内，Z-score标准化没有这个区间限制只是数据的均值为0方差为1</p>
+</li>
+<li><font color="crimson">同：标准化目的都是为了使得不同度量的特征具有可比性</font>
+
+
+
+</li>
+</ul>
+<h3 id="3-2-归一化"><a href="#3-2-归一化" class="headerlink" title="3.2 归一化"></a>3.2 归一化</h3><p>数据的归一化也是将数据按比例缩放，使之落入一个小的特定区间。但归一化面向的是一个样本，对该样本的所有特征值进行归一化。</p>
+<p><img src="./4cc8a378/normalize_s.png" alt="归一化" align="center" width="80%" height="80%"></p>
+<h4 id="（1）为什么要归一化"><a href="#（1）为什么要归一化" class="headerlink" title="（1）为什么要归一化"></a>（1）为什么要归一化</h4><ol>
+<li><p>提升模型收敛速度</p>
+</li>
+<li><p>提高模型算法精度</p>
+</li>
+</ol>
+<p>归一化效果如下图，归一化之后等高线更圆更均匀（如右图），在似然函数寻优时就能提升模型收敛速度（图中红线为梯度寻优）；提高算法精度是因为在计算一些距离的算法时，下图中变量$\theta_1$的取值范围比较小，涉及到距离计算时其对结果的影响远比变量$\theta_2$带来的小，所以这就会造成了精度的损失。</p>
+<p>所以归一化很有必要，他可以让各个特征对结果做出的贡献相同。</p>
+<p><img src="./4cc8a378/normalize.png" alt="归一化" align="center" width="80%" height="80%"></p>
+<h4 id="（2）基于L2的归一化"><a href="#（2）基于L2的归一化" class="headerlink" title="（2）基于L2的归一化"></a>（2）基于L2的归一化</h4><script type="math/tex; mode=display">
+x'=\frac{x}{\sqrt{\sum_{j}^{m}{x_j^2}}}</script><p>基于L2的归一化，是将数据除以L2范数，就是各元素的平方和然后求平方根。</p>
+<p><img src="./4cc8a378/normalize_s.png" alt="什么是无量纲化" align="center" width="80%" height="80%"></p>
+<h3 id="3-3-标准化与归一化的区别"><a href="#3-3-标准化与归一化的区别" class="headerlink" title="3.3 标准化与归一化的区别"></a>3.3 标准化与归一化的区别</h3><ul>
+<li><font color="crimson">对象不一样</font>: <ul>
+<li>标准化的对象是一个特征列；</li>
+<li>归一化的对象是一个样本行;</li>
+</ul>
+</li>
+<li><font color="crimson">目的不一样</font>: <ul>
+<li>标准化的目的是将样本的各个特征值转换到同一量纲下使得不同度量的特征具有可比性；</li>
+<li>归一化的目的是将各样本转化为单位向量使得模型迭代更快更好；</li>
+</ul>
+</li>
+</ul>
+<h1 id="哑编码"><a href="#哑编码" class="headerlink" title="哑编码"></a>哑编码</h1><h2 id="一、什么是哑编码"><a href="#一、什么是哑编码" class="headerlink" title="一、什么是哑编码"></a>一、什么是哑编码</h2><p>首先哑编码面向的是离散型的特征。哑编码是将一个离散型特征进行一对多映射产出多个特征的编码方式，每个特征编码只代表一个若干级别间的差异。</p>
+<p>下图即为年龄特征，离散化成为年龄段特征(有单独的另一篇文章讲述)，再最后哑编码为四个不同的特征。</p>
+<p><img src="./4cc8a378/encode.png" alt="哑编码" align="center" width="80%" height="80%"></p>
+<h2 id="二、哑编码有什么作用"><a href="#二、哑编码有什么作用" class="headerlink" title="二、哑编码有什么作用"></a>二、哑编码有什么作用</h2><ol>
+<li><font color="crimson">简化了模型训练的复杂性，降低模型过拟合的风险（是离散化带来的优势）</font>
+</li>
+<li><font color="crimson">离散化后的特征对异常数据有很强的鲁棒性（是离散化带来的优势）</font>
+</li>
+<li><font color="deepskyblue">稀疏向量内积乘法运算速度快，因为稀疏矩阵有实数的值很少，做内积运算时就会有很多优化手段</font>
+</li>
+<li><font color="deepskyblue">线性模型表达能力受限，单变量离散化为N个后，每个变量有单独的权重，相当于为模型引入了非线性，能够提升模型表达能力，加大拟合能力；</font>
+</li>
+<li><font color="deepskyblue">离散化后可以进行特征交叉，由M+N个变量变为M*N个变量，进一步引入非线性，提升表达能力</font>
+
+
+
+</li>
+</ol>
+<h2 id="三、哑编码如何操作"><a href="#三、哑编码如何操作" class="headerlink" title="三、哑编码如何操作"></a>三、哑编码如何操作</h2><h3 id="3-1-oneHot-编码"><a href="#3-1-oneHot-编码" class="headerlink" title="3.1 oneHot 编码"></a>3.1 oneHot 编码</h3><p>One-Hot编码，又称为一位有效编码，主要是采用N位状态寄存器来对N个状态进行编码，每个状态都由他独立的寄存器位，并且在任意时候只有一位有效。</p>
+<p><img src="./4cc8a378/onehot.png" alt="哑编码" align="center" width="80%" height="80%"></p>
+<h3 id="3-2-dummy-编码"><a href="#3-2-dummy-编码" class="headerlink" title="3.2 dummy 编码"></a>3.2 dummy 编码</h3><p>和One-Hot编码基本一样，但是比One-Hot编码少了一个状态。其实可以简单理解，“少年”这个状态被其他状态全为0给取代了。</p>
+<p><img src="./4cc8a378/dummy.png" alt="哑编码" align="center" width="80%" height="80%"></p>
+<h3 id="3-3-One-Hot-与-dummy-编码的区别"><a href="#3-3-One-Hot-与-dummy-编码的区别" class="headerlink" title="3.3 One-Hot 与 dummy 编码的区别"></a>3.3 One-Hot 与 dummy 编码的区别</h3><p>如果<font color="crimson">不使用</font>正则化的情况下，那么One-Hot编码的模型会有多余的自由度。这个自由度体现在你可以把某一个分类权重参数增加某一数值，同时把其余的分类权重参数都减小某一数值，而模型不变。在dummy编码中，这些多余的自由度就都被限制住了。</p>
+<blockquote>
+<p>可以简单用 $y=\theta_1x_1+\theta_2x_2+\theta_3x_3+\theta_4x_4+\theta_5$ 作为例子，${x_1,x_2,x_3,x_4}={少年,青年,中年,老年}$ ，当模型的$\theta_5$下降时(无论是减小还是缩小)，其余的所有$\theta$都对应增加(或者变大)，就可以保证模型不变了。这就是模型的自由度，会在训练或者调优时造成麻烦。</p>
+</blockquote>
+<p>但如果<font color="crimson">使用</font>正则化的情况下，那么正则化本身就能够处理这些多余的自由度。此时，用One-Hot编码看上去更有优势，因为每个分类型变量的各个值的地位就是对等的了。</p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p><font color="red">特征处理</font>是在机器学习中占据非常重要的地位，特征工程决定了整个模型的上限，而特征工程中最基础的就是<font color="red">特征处理</font>。本篇主要回顾下特征处理中的无量纲化和哑编码。最后最后拿出成果：</p>
+<ol>
+<li>什么是无量纲化/哑编码</li>
+<li>无量纲化/哑编码有什么作用</li>
+<li>无量纲化/哑编码如何操作</li>
+</ol>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p><a href="./45aaf959/特征处理PPT.pptx">特征处理PPT</a></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/assets/img/weixinpay.jpg" alt="doudou0o WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/assets/img/alipay.jpg" alt="doudou0o Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+            
+          </div>
+        
+
+        
+  <div class="post-widgets">
+    <div class="social-share">
+      
+      
+        <div id="needsharebutton-postbottom">
+          <span class="btn">
+            <i class="fa fa-share-alt" aria-hidden="true"></i>
+          </span>
+        </div>
+      
+    </div>
+  
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/archives/45aaf959.html" rel="next" title="特征处理之(一)：背景知识">
+                  <i class="fa fa-chevron-left"></i> 特征处理之(一)：背景知识
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/archives/f4d50b3c.html" rel="prev" title="特征处理之(三)：离散化">
+                  特征处理之(三)：离散化 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/assets/img/avatar.gif"
+      alt="doudou0o">
+  <p class="site-author-name" itemprop="name">doudou0o</p>
+  <div class="site-description motion-element" itemprop="description">Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://github.com/doudou0o" title="GitHub &rarr; https://github.com/doudou0o" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="mailto:bluecc021@gmail.com" title="E-Mail &rarr; mailto:bluecc021@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+      
+        
+      
+        <a href="https://www.jianshu.com/u/fc401e542314" title="简书 &rarr; https://www.jianshu.com/u/fc401e542314" rel="noopener" target="_blank"><i class="fa fa-fw fa-book"></i></a>
+      </span>
+    
+  </div>
+
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#特征处理之无量纲化和哑编码"><span class="nav-number">1.</span> <span class="nav-text">特征处理之无量纲化和哑编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#无量纲化"><span class="nav-number">2.</span> <span class="nav-text">无量纲化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、什么是无量纲化"><span class="nav-number">2.1.</span> <span class="nav-text">一、什么是无量纲化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、无量纲化有什么作用"><span class="nav-number">2.2.</span> <span class="nav-text">二、无量纲化有什么作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、无量纲化如何操作"><span class="nav-number">2.3.</span> <span class="nav-text">三、无量纲化如何操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-标准化"><span class="nav-number">2.3.1.</span> <span class="nav-text">3.1 标准化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）-Min-Max-标准化"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">（1） Min-Max 标准化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）-Z-score-标准化"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">（2） Z-score 标准化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（3）-Min-Max-与-Z-score-标准化的异同"><span class="nav-number">2.3.1.3.</span> <span class="nav-text">（3） Min-Max 与 Z-score 标准化的异同</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-归一化"><span class="nav-number">2.3.2.</span> <span class="nav-text">3.2 归一化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）为什么要归一化"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">（1）为什么要归一化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）基于L2的归一化"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">（2）基于L2的归一化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-标准化与归一化的区别"><span class="nav-number">2.3.3.</span> <span class="nav-text">3.3 标准化与归一化的区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#哑编码"><span class="nav-number">3.</span> <span class="nav-text">哑编码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、什么是哑编码"><span class="nav-number">3.1.</span> <span class="nav-text">一、什么是哑编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、哑编码有什么作用"><span class="nav-number">3.2.</span> <span class="nav-text">二、哑编码有什么作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、哑编码如何操作"><span class="nav-number">3.3.</span> <span class="nav-text">三、哑编码如何操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-oneHot-编码"><span class="nav-number">3.3.1.</span> <span class="nav-text">3.1 oneHot 编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-dummy-编码"><span class="nav-number">3.3.2.</span> <span class="nav-text">3.2 dummy 编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-One-Hot-与-dummy-编码的区别"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.3 One-Hot 与 dummy 编码的区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">5.</span> <span class="nav-text">附录</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">doudou0o</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+  
+<script src="/lib/needsharebutton/needsharebutton.js"></script>
+<script>
+    pbOptions = {};
+      pbOptions.iconStyle = "default";
+    
+      pbOptions.boxForm = "horizontal";
+    
+      pbOptions.position = "bottomCenter";
+    
+      pbOptions.networks = "Weibo,Wechat,Douban,QQZone";
+    
+    new needShareButton('#needsharebutton-postbottom', pbOptions);
+</script>
+
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+  
+  <script>
+  function leancloudSelector(url) {
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = visitors.getAttribute('id').trim();
+      var title = visitors.getAttribute('data-flag-title').trim();
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+            
+              .catch(error => {
+                console.log('Failed to save visitor count', error);
+              })
+          } else {
+              Counter('post', '/classes/Counter', { title: title, url: url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.log('Failed to create', error);
+                });
+            
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return element.getAttribute('id').trim();
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.url;
+            var time = item.time;
+            leancloudSelector(url).innerText = time;
+          }
+          for (var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=dA1sbLdvYXxRBcazcbct0JXj-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'dA1sbLdvYXxRBcazcbct0JXj-gzGzoHsz',
+            'X-LC-Key': 'LVJztVzprpmRivJmu0RScKB2',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+        if (localhost.test(document.URL)) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script><script src="/js/post-details.js?v=7.3.0"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '60ed80a6055a3fa91e11',
+      clientSecret: 'a753cf2091f8025d3dc7e488d6ec868a6d4613f9',
+      repo: 'doudou0o.github.io',
+      owner: 'doudou0o',
+      admin: ['doudou0o'],
+      id: '特征处理之(二)：无量纲化和哑编码',
+      <!-- id: '75cf7adcbf6c3c13aafcf39a3cc9e6bd', -->
+        language: 'zh-CN',
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>
